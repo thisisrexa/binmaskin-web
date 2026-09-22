@@ -1,35 +1,39 @@
-import type { Metadata } from "next";
+import type { Metadata } from 'next';
 
-import { routing } from "@/i18n/routing";
-import { COMPANY } from "@/lib/company";
+import { routing } from '@/i18n/routing';
+import { COMPANY } from '@/lib/company';
 
-export const SITE = COMPANY.website;
+export const SITE = (
+  process.env.NEXT_PUBLIC_APP_URL ?? COMPANY.website
+).replace(/\/$/, '');
 
-const ICONS: Metadata["icons"] = {
+const ICONS: Metadata['icons'] = {
   icon: [
-    { url: "/favicon.ico" },
-    { url: "/favicon.svg", type: "image/svg+xml" },
+    { url: '/favicon.ico' },
+    { url: '/favicon.svg', type: 'image/svg+xml' },
   ],
-  apple: "/apple-touch-icon.png",
+  apple: '/apple-touch-icon.png',
 };
 
-export function localePath(locale: string, path = "") {
-  const suffix = !path || path === "/" ? "" : path.startsWith("/") ? path : `/${path}`;
+export function localePath(locale: string, path = '') {
+  const suffix =
+    !path || path === '/' ? '' : path.startsWith('/') ? path : `/${path}`;
   return `/${locale}${suffix}`;
 }
 
-export function hreflang(path = "") {
-  const suffix = !path || path === "/" ? "" : path.startsWith("/") ? path : `/${path}`;
+export function hreflang(path = '') {
+  const suffix =
+    !path || path === '/' ? '' : path.startsWith('/') ? path : `/${path}`;
   return {
-    en: localePath("en", suffix),
-    ar: localePath("ar", suffix),
-    "x-default": localePath(routing.defaultLocale, suffix),
+    en: localePath('en', suffix),
+    ar: localePath('ar', suffix),
+    'x-default': localePath(routing.defaultLocale, suffix),
   };
 }
 
 export function pageMetadata({
   locale,
-  path = "",
+  path = '',
   title,
   description,
   titleTemplate,
@@ -41,7 +45,7 @@ export function pageMetadata({
   titleTemplate?: string;
 }): Metadata {
   const url = localePath(locale, path);
-  const ogLocale = locale === "ar" ? "ar_AE" : "en_AE";
+  const ogLocale = locale === 'ar' ? 'ar_AE' : 'en_AE';
 
   return {
     metadataBase: new URL(SITE),
@@ -56,23 +60,23 @@ export function pageMetadata({
       languages: hreflang(path),
     },
     openGraph: {
-      type: "website",
+      type: 'website',
       locale: ogLocale,
-      alternateLocale: [locale === "ar" ? "en_AE" : "ar_AE"],
+      alternateLocale: [locale === 'ar' ? 'en_AE' : 'ar_AE'],
       url,
       siteName: COMPANY.name,
       title,
       description,
-      images: ["/og.png"],
+      images: ['/og.png'],
     },
     twitter: {
-      card: "summary_large_image",
+      card: 'summary_large_image',
       title,
       description,
-      images: ["/og.png"],
+      images: ['/og.png'],
     },
     icons: ICONS,
-    manifest: "/site.webmanifest",
+    manifest: '/site.webmanifest',
     robots: { index: false, follow: false, nocache: true },
   };
 }
@@ -80,12 +84,12 @@ export function pageMetadata({
 export function jsonLd(locale: string, description: string) {
   const orgId = `${SITE}/#org`;
   return {
-    "@context": "https://schema.org",
-    "@graph": [
+    '@context': 'https://schema.org',
+    '@graph': [
       {
-        "@type": "ProfessionalService",
-        "@id": orgId,
-        name: locale === "ar" ? COMPANY.legalAr : COMPANY.legalEn,
+        '@type': 'ProfessionalService',
+        '@id': orgId,
+        name: locale === 'ar' ? COMPANY.legalAr : COMPANY.legalEn,
         alternateName: COMPANY.name,
         url: SITE,
         logo: `${SITE}/brand/symbol.svg`,
@@ -94,33 +98,38 @@ export function jsonLd(locale: string, description: string) {
         telephone: COMPANY.phoneTel,
         description,
         address: {
-          "@type": "PostalAddress",
-          addressLocality: "Dubai",
-          addressCountry: "AE",
+          '@type': 'PostalAddress',
+          addressLocality: 'Dubai',
+          addressCountry: 'AE',
         },
-        areaServed: { "@type": "Country", name: "United Arab Emirates" },
-        openingHours: "Su-Th 09:00-18:00",
-        ...(COMPANY.instagram.startsWith("http")
-          ? { sameAs: [COMPANY.instagram] }
-          : {}),
+        areaServed: { '@type': 'Country', name: 'United Arab Emirates' },
+        openingHours: 'Su-Th 09:00-18:00',
         identifier: [
-          { "@type": "PropertyValue", name: "Trade licence", value: COMPANY.licence },
-          { "@type": "PropertyValue", name: "Dubai Chamber", value: COMPANY.chamber },
+          {
+            '@type': 'PropertyValue',
+            name: 'Trade licence',
+            value: COMPANY.licence,
+          },
+          {
+            '@type': 'PropertyValue',
+            name: 'Dubai Chamber',
+            value: COMPANY.chamber,
+          },
         ],
       },
       {
-        "@type": "WebSite",
-        "@id": `${SITE}/#website`,
+        '@type': 'WebSite',
+        '@id': `${SITE}/#website`,
         url: SITE,
         name: COMPANY.name,
         description,
         inLanguage: [...routing.locales],
-        publisher: { "@id": orgId },
+        publisher: { '@id': orgId },
       },
     ],
   };
 }
 
 export function jsonLdScript(data: unknown) {
-  return JSON.stringify(data).replace(/</g, "\\u003c");
+  return JSON.stringify(data).replace(/</g, '\\u003c');
 }

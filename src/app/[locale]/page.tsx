@@ -1,16 +1,30 @@
-import { About } from "@/components/sections/about";
-import { Contact } from "@/components/sections/contact";
-import { Hero } from "@/components/sections/hero";
-import { Businesses } from "@/components/sections/businesses";
-import { WorkCarousel } from "@/components/sections/work-carousel";
+import { getLocale } from 'next-intl/server';
 
-export default function HomePage() {
+import { About } from '@/components/sections/about';
+import { Companies } from '@/components/sections/companies';
+import { Contact } from '@/components/sections/contact';
+import { Hero } from '@/components/sections/hero';
+import { WorkCarousel } from '@/components/sections/work-carousel';
+import { getPosts } from '@/lib/blog';
+
+export default async function HomePage() {
+  const locale = await getLocale();
+  const posts = getPosts(locale).map(
+    ({ slug, title, date, excerpt, cover }) => ({
+      slug,
+      title,
+      date,
+      excerpt,
+      cover,
+    }),
+  );
+
   return (
     <main>
       <Hero />
-      <Businesses />
+      <Companies />
       <About />
-      <WorkCarousel />
+      <WorkCarousel posts={posts} />
       <Contact />
     </main>
   );

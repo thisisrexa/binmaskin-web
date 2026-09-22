@@ -1,11 +1,14 @@
-import type { Metadata } from "next";
-import { notFound } from "next/navigation";
-import { getTranslations } from "next-intl/server";
+import type { Metadata } from 'next';
 
-import { LegalPage, type LegalId } from "@/components/legal/legal-page";
-import { pageMetadata } from "@/lib/seo";
+import { getTranslations } from 'next-intl/server';
+import { notFound } from 'next/navigation';
 
-const DOCS = ["privacy", "terms", "cookies", "security"] as const;
+import type { LegalId } from '@/components/legal/legal-page';
+
+import { LegalPage } from '@/components/legal/legal-page';
+import { pageMetadata } from '@/lib/seo';
+
+const DOCS = ['privacy', 'terms', 'cookies', 'security'] as const;
 
 function isDoc(value: string): value is LegalId {
   return (DOCS as readonly string[]).includes(value);
@@ -22,8 +25,8 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale, doc } = await params;
   if (!isDoc(doc)) return {};
-  const tl = await getTranslations({ locale, namespace: "legal" });
-  const tm = await getTranslations({ locale, namespace: "meta" });
+  const tl = await getTranslations({ locale, namespace: 'legal' });
+  const tm = await getTranslations({ locale, namespace: 'meta' });
   return pageMetadata({
     locale,
     path: `/${doc}`,

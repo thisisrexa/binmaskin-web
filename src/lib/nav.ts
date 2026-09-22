@@ -1,3 +1,9 @@
-export const NAV_SECTIONS = ["businesses", "about", "work", "contact"] as const;
+export const NAV = [
+  { id: 'companies', kind: 'section' },
+  { id: 'about', kind: 'section' },
+  { id: 'work', kind: 'section' },
+  { id: 'blog', kind: 'page', href: '/blog' },
+  { id: 'contact', kind: 'section' },
+] as const;
 
-export type NavSection = (typeof NAV_SECTIONS)[number];
+export type NavItem = (typeof NAV)[number];

@@ -1,18 +1,22 @@
-import { defineConfig, globalIgnores } from "eslint/config";
-import nextVitals from "eslint-config-next/core-web-vitals";
-import nextTs from "eslint-config-next/typescript";
+import { defineConfig } from '@fullstacksjs/eslint-config';
 
-const eslintConfig = defineConfig([
-  ...nextVitals,
-  ...nextTs,
-  // Override default ignores of eslint-config-next.
-  globalIgnores([
-    // Default ignores of eslint-config-next:
-    ".next/**",
-    "out/**",
-    "build/**",
-    "next-env.d.ts",
-  ]),
-]);
-
-export default eslintConfig;
+export default defineConfig(
+  {
+    typescript: { tsconfigRootDir: import.meta.dirname },
+    tailwind: { entryPoint: './src/app/globals.css' },
+    rules: {
+      'max-lines-per-function': 'off',
+    },
+  },
+  {
+    // shadcn/ui + framer-motion patterns: variant exports, motion values, context objects
+    files: ['src/components/ui/**/*.tsx'],
+    rules: {
+      'react-refresh/only-export-components': 'off',
+      '@eslint-react/no-unstable-context-value': 'off',
+      '@eslint-react/no-leaked-conditional-rendering': 'off',
+      '@eslint-react/immutability': 'off',
+      '@typescript-eslint/no-shadow': 'off',
+    },
+  },
+);

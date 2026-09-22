@@ -1,9 +1,10 @@
-"use client";
+'use client';
 
-import { motion, useReducedMotion } from "framer-motion";
-import type { ReactNode } from "react";
+import type { ReactNode } from 'react';
 
-import { cn } from "@/lib/utils";
+import { motion, useReducedMotion } from 'framer-motion';
+
+import { cn } from '@/lib/utils';
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 
@@ -18,9 +19,9 @@ const container = (stagger: number, delay: number) => ({
 });
 
 const item = {
-  hidden: { y: "110%" },
+  hidden: { y: '110%' },
   show: {
-    y: "0%",
+    y: '0%',
     transition: { duration: 0.7, ease: EASE },
   },
 };
@@ -28,25 +29,25 @@ const item = {
 export function StaggerText({
   children,
   delay = 0,
-  divideBy = "word",
+  divideBy = 'word',
   className,
 }: {
   children: ReactNode;
   delay?: number;
-  divideBy?: "word" | "letter";
+  divideBy?: 'letter' | 'word';
   className?: string;
 }) {
   const reduce = useReducedMotion();
   const text =
-    typeof children === "string" || typeof children === "number"
+    typeof children === 'string' || typeof children === 'number'
       ? String(children)
       : null;
 
   if (!text) return <>{children}</>;
   if (reduce) return <span className={className}>{text}</span>;
 
-  const parts = divideBy === "letter" ? text.split("") : text.split(" ");
-  const stagger = divideBy === "letter" ? 0.02 : 0.05;
+  const parts = divideBy === 'letter' ? text.split('') : text.split(' ');
+  const stagger = divideBy === 'letter' ? 0.02 : 0.05;
 
   return (
     <motion.span
@@ -54,14 +55,20 @@ export function StaggerText({
       initial="hidden"
       whileInView="show"
       viewport={{ once: true }}
-      className={cn("inline-block", className)}
+      className={cn('inline-block', className)}
     >
       {parts.map((part, i) => (
-        <span key={i} className="relative inline-block overflow-hidden align-top">
-          <motion.span variants={item} className="inline-block will-change-transform">
-            {divideBy === "letter"
-              ? part === " "
-                ? "\u00A0"
+        <span
+          key={i}
+          className="relative inline-block overflow-hidden align-top"
+        >
+          <motion.span
+            variants={item}
+            className="inline-block will-change-transform"
+          >
+            {divideBy === 'letter'
+              ? part === ' '
+                ? '\u00A0'
                 : part
               : `${part}\u00A0`}
           </motion.span>

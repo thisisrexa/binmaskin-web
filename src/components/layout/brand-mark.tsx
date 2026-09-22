@@ -1,24 +1,24 @@
-import Image from "next/image";
+import Image from 'next/image';
 
-import { cn } from "@/lib/utils";
+import { cn } from '@/lib/utils';
 
 const MARKS = {
   wordmark: {
-    src: "/brand/wordmark.svg",
-    alt: "Binmaskin Solutions",
+    src: '/brand/wordmark.svg',
+    alt: 'Binmaskin Solutions',
     width: 480,
     height: 52,
   },
   symbol: {
-    src: "/brand/symbol.svg",
-    alt: "",
+    src: '/brand/symbol.svg',
+    alt: '',
     width: 232,
     height: 232,
   },
 } as const;
 
 export function BrandMark({
-  variant = "wordmark",
+  variant = 'wordmark',
   className,
   priority = false,
 }: {
@@ -33,7 +33,7 @@ export function BrandMark({
       alt={mark.alt}
       width={mark.width}
       height={mark.height}
-      className={cn("h-auto w-auto", className)}
+      className={cn('size-auto', className)}
       priority={priority}
       unoptimized
     />

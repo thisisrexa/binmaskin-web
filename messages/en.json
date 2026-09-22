@@ -10,9 +10,10 @@
   },
   "nav": {
     "home": "Home",
-    "businesses": "Businesses",
+    "companies": "Companies",
     "work": "Work",
     "about": "About",
+    "blog": "Blog",
     "contact": "Contact",
     "cta": "Get in touch"
   },
@@ -22,7 +23,7 @@
     "l2": "answer to the business.",
     "lead": "Digital and building businesses — held by one accountable Dubai desk.",
     "cta1": "Request a consultation",
-    "cta2": "Our businesses",
+    "cta2": "Our companies",
     "trust1": "Salem Binmaskin Solutions",
     "core": "Dubai"
   },
@@ -133,7 +134,24 @@
     "v1": "04",
     "v2": "UAE",
     "v3": "100%",
-    "v4": "1 day"
+    "v4": "1 day",
+    "p1": "Salem Binmaskin Solutions is a holding desk in Dubai. Digital work and building work sit under one name, one licence, and one reply.",
+    "p2": "The desk does not sell technology for its own sake. Scope is written down. The person who answers has a name. The work stays accountable to the business that asked for it.",
+    "p3": "Sunday to Thursday, Dubai hours. One phone and one email — the ones printed on this site. Nothing else is a Binmaskin channel."
+  },
+  "companies": {
+    "eyebrow": "The group",
+    "title": "Companies held\nby one <em>desk.</em>",
+    "lead": "Nine subsidiaries. Placeholder names until the real register is set.",
+    "about": "About",
+    "close": "Close"
+  },
+  "blog": {
+    "eyebrow": "Journal",
+    "title": "Notes from the desk",
+    "lead": "Short notes on how the group works. Placeholder entries.",
+    "read": "Read",
+    "back": "All notes"
   },
   "contact": {
     "eyebrow": "Contact",
@@ -144,12 +162,18 @@
     "nameph": "Full name",
     "email": "Email",
     "phone": "Phone",
-    "business": "Business",
-    "unsure": "Not sure yet",
+    "topic": "Topic",
+    "finance": "Finance",
+    "technical": "Technical",
+    "partnership": "Partnership",
+    "project": "Project",
+    "general": "General",
     "msg": "Message",
     "msgph": "Briefly describe your requirements…",
     "send": "Send inquiry",
+    "sending": "Sending…",
     "sent": "Received — we will reply soon",
+    "failed": "Could not send — email us directly",
     "wa": "Phone / WhatsApp",
     "office": "Office",
     "officev": "Dubai, United Arab Emirates",
@@ -180,6 +204,14 @@
     "cookies": "Cookie Notice",
     "security": "Security",
     "updated": "Last updated: September 2026 · Salem Binmaskin Solutions · Dubai, UAE"
+  },
+  "status": {
+    "nfTitle": "Page not found",
+    "nfText": "The page you asked for does not exist or has moved.",
+    "nfBack": "Back to home",
+    "errTitle": "Something went wrong",
+    "errText": "An unexpected error occurred. Try again, or reach us directly.",
+    "errRetry": "Try again"
   },
   "privacy": {
     "body": "<h2>Who we are</h2><p>Salem Binmaskin Solutions (“we”, “us”) is a technology company based in Dubai, United Arab Emirates. This policy describes how we handle personal data when you use this website or contact us.</p><h2>UAE Personal Data Protection</h2><p>We process personal data in line with applicable UAE law, including Federal Decree-Law No. 45 of 2021 on the Protection of Personal Data (PDPL), and related guidance.</p><h2>What we collect</h2><ul><li>Contact details you submit (name, email, phone, message content).</li><li>Technical data needed to display this site (standard browser requests).</li></ul><h2>Why we use data</h2><p>To respond to inquiries, deliver services you request, maintain security of our systems, and meet legal or regulatory obligations in the UAE.</p><h2>Sharing</h2><p>We do not sell personal data. We may share information with service providers acting on our instructions, or when required by UAE law or competent authorities.</p><h2>Retention</h2><p>Inquiry data is kept only as long as needed to handle your request and for reasonable business or legal records, then deleted or anonymised.</p><h2>Your rights</h2><p>Subject to PDPL and applicable law, you may request access, correction, deletion, or restriction of processing. Contact us at info@binmaskin.solutions.</p><h2>Contact</h2><p>Salem Binmaskin Solutions · Dubai, United Arab Emirates · info@binmaskin.solutions · +971 50 231 6702 · Trade licence 1395363 · Dubai Chamber 552755</p><p><em>This page is for general information and does not constitute legal advice.</em></p>"

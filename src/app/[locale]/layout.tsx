@@ -1,16 +1,17 @@
-import type { Metadata } from "next";
-import { notFound } from "next/navigation";
-import { hasLocale, NextIntlClientProvider } from "next-intl";
-import { getTranslations } from "next-intl/server";
-import type { ReactNode } from "react";
+import type { Metadata } from 'next';
+import type { ReactNode } from 'react';
 
-import { SiteFooter } from "@/components/layout/site-footer";
-import { SiteHeader } from "@/components/layout/site-header";
-import { routing } from "@/i18n/routing";
-import { fontClassName } from "@/lib/fonts";
-import { jsonLd, jsonLdScript, pageMetadata } from "@/lib/seo";
+import { hasLocale, NextIntlClientProvider } from 'next-intl';
+import { getTranslations } from 'next-intl/server';
+import { notFound } from 'next/navigation';
 
-import "../globals.css";
+import { SiteFooter } from '@/components/layout/site-footer';
+import { SiteHeader } from '@/components/layout/site-header';
+import { routing } from '@/i18n/routing';
+import { fontClassName } from '@/lib/fonts';
+import { jsonLd, jsonLdScript, pageMetadata } from '@/lib/seo';
+
+import '../globals.css';
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
@@ -22,12 +23,12 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: "meta" });
+  const t = await getTranslations({ locale, namespace: 'meta' });
   return pageMetadata({
     locale,
-    title: t("title"),
-    description: t("description"),
-    titleTemplate: t("titleTemplate"),
+    title: t('title'),
+    description: t('description'),
+    titleTemplate: t('titleTemplate'),
   });
 }
 
@@ -40,19 +41,20 @@ export default async function LocaleLayout({
 }) {
   const { locale } = await params;
   if (!hasLocale(routing.locales, locale)) notFound();
-  const t = await getTranslations({ locale, namespace: "meta" });
+  const t = await getTranslations({ locale, namespace: 'meta' });
 
   return (
     <html
       lang={locale}
-      dir={locale === "ar" ? "rtl" : "ltr"}
+      dir={locale === 'ar' ? 'rtl' : 'ltr'}
+      data-scroll-behavior="smooth"
       className={fontClassName}
     >
       <body>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
-            __html: jsonLdScript(jsonLd(locale, t("description"))),
+            __html: jsonLdScript(jsonLd(locale, t('description'))),
           }}
         />
         <NextIntlClientProvider>

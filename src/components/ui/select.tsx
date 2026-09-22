@@ -1,13 +1,13 @@
-"use client"
+'use client';
 
-import * as React from "react"
-import { cn } from "cn"
-import { Select as SelectPrimitive } from "radix-ui"
+import { cn } from 'cn';
+import { Select as SelectPrimitive } from 'radix-ui';
+import * as React from 'react';
 
 function Select({
   ...props
 }: React.ComponentProps<typeof SelectPrimitive.Root>) {
-  return <SelectPrimitive.Root data-slot="select" {...props} />
+  return <SelectPrimitive.Root data-slot="select" {...props} />;
 }
 
 function SelectGroup({
@@ -20,22 +20,22 @@ function SelectGroup({
       className={cn(className)}
       {...props}
     />
-  )
+  );
 }
 
 function SelectValue({
   ...props
 }: React.ComponentProps<typeof SelectPrimitive.Value>) {
-  return <SelectPrimitive.Value data-slot="select-value" {...props} />
+  return <SelectPrimitive.Value data-slot="select-value" {...props} />;
 }
 
 function SelectTrigger({
   className,
-  size = "default",
+  size = 'default',
   children,
   ...props
 }: React.ComponentProps<typeof SelectPrimitive.Trigger> & {
-  size?: "sm" | "default"
+  size?: 'default' | 'sm';
 }) {
   return (
     <SelectPrimitive.Trigger
@@ -46,40 +46,41 @@ function SelectTrigger({
     >
       {children}
       <SelectPrimitive.Icon asChild>
-        <svg className="csel-chev" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+        <svg
+          className="csel-chev"
+          viewBox="0 0 16 16"
+          fill="none"
+          aria-hidden="true"
+        >
           <path d="M3 6l5 5 5-5" stroke="currentColor" strokeWidth="1.3" />
         </svg>
       </SelectPrimitive.Icon>
     </SelectPrimitive.Trigger>
-  )
+  );
 }
 
 function SelectContent({
   className,
   children,
-  position = "popper",
-  align = "start",
+  position = 'popper',
+  align = 'start',
   ...props
 }: React.ComponentProps<typeof SelectPrimitive.Content>) {
   return (
     <SelectPrimitive.Portal>
       <SelectPrimitive.Content
         data-slot="select-content"
-        className={cn(
-          "w-(--radix-select-trigger-width)",
-          className
-        )}
+        className={cn('w-(--radix-select-trigger-width)', className)}
         position={position}
         align={align}
         side="bottom"
-        sideOffset={2}
-        avoidCollisions={false}
+        sideOffset={6}
         {...props}
       >
         <SelectPrimitive.Viewport>{children}</SelectPrimitive.Viewport>
       </SelectPrimitive.Content>
     </SelectPrimitive.Portal>
-  )
+  );
 }
 
 function SelectLabel({
@@ -92,7 +93,7 @@ function SelectLabel({
       className={cn(className)}
       {...props}
     />
-  )
+  );
 }
 
 function SelectItem({
@@ -108,7 +109,7 @@ function SelectItem({
     >
       <SelectPrimitive.ItemText>{children}</SelectPrimitive.ItemText>
     </SelectPrimitive.Item>
-  )
+  );
 }
 
 function SelectSeparator({
@@ -118,10 +119,10 @@ function SelectSeparator({
   return (
     <SelectPrimitive.Separator
       data-slot="select-separator"
-      className={cn("pointer-events-none my-1 h-px bg-border", className)}
+      className={cn('pointer-events-none my-1 h-px bg-border', className)}
       {...props}
     />
-  )
+  );
 }
 
 export {
@@ -133,4 +134,4 @@ export {
   SelectSeparator,
   SelectTrigger,
   SelectValue,
-}
+};

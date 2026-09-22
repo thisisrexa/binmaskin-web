@@ -1,11 +1,11 @@
-import { hasLocale } from "next-intl";
-import { getRequestConfig } from "next-intl/server";
-import { notFound } from "next/navigation";
-import { locale as getLocaleParam } from "next/root-params";
+import { hasLocale } from 'next-intl';
+import { getRequestConfig } from 'next-intl/server';
+import { notFound } from 'next/navigation';
+import { locale as getLocaleParam } from 'next/root-params';
 
-import ar from "../../messages/ar.json";
-import en from "../../messages/en.json";
-import { routing } from "./routing";
+import ar from '../../messages/ar.json';
+import en from '../../messages/en.json';
+import { routing } from './routing';
 
 const catalogs = { en, ar };
 

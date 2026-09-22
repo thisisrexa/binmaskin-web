@@ -1,14 +1,14 @@
-import { useTranslations } from "next-intl";
+import { useTranslations } from 'next-intl';
 
-import { BrandMark } from "@/components/layout/brand-mark";
-import { LightLines } from "@/components/ui/light-lines";
+import { BrandMark } from '@/components/layout/brand-mark';
+import { LightLines } from '@/components/ui/light-lines';
 
 export function HeroStage() {
-  const t = useTranslations("hero");
+  const t = useTranslations('hero');
 
   return (
     <div
-      className="ll-wrap relative isolate hidden min-h-[min(34rem,68vh)] w-full overflow-hidden md:block motion-reduce:hidden"
+      className="ll-wrap relative isolate size-full overflow-hidden motion-reduce:hidden"
       aria-hidden="true"
     >
       <LightLines
@@ -20,11 +20,11 @@ export function HeroStage() {
         gradientFrom="transparent"
         gradientTo="transparent"
       >
-        <div className="relative flex -translate-y-[8%] flex-col items-center gap-5">
+        <div className="relative flex translate-y-[-8%] flex-col items-center gap-5">
           <span className="pointer-events-none absolute size-44 rounded-full bg-accent/20 blur-3xl" />
-          <BrandMark variant="symbol" className="relative h-[7.25rem]" />
+          <BrandMark variant="symbol" className="relative h-29" />
           <span className="relative text-[11px] tracking-[0.28em] text-accent uppercase ar:tracking-normal ar:normal-case">
-            {t("core")}
+            {t('core')}
           </span>
         </div>
       </LightLines>
