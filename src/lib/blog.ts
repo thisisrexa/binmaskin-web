@@ -1,15 +1,9 @@
 import fs from 'node:fs';
 import path from 'node:path';
 
-export interface PostCard {
-  slug: string;
-  title: string;
-  date: string;
-  excerpt: string;
-  cover: string;
-}
+import type { Post } from '@/lib/blog-meta';
 
-export type Post = PostCard & { body: string };
+export type { Post, PostCard } from '@/lib/blog-meta';
 
 const ROOT = path.join(process.cwd(), 'content/blog');
 
@@ -58,6 +52,7 @@ export function getPosts(locale: string): Post[] {
       date: data.date ?? '',
       excerpt: data.excerpt ?? '',
       cover: data.cover ?? '/blog/sample.png',
+      coverMobile: data.coverMobile ?? data.cover ?? '/blog/sample.png',
       body,
     };
   });

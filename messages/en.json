@@ -142,14 +142,14 @@
   "companies": {
     "eyebrow": "The group",
     "title": "Companies held\nby one <em>desk.</em>",
-    "lead": "Nine subsidiaries. Placeholder names until the real register is set.",
+    "lead": "Nine subsidiaries under one Dubai desk.",
     "about": "About",
     "close": "Close"
   },
   "blog": {
     "eyebrow": "Journal",
     "title": "Notes from the desk",
-    "lead": "Short notes on how the group works. Placeholder entries.",
+    "lead": "Notes on development, property, materials, and operations.",
     "read": "Read",
     "back": "All notes"
   },
@@ -195,6 +195,7 @@
     "company": "Company",
     "legal": "Legal",
     "reach": "Reach us",
+    "sitemap": "Sitemap",
     "copy": "© 2026 Salem Binmaskin Solutions · Dubai, UAE",
     "lic": "Trade licence"
   },
@@ -213,6 +214,22 @@
     "errText": "An unexpected error occurred. Try again, or reach us directly.",
     "errRetry": "Try again"
   },
+  "consent": {
+    "kicker": "Cookies",
+    "title": "Your choice on this site",
+    "text": "We store a language cookie so the site stays in your language, and a cookie that remembers this choice. Analytics stays off unless you allow it. You can change this any time.",
+    "more": "Cookie notice",
+    "accept": "Accept all",
+    "reject": "Reject all",
+    "prefs": "Preferences",
+    "save": "Save choice",
+    "settings": "Cookie settings",
+    "essentialTitle": "Essential",
+    "essentialBody": "Language (NEXT_LOCALE) and this choice (bm-consent, 1 year). Required for the site to work. Always on.",
+    "analyticsTitle": "Analytics",
+    "analyticsBody": "Google Analytics, only after you opt in. Nothing is loaded before that. Not active on this site yet.",
+    "always": "Always on"
+  },
   "privacy": {
     "body": "<h2>Who we are</h2><p>Salem Binmaskin Solutions (“we”, “us”) is a technology company based in Dubai, United Arab Emirates. This policy describes how we handle personal data when you use this website or contact us.</p><h2>UAE Personal Data Protection</h2><p>We process personal data in line with applicable UAE law, including Federal Decree-Law No. 45 of 2021 on the Protection of Personal Data (PDPL), and related guidance.</p><h2>What we collect</h2><ul><li>Contact details you submit (name, email, phone, message content).</li><li>Technical data needed to display this site (standard browser requests).</li></ul><h2>Why we use data</h2><p>To respond to inquiries, deliver services you request, maintain security of our systems, and meet legal or regulatory obligations in the UAE.</p><h2>Sharing</h2><p>We do not sell personal data. We may share information with service providers acting on our instructions, or when required by UAE law or competent authorities.</p><h2>Retention</h2><p>Inquiry data is kept only as long as needed to handle your request and for reasonable business or legal records, then deleted or anonymised.</p><h2>Your rights</h2><p>Subject to PDPL and applicable law, you may request access, correction, deletion, or restriction of processing. Contact us at info@binmaskin.solutions.</p><h2>Contact</h2><p>Salem Binmaskin Solutions · Dubai, United Arab Emirates · info@binmaskin.solutions · +971 50 231 6702 · Trade licence 1395363 · Dubai Chamber 552755</p><p><em>This page is for general information and does not constitute legal advice.</em></p>"
   },
@@ -220,7 +237,7 @@
     "body": "<h2>Acceptance</h2><p>By using this website you agree to these Terms of Use. If you do not agree, please do not use the site.</p><h2>About the site</h2><p>This site presents information about Salem Binmaskin Solutions, a technology company based in Dubai, UAE. Content may be updated without notice. Project visuals are representative examples and are not claims of specific client engagements unless stated otherwise.</p><h2>Intellectual property</h2><p>Wordmarks, text, and design on this site belong to Salem Binmaskin Solutions or its licensors. You may not copy or reuse them without written permission.</p><h2>No warranty</h2><p>Information is provided “as is” for general communication. We do not warrant uninterrupted availability or error-free content.</p><h2>Limitation of liability</h2><p>To the fullest extent permitted under UAE law, we are not liable for indirect or consequential loss arising from use of this site. Nothing excludes liability that cannot be limited under applicable law.</p><h2>Governing law</h2><p>These terms are governed by the laws of the United Arab Emirates, and disputes are subject to the competent courts of Dubai, unless mandatory rules provide otherwise.</p><h2>Contact</h2><p>info@binmaskin.solutions · +971 50 231 6702 · Dubai, UAE</p><p><em>General information — not a substitute for formal legal counsel.</em></p>"
   },
   "cookies": {
-    "body": "<h2>Summary</h2><p>This site does not run advertising trackers or third-party analytics in this version.</p><h2>What we use</h2><ul><li><strong>Language</strong> is chosen by the URL (<code>/en</code> or <code>/ar</code>), not by advertising cookies.</li><li>Standard network requests load the page, fonts, and images.</li></ul><h2>Your choices</h2><p>You can block cookies in your browser. Contact info@binmaskin.solutions with questions about privacy.</p><p><em>A formal cookie banner will be added if production analytics are introduced.</em></p>"
+    "body": "<h2>Summary</h2><p>This site stores an essential language cookie and a record of your cookie choice. Analytics stays off until you accept it.</p><h2>What we use</h2><ul><li><strong>Language</strong> (<code>NEXT_LOCALE</code>) keeps the site in English or Arabic. It is essential and is set without a separate opt-in.</li><li><strong>Choice</strong> (<code>bm-consent</code>) remembers Accept or Essential only for one year.</li><li>Analytics is not loaded until you accept. None runs before that choice.</li></ul><h2>Your choices</h2><p>Use the banner to accept analytics or keep essential cookies only. You can also block cookies in your browser. Contact info@binmaskin.solutions with questions about privacy.</p>"
   },
   "security": {
     "body": "<h2>How we contact you</h2><p>Salem Binmaskin Solutions only uses the email, phone and WhatsApp number published on this website. We will not ask you to switch to a private number, a personal inbox, or a chat app that is not listed here.</p><h2>We never ask for money this way</h2><p>We will never ask you to send cash, cryptocurrency, gift cards, or a transfer to a personal bank account. We do not request payment over WhatsApp, SMS, or a sudden email that is not from <code>@binmaskin.solutions</code>.</p><ul><li>No payment before a written scope and a company invoice.</li><li>Bank details appear on that invoice only — not in a chat.</li><li>We do not ask you to “confirm a fee” to release a contract, visa, or document.</li></ul><h2>We never ask for</h2><ul><li>Passwords, one-time codes (OTP), bank PINs, or remote-access software.</li><li>Urgency that forbids you from calling the number on this site.</li><li>Copies of identity or trade documents except through an agreed, documented process.</li></ul><h2>Verify a genuine request</h2><ul><li>Website: binmaskin.solutions</li><li>Email: info@binmaskin.solutions</li><li>Phone / WhatsApp: +971 50 231 6702</li><li>Trade licence 1395363 · Dubai Chamber 552755</li></ul><p>If a message uses a look-alike domain, a different WhatsApp number, or asks you to keep the conversation secret — it is not us.</p><h2>If something feels off</h2><p>Do not pay. Do not share codes. Call or email the contacts on this page, and forward the message to info@binmaskin.solutions.</p><p><em>This page is for general information. Report fraud to the relevant UAE authorities when needed.</em></p>"

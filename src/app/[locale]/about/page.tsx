@@ -3,7 +3,9 @@ import type { Metadata } from 'next';
 import { getTranslations } from 'next-intl/server';
 import Image from 'next/image';
 
+import aboutSketch from '@/assets/about-sketch.png';
 import { Link } from '@/i18n/navigation';
+import { COMPANIES } from '@/lib/companies';
 import { pageMetadata } from '@/lib/seo';
 
 const STATS = [1, 2, 3, 4] as const;
@@ -34,9 +36,9 @@ export default async function AboutPage({
   const tn = await getTranslations({ locale, namespace: 'nav' });
 
   return (
-    <main className="wrap py-16 pb-24 md:py-24">
-      <div className="grid items-start gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(16rem,22rem)] lg:gap-16">
-        <article>
+    <main className="pb-24 max-w-[1440px] mx-auto">
+      <div className="lg:grid lg:grid-cols-2 lg:items-stretch">
+        <article className="wrap py-16 md:py-24 lg:ms-0 lg:w-full lg:max-w-none lg:py-24 lg:ps-[max(var(--gutter),calc((100vw-var(--wrap))/2))] lg:pe-12">
           <p className="mb-6 text-[0.6875rem] tracking-[0.22em] text-accent uppercase ar:text-[0.8125rem] ar:tracking-normal ar:normal-case">
             {t('eyebrow')}
           </p>
@@ -54,30 +56,34 @@ export default async function AboutPage({
           <p className="about-quote mt-10 max-w-copy border-s-2 border-accent ps-6 leading-[1.45] whitespace-pre-line italic">
             {tq('text')}
           </p>
+          <Link href="/#contact" className="btn btn-solid mt-10">
+            {tn('cta')}
+          </Link>
         </article>
-        <div className="relative aspect-3/4 bg-navy lg:sticky lg:top-[calc(var(--hdr)+1.5rem)]">
+        <div className="relative mx-(--gutter) aspect-3/4 lg:sticky lg:top-(--hdr) lg:mx-0 lg:aspect-auto lg:h-full lg:min-h-[calc(100dvh-var(--hdr))]">
           <Image
-            src="/blog/sample.png"
+            src={aboutSketch}
             alt=""
             fill
-            sizes="(max-width: 1024px) 100vw, 22rem"
-            className="object-cover object-[70%_center]"
+            className="object-contain object-center"
             priority
+            quality={100}
           />
         </div>
       </div>
-      <dl className="mt-16 grid grid-cols-2 gap-x-8 gap-y-10 border-t border-border pt-10 lg:grid-cols-4">
-        {STATS.map((n) => (
-          <div key={n}>
-            <dt className="stat-n">{t(`v${n}`)}</dt>
-            <dd className="stat-l mt-2">{t(`s${n}`)}</dd>
-          </div>
-        ))}
-      </dl>
-      <div className="mt-14">
-        <Link href="/#contact" className="btn btn-solid">
-          {tn('cta')}
-        </Link>
+      <div className="wrap">
+        <dl className="mx-auto mt-16 grid w-full max-w-md grid-cols-2 place-items-center gap-x-6 gap-y-10 border-t border-border pt-10 text-center sm:gap-x-10 lg:mx-0 lg:flex lg:max-w-none lg:justify-between lg:gap-x-0 lg:text-start">
+          {STATS.map((n) => (
+            <div key={n}>
+              <dt className="stat-n">
+                {n === 1
+                  ? String(COMPANIES.length).padStart(2, '0')
+                  : t(`v${n}`)}
+              </dt>
+              <dd className="stat-l mt-2">{t(`s${n}`)}</dd>
+            </div>
+          ))}
+        </dl>
       </div>
     </main>
   );

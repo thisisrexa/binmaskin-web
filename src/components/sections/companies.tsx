@@ -4,6 +4,8 @@ import { useLocale, useTranslations } from 'next-intl';
 import Image from 'next/image';
 import { useState } from 'react';
 
+import burjSketchMobile from '@/assets/burj-sketch-mobile.png';
+import burjSketch from '@/assets/burj-sketch.png';
 import { Eyebrow } from '@/components/sections/eyebrow';
 import {
   Drawer,
@@ -29,18 +31,37 @@ export function Companies() {
   return (
     <section id="companies" className="wrap py-24 max-md:py-16">
       <Eyebrow>{t('eyebrow')}</Eyebrow>
-      <h2 className="max-w-copy whitespace-pre-line">
-        {t.rich('title', { em: (chunks) => <em>{chunks}</em> })}
-      </h2>
-      <p className="mt-6 max-w-copy text-[1.125rem] text-muted-foreground">
-        {t('lead')}
-      </p>
+      <div className="lg:grid lg:grid-cols-[minmax(0,1fr)_20rem] lg:gap-x-10">
+        <div className="min-[1440px]:ps-12.5">
+          <h2 className="max-w-copy whitespace-pre-line">
+            {t.rich('title', { em: (chunks) => <em>{chunks}</em> })}
+          </h2>
+          <p className="mt-6 max-w-copy text-[1.125rem] text-muted-foreground">
+            {t('lead')}
+          </p>
+        </div>
 
-      <div className="mt-14 grid items-stretch gap-8 lg:grid-cols-[minmax(0,1fr)_20rem] lg:gap-10">
-        <div className="order-2 lg:order-1">
+        <div className="relative mx-auto mt-10 h-[min(70vw,24rem)] w-auto lg:col-start-2 lg:row-span-2 lg:row-start-1 lg:top-4 lg:aspect-auto lg:h-auto lg:w-full lg:self-stretch">
+          <Image
+            src={burjSketchMobile}
+            alt=""
+            fill
+            className="object-contain object-center lg:hidden"
+            quality={100}
+          />
+          <Image
+            src={burjSketch}
+            alt=""
+            fill
+            className="hidden object-contain object-center lg:block"
+            quality={100}
+          />
+        </div>
+
+        <div className="lg:mt-14 min-[1440px]:ps-12.5 lg:col-start-1">
           <ScrollArea
             type="always"
-            className="box-content h-[calc(11.5rem*3+1px)] border border-navy/20 lg:h-[calc(11.5rem*2+1px)]"
+            className="box-content h-[calc(11.5rem*3+1px)] border border-dashed border-navy/25 lg:h-[calc(11.5rem*2+1px)]"
           >
             <ul
               className="grid grid-cols-2 lg:grid-cols-3"
@@ -75,23 +96,6 @@ export function Companies() {
             <div aria-hidden className="h-px" />
           </ScrollArea>
         </div>
-
-        <div className="relative order-1 mx-auto aspect-9/16 h-[min(70vw,24rem)] w-auto lg:order-2 lg:mx-0 lg:aspect-auto lg:h-[calc(11.5rem*2+1px)] lg:w-full">
-          <Image
-            src="/burj-sketch-mobile.png"
-            alt=""
-            fill
-            sizes="(max-width: 1023px) 40vw, 1px"
-            className="object-contain object-bottom lg:hidden"
-          />
-          <Image
-            src="/burj-sketch.png"
-            alt=""
-            fill
-            sizes="(min-width: 1024px) 20rem, 1px"
-            className="hidden object-contain object-bottom lg:block"
-          />
-        </div>
       </div>
 
       <Drawer
@@ -102,17 +106,17 @@ export function Companies() {
       >
         <DrawerContent className="gap-0 border-border bg-background p-0 data-[vaul-drawer-direction=bottom]:mt-0 data-[vaul-drawer-direction=bottom]:h-[min(72vh,34rem)] data-[vaul-drawer-direction=bottom]:max-h-[min(72vh,34rem)] data-[vaul-drawer-direction=bottom]:rounded-none">
           {active && copy ? (
-            <div className="grid min-h-0 flex-1 md:grid-cols-[minmax(0,1.15fr)_minmax(18rem,0.9fr)]">
+            <div className="grid min-h-0 flex-1 grid-rows-[auto_minmax(0,1fr)] md:grid-cols-[minmax(0,1.15fr)_minmax(18rem,0.9fr)] md:grid-rows-none">
               <div className="relative aspect-video bg-navy md:aspect-auto md:min-h-0">
                 <Image
-                  src={active.cover}
+                  src={active.cover.desktop}
                   alt=""
                   fill
-                  sizes="60vw"
+                  sizes="(max-width: 768px) 100vw, 60vw"
                   className="object-cover"
                 />
               </div>
-              <div className="flex flex-col justify-between gap-6 overflow-y-auto p-[clamp(1.5rem,3vw,2.75rem)]">
+              <div className="flex min-h-0 flex-col justify-between gap-6 overflow-y-auto p-[clamp(1.5rem,3vw,2.75rem)]">
                 <div>
                   <p className="text-[11px] tracking-[0.16em] text-faint uppercase ar:tracking-normal ar:normal-case">
                     {active.mark}

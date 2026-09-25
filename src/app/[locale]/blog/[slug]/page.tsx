@@ -1,12 +1,13 @@
 import type { Metadata } from 'next';
 
 import { getTranslations } from 'next-intl/server';
-import Image from 'next/image';
 import { notFound } from 'next/navigation';
 import ReactMarkdown from 'react-markdown';
 
+import { ResponsiveCover } from '@/components/ui/responsive-cover';
 import { Link } from '@/i18n/navigation';
 import { getPost, getPosts } from '@/lib/blog';
+import { coverFrame } from '@/lib/blog-meta';
 import { pageMetadata } from '@/lib/seo';
 import { formatDate } from '@/lib/utils';
 
@@ -42,30 +43,41 @@ export default async function BlogPostPage({
 
   return (
     <main className="wrap py-16 pb-24 md:py-24">
-      <Link
-        href="/blog"
-        className="text-[11px] tracking-[0.16em] text-accent uppercase ar:tracking-normal ar:normal-case"
-      >
-        {t('back')}
-      </Link>
-      <h1 className="page-title mt-4 max-w-copy">{post.title}</h1>
-      <time
-        className="mt-4 block text-[12px] tracking-[0.12em] text-faint uppercase ar:tracking-normal ar:normal-case"
-        dateTime={post.date}
-      >
-        {formatDate(post.date, locale)}
-      </time>
-      <div className="relative mt-10 aspect-video overflow-hidden">
-        <Image
-          src={post.cover}
-          alt=""
-          fill
-          sizes="(max-width: 1760px) 100vw, 1760px"
-          className="object-cover"
-        />
-      </div>
-      <article className="blog-md mt-10">
-        <ReactMarkdown>{post.body}</ReactMarkdown>
+      <article className="mx-auto max-w-5xl">
+        <Link
+          href="/blog"
+          className="text-[11px] tracking-[0.16em] text-accent uppercase ar:tracking-normal ar:normal-case"
+        >
+          {t('back')}
+        </Link>
+        <div className="prose mt-8 max-w-none prose-headings:font-normal prose-headings:text-navy prose-p:text-soft prose-li:text-soft prose-strong:text-navy prose-a:text-accent">
+          <ReactMarkdown
+            components={{
+              h1: ({ children }) => (
+                <>
+                  <h1>{children}</h1>
+                  <time
+                    className="mt-4 mb-8 block text-[12px] text-faint not-prose"
+                    dateTime={post.date}
+                  >
+                    {formatDate(post.date, locale)}
+                  </time>
+                  <div
+                    className={`not-prose relative mb-10 overflow-hidden ${coverFrame()}`}
+                  >
+                    <ResponsiveCover
+                      mobile={post.coverMobile}
+                      desktop={post.cover}
+                      sizes="(max-width: 1024px) 100vw, 64rem"
+                    />
+                  </div>
+                </>
+              ),
+            }}
+          >
+            {post.body}
+          </ReactMarkdown>
+        </div>
       </article>
     </main>
   );

@@ -3,8 +3,10 @@ import type { ReactNode } from 'react';
 
 import { hasLocale, NextIntlClientProvider } from 'next-intl';
 import { getTranslations } from 'next-intl/server';
+import { cookies } from 'next/headers';
 import { notFound } from 'next/navigation';
 
+import { CookieConsent } from '@/components/layout/cookie-consent';
 import { SiteFooter } from '@/components/layout/site-footer';
 import { SiteHeader } from '@/components/layout/site-header';
 import { routing } from '@/i18n/routing';
@@ -42,6 +44,8 @@ export default async function LocaleLayout({
   const { locale } = await params;
   if (!hasLocale(routing.locales, locale)) notFound();
   const t = await getTranslations({ locale, namespace: 'meta' });
+  const consent = (await cookies()).get('bm-consent')?.value;
+  const showConsent = consent !== 'all' && consent !== 'essential';
 
   return (
     <html
@@ -61,6 +65,7 @@ export default async function LocaleLayout({
           <SiteHeader />
           <div className="pt-(--hdr)">{children}</div>
           <SiteFooter />
+          <CookieConsent initialOpen={showConsent} />
         </NextIntlClientProvider>
       </body>
     </html>

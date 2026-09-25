@@ -76,139 +76,141 @@ export function Contact() {
         <Reveal>
           <Eyebrow>{t('eyebrow')}</Eyebrow>
         </Reveal>
-        <Reveal delay={0.08}>
-          <h2>{t.rich('title', { em: (chunks) => <em>{chunks}</em> })}</h2>
-        </Reveal>
-        <div className="mt-12 grid grid-cols-[1.1fr_1fr] gap-16 max-lg:grid-cols-1">
-          <Reveal>
-            <form
-              className="relative border border-border bg-secondary p-[clamp(1.75rem,3.5vw,3rem)]"
-              onSubmit={(e) => {
-                e.preventDefault();
-                void send(e.currentTarget);
-              }}
-            >
-              <span
-                className="absolute inset-s-0 top-0 h-0.5 w-11 bg-accent"
-                aria-hidden="true"
-              />
-              <div className="mb-8 grid grid-cols-2 gap-x-6 gap-y-8 max-sm:grid-cols-1">
-                <div>
-                  <Label htmlFor="cf-name">{tf('name')}</Label>
-                  <Input
-                    id="cf-name"
-                    name="name"
-                    type="text"
-                    required
-                    placeholder={tf('nameph')}
-                  />
-                </div>
-                <div>
-                  <Label id="cf-topic-label">{tf('topic')}</Label>
-                  <Select value={topic} onValueChange={setTopic}>
-                    <SelectTrigger aria-labelledby="cf-topic-label">
-                      <SelectValue />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {TOPICS.map((v) => (
-                        <SelectItem key={v} value={v}>
-                          {tf(v)}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                </div>
-                <div>
-                  <Label htmlFor="cf-email">{tf('email')}</Label>
-                  <Input
-                    id="cf-email"
-                    name="email"
-                    type="email"
-                    required
-                    placeholder="you@company.com"
-                  />
-                </div>
-                <div>
-                  <Label htmlFor="cf-phone">{tf('phone')}</Label>
-                  <Input
-                    id="cf-phone"
-                    name="phone"
-                    type="tel"
-                    placeholder="+971 · · ·"
-                  />
-                </div>
-              </div>
-              <div className="mb-8">
-                <Label htmlFor="cf-msg">{tf('msg')}</Label>
-                <Textarea
-                  id="cf-msg"
-                  name="message"
-                  required
-                  placeholder={tf('msgph')}
-                />
-              </div>
-              <button
-                type="submit"
-                className="btn btn-solid"
-                disabled={status === 'sending'}
+        <div className="min-[1440px]:ps-12.5">
+          <Reveal delay={0.08}>
+            <h2>{t.rich('title', { em: (chunks) => <em>{chunks}</em> })}</h2>
+          </Reveal>
+          <div className="mt-12 grid grid-cols-[1.1fr_1fr] gap-16 max-lg:grid-cols-1">
+            <Reveal>
+              <form
+                className="relative border border-border bg-secondary p-[clamp(1.75rem,3.5vw,3rem)]"
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  void send(e.currentTarget);
+                }}
               >
-                <span>{label}</span>
-                <svg
-                  className="arr"
-                  viewBox="0 0 16 16"
-                  fill="none"
+                <span
+                  className="absolute inset-s-0 top-0 h-0.5 w-11 bg-accent"
                   aria-hidden="true"
-                >
-                  <path
-                    d="M2.5 8h11M9.5 4l4 4-4 4"
-                    stroke="currentColor"
-                    strokeWidth="1.2"
-                  />
-                </svg>
-              </button>
-            </form>
-          </Reveal>
-          <Reveal delay={0.1}>
-            {[
-              {
-                k: tf('email'),
-                v: COMPANY.email,
-                href: `mailto:${COMPANY.email}`,
-              },
-              {
-                k: tf('wa'),
-                v: COMPANY.phone,
-                href: `tel:${COMPANY.phoneTel}`,
-              },
-            ].map((r) => (
-              <div key={r.k} className="border-b border-border py-5">
-                <div className="text-[11px] tracking-[0.18em] text-faint uppercase ar:tracking-normal ar:normal-case">
-                  {r.k}
+                />
+                <div className="mb-8 grid grid-cols-2 gap-x-6 gap-y-8 max-sm:grid-cols-1">
+                  <div>
+                    <Label htmlFor="cf-name">{tf('name')}</Label>
+                    <Input
+                      id="cf-name"
+                      name="name"
+                      type="text"
+                      required
+                      placeholder={tf('nameph')}
+                    />
+                  </div>
+                  <div>
+                    <Label id="cf-topic-label">{tf('topic')}</Label>
+                    <Select value={topic} onValueChange={setTopic}>
+                      <SelectTrigger aria-labelledby="cf-topic-label">
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {TOPICS.map((v) => (
+                          <SelectItem key={v} value={v}>
+                            {tf(v)}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  <div>
+                    <Label htmlFor="cf-email">{tf('email')}</Label>
+                    <Input
+                      id="cf-email"
+                      name="email"
+                      type="email"
+                      required
+                      placeholder="you@company.com"
+                    />
+                  </div>
+                  <div>
+                    <Label htmlFor="cf-phone">{tf('phone')}</Label>
+                    <Input
+                      id="cf-phone"
+                      name="phone"
+                      type="tel"
+                      placeholder="+971 · · ·"
+                    />
+                  </div>
                 </div>
-                <a
-                  className="mt-1.5 block text-[1.05rem] transition-colors hover:text-accent"
-                  href={r.href}
-                  {...(r.href.startsWith('http')
-                    ? { target: '_blank', rel: 'noopener' }
-                    : {})}
+                <div className="mb-8">
+                  <Label htmlFor="cf-msg">{tf('msg')}</Label>
+                  <Textarea
+                    id="cf-msg"
+                    name="message"
+                    required
+                    placeholder={tf('msgph')}
+                  />
+                </div>
+                <button
+                  type="submit"
+                  className="btn btn-solid"
+                  disabled={status === 'sending'}
                 >
-                  {r.v}
-                </a>
+                  <span>{label}</span>
+                  <svg
+                    className="arr"
+                    viewBox="0 0 16 16"
+                    fill="none"
+                    aria-hidden="true"
+                  >
+                    <path
+                      d="M2.5 8h11M9.5 4l4 4-4 4"
+                      stroke="currentColor"
+                      strokeWidth="1.2"
+                    />
+                  </svg>
+                </button>
+              </form>
+            </Reveal>
+            <Reveal delay={0.1}>
+              {[
+                {
+                  k: tf('email'),
+                  v: COMPANY.email,
+                  href: `mailto:${COMPANY.email}`,
+                },
+                {
+                  k: tf('wa'),
+                  v: COMPANY.phone,
+                  href: `tel:${COMPANY.phoneTel}`,
+                },
+              ].map((r) => (
+                <div key={r.k} className="border-b border-border py-5">
+                  <div className="text-[11px] tracking-[0.18em] text-faint uppercase ar:tracking-normal ar:normal-case">
+                    {r.k}
+                  </div>
+                  <a
+                    className="mt-1.5 block text-[1.05rem] transition-colors hover:text-accent"
+                    href={r.href}
+                    {...(r.href.startsWith('http')
+                      ? { target: '_blank', rel: 'noopener' }
+                      : {})}
+                  >
+                    {r.v}
+                  </a>
+                </div>
+              ))}
+              <div className="border-b border-border py-5">
+                <div className="text-[11px] tracking-[0.18em] text-faint uppercase ar:tracking-normal ar:normal-case">
+                  {tf('office')}
+                </div>
+                <div className="mt-1.5 text-[1.05rem]">{tf('officev')}</div>
               </div>
-            ))}
-            <div className="border-b border-border py-5">
-              <div className="text-[11px] tracking-[0.18em] text-faint uppercase ar:tracking-normal ar:normal-case">
-                {tf('office')}
+              <div className="py-5">
+                <div className="text-[11px] tracking-[0.18em] text-faint uppercase ar:tracking-normal ar:normal-case">
+                  {tf('hours')}
+                </div>
+                <div className="mt-1.5 text-[1.05rem]">{tf('hoursv')}</div>
               </div>
-              <div className="mt-1.5 text-[1.05rem]">{tf('officev')}</div>
-            </div>
-            <div className="py-5">
-              <div className="text-[11px] tracking-[0.18em] text-faint uppercase ar:tracking-normal ar:normal-case">
-                {tf('hours')}
-              </div>
-              <div className="mt-1.5 text-[1.05rem]">{tf('hoursv')}</div>
-            </div>
-          </Reveal>
+            </Reveal>
+          </div>
         </div>
       </div>
       <div className="relative overflow-hidden bg-navy py-[clamp(3rem,7vw,5.5rem)] text-cream">
@@ -217,7 +219,7 @@ export function Contact() {
           aria-hidden="true"
         />
         <div className="wrap">
-          <div className="relative flex flex-wrap items-end gap-8">
+          <div className="relative flex flex-wrap items-end gap-8 min-[1440px]:ps-12.5">
             <div className="max-w-copy min-w-[min(100%,240px)] flex-[1_1_16rem]">
               <p className="mb-3 text-[11px] tracking-[0.2em] text-bronze uppercase ar:tracking-normal ar:normal-case">
                 {tc('kicker')}

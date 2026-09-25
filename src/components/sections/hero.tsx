@@ -14,7 +14,7 @@ export function Hero() {
     >
       <div className="relative z-10 wrap flex flex-1 items-center">
         <div className="grid w-full items-center gap-[clamp(2rem,5vw,4.5rem)] lg:grid-cols-[minmax(0,1.05fr)_minmax(16rem,0.82fr)]">
-          <div className="max-w-160 min-w-0">
+          <div className="max-w-160 min-w-0 min-[1440px]:ps-(--logo-w)">
             <Reveal className="hero-status mb-8 flex items-center gap-2.5 text-[11px] tracking-[0.2em] text-muted-foreground uppercase ar:text-xs ar:tracking-normal ar:normal-case">
               <span
                 className="size-1.5 shrink-0 bg-accent"

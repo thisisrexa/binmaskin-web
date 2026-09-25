@@ -1,10 +1,11 @@
 import type { Metadata } from 'next';
 
 import { getTranslations } from 'next-intl/server';
-import Image from 'next/image';
 
+import { ResponsiveCover } from '@/components/ui/responsive-cover';
 import { Link } from '@/i18n/navigation';
 import { getPosts } from '@/lib/blog';
+import { coverFrame } from '@/lib/blog-meta';
 import { pageMetadata } from '@/lib/seo';
 import { formatDate } from '@/lib/utils';
 
@@ -42,11 +43,12 @@ export default async function BlogPage({
         {posts.map((post) => (
           <li key={post.slug}>
             <Link href={`/blog/${post.slug}`} className="group block">
-              <div className="relative aspect-16/10 overflow-hidden bg-navy">
-                <Image
-                  src={post.cover}
-                  alt=""
-                  fill
+              <div
+                className={`relative overflow-hidden bg-navy ${coverFrame()}`}
+              >
+                <ResponsiveCover
+                  mobile={post.coverMobile}
+                  desktop={post.cover}
                   sizes="(max-width: 768px) 100vw, 33vw"
                   className="object-cover transition-transform duration-700 group-hover:scale-[1.03]"
                 />

@@ -1,13 +1,10 @@
 'use client';
 
-import type { StaticImageData } from 'next/image';
-
 import { useLocale, useTranslations } from 'next-intl';
-import Image from 'next/image';
 import { useEffect, useState, useSyncExternalStore } from 'react';
 
 import type { CarouselApi } from '@/components/ui/carousel';
-import type { PostCard } from '@/lib/blog';
+import type { PostCard } from '@/lib/blog-meta';
 
 import { Eyebrow } from '@/components/sections/eyebrow';
 import {
@@ -15,22 +12,12 @@ import {
   CarouselContent,
   CarouselItem,
 } from '@/components/ui/carousel';
+import { ResponsiveCover } from '@/components/ui/responsive-cover';
 import { Reveal } from '@/components/ui/reveal';
 import { Link } from '@/i18n/navigation';
+import { coverFrame } from '@/lib/blog-meta';
+import { COMPANIES, companyText } from '@/lib/companies';
 import { formatDate } from '@/lib/utils';
-
-import sample from '../../../public/work/sample.png';
-
-const SLIDES: {
-  img: StaticImageData;
-  line: 'd1' | 'd2' | 'd3' | 'd4';
-  year: string;
-}[] = [
-  { img: sample, line: 'd1', year: '2025' },
-  { img: sample, line: 'd2', year: '2025' },
-  { img: sample, line: 'd3', year: '2026' },
-  { img: sample, line: 'd4', year: '2026' },
-];
 
 const WORK_MS = 5600;
 const BLOG_MS = 4800;
@@ -125,11 +112,12 @@ function FilmDots({
 function BlogCard({ post, locale }: { post: PostCard; locale: string }) {
   return (
     <Link href={`/blog/${post.slug}`} className="group block">
-      <div className="relative aspect-16/10 overflow-hidden bg-navy">
-        <Image
-          src={post.cover}
-          alt=""
-          fill
+      <div
+        className={`film-frame relative overflow-hidden bg-navy ${coverFrame()}`}
+      >
+        <ResponsiveCover
+          mobile={post.coverMobile}
+          desktop={post.cover}
           sizes="22rem"
           className="object-cover transition-transform duration-700 group-hover:scale-[1.04]"
         />
@@ -145,30 +133,30 @@ function BlogCard({ post, locale }: { post: PostCard; locale: string }) {
   );
 }
 
-function WorkSlide({ s, i }: { s: (typeof SLIDES)[number]; i: number }) {
-  const t = useTranslations('work');
+function WorkSlide({
+  company,
+  i,
+}: {
+  company: (typeof COMPANIES)[number];
+  i: number;
+}) {
+  const locale = useLocale();
+  const copy = companyText(company, locale);
 
   return (
-    <div className="relative aspect-3/4 overflow-hidden bg-navy md:aspect-video">
-      <Image
-        src={s.img}
-        alt=""
-        fill
+    <div className="film-frame relative aspect-3/4 overflow-hidden bg-navy md:aspect-video">
+      <ResponsiveCover
+        mobile={company.cover.mobile}
+        desktop={company.cover.desktop}
         sizes="(max-width: 768px) 90vw, 80vw"
-        placeholder="blur"
-        className="object-cover"
-        draggable={false}
         priority={i === 0}
       />
       <span className="absolute inset-x-0 bottom-0 flex flex-col gap-1 bg-linear-to-t from-navy/80 via-navy/25 to-transparent px-4 pt-14 pb-4 text-cream md:px-6 md:pb-5">
-        <span className="text-[11px] tracking-[0.14em] text-bronze uppercase ar:tracking-normal ar:normal-case">
-          {s.year}
-        </span>
         <h3 className="text-[clamp(1.15rem,1.7vw,1.55rem)] text-cream">
-          {t(s.line)}
+          {copy.name}
         </h3>
-        <span className="line-clamp-1 max-w-104 text-[0.9rem] text-cream/70">
-          {t(`${s.line}p`)}
+        <span className="line-clamp-2 max-w-104 text-[0.9rem] text-cream/70">
+          {copy.summary}
         </span>
       </span>
     </div>
@@ -220,22 +208,25 @@ export function WorkCarousel({ posts }: { posts: PostCard[] }) {
   };
 
   return (
-    <section id="work" className="overflow-hidden py-24 max-md:py-16">
+    <section className="overflow-hidden py-24 max-md:py-16">
       <div className="wrap">
         <Reveal>
           <Eyebrow>{t('eyebrow')}</Eyebrow>
         </Reveal>
-        <Reveal delay={0.08}>
-          <h2>{t.rich('title', { em: (c) => <em>{c}</em> })}</h2>
-        </Reveal>
-        <Reveal delay={0.16}>
-          <p className="mt-6 max-w-copy text-[1.125rem] text-muted-foreground">
-            {t('lead')}
-          </p>
-        </Reveal>
+        <div className="min-[1440px]:ps-12.5">
+          <Reveal delay={0.08}>
+            <h2>{t.rich('title', { em: (c) => <em>{c}</em> })}</h2>
+          </Reveal>
+          <Reveal delay={0.16}>
+            <p className="mt-6 max-w-copy text-[1.125rem] text-muted-foreground">
+              {t('lead')}
+            </p>
+          </Reveal>
+        </div>
       </div>
       <div
-        className="mt-10"
+        id="work"
+        className="mx-auto mt-10 w-full max-w-[2560px]"
         onPointerEnter={() => setHot('work')}
         onPointerLeave={() => setHot((v) => (v === 'work' ? null : v))}
       >
@@ -246,34 +237,33 @@ export function WorkCarousel({ posts }: { posts: PostCard[] }) {
             opts={{ align: 'center', loop: true, direction, duration: 25 }}
           >
             <CarouselContent>
-              {SLIDES.map((s, i) => (
-                <CarouselItem key={s.line}>
-                  <WorkSlide s={s} i={i} />
+              {COMPANIES.map((company, i) => (
+                <CarouselItem key={company.slug}>
+                  <WorkSlide company={company} i={i} />
                 </CarouselItem>
               ))}
             </CarouselContent>
           </Carousel>
         ) : (
           <div className="px-[8px]">
-            <WorkSlide s={SLIDES[0]} i={0} />
+            <WorkSlide company={COMPANIES[0]} i={0} />
           </div>
         )}
+        <FilmDots
+          count={COMPANIES.length}
+          index={workIdx}
+          ms={WORK_MS}
+          paused={paused || hot === 'work'}
+          live={!!api && !reduce}
+          onPick={(i) => api?.scrollTo(i)}
+        />
       </div>
-      <FilmDots
-        count={SLIDES.length}
-        index={workIdx}
-        ms={WORK_MS}
-        paused={paused || hot === 'work'}
-        live={!!api && !reduce}
-        onPick={(i) => api?.scrollTo(i)}
-      />
       {posts.length > 0 ? (
-        <div className="mt-8">
+        <div className="mx-auto -mt-4 w-full max-w-[2560px]">
           <div className="wrap">
-            <Eyebrow>{tb('eyebrow')}</Eyebrow>
+            <Eyebrow className="mb-3 hidden sm:flex">{tb('eyebrow')}</Eyebrow>
           </div>
           <div
-            className="mt-4"
             onPointerEnter={() => setHot('blog')}
             onPointerLeave={() => setHot((v) => (v === 'blog' ? null : v))}
           >
@@ -281,7 +271,7 @@ export function WorkCarousel({ posts }: { posts: PostCard[] }) {
               <Carousel
                 className="film film-blog"
                 setApi={setBlogApi}
-                opts={{ align: 'start', loop: true, direction, duration: 25 }}
+                opts={{ align: 'center', loop: true, direction, duration: 25 }}
               >
                 <CarouselContent>
                   {blogSlides.map(({ post, key }, i) => (

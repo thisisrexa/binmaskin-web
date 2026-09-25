@@ -10,12 +10,13 @@ import { getPosts } from '@/lib/blog';
 export default async function HomePage() {
   const locale = await getLocale();
   const posts = getPosts(locale).map(
-    ({ slug, title, date, excerpt, cover }) => ({
+    ({ slug, title, date, excerpt, cover, coverMobile }) => ({
       slug,
       title,
       date,
       excerpt,
       cover,
+      coverMobile,
     }),
   );
 

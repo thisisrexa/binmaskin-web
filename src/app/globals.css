@@ -1,5 +1,6 @@
 @import 'tailwindcss';
 @import 'tw-animate-css';
+@plugin "@tailwindcss/typography";
 
 @custom-variant ar (&:where(html[lang="ar"] *));
 @custom-variant rtl (&:where(html[dir="rtl"] *));
@@ -74,6 +75,14 @@
   --measure: 36rem;
   --gutter: clamp(1.25rem, 4vw, 3rem);
   --hdr: 80px;
+  /* wordmark.svg viewBox 1545×366, header height 22px */
+  --logo-w: min(46vw, calc(22px * 1545 / 366));
+}
+
+@media (min-width: 768px) {
+  :root {
+    --logo-w: calc(26px * 1545 / 366);
+  }
 }
 
 @media (max-width: 767px) {
@@ -136,31 +145,9 @@ html[lang='ar'] .co-mark {
   letter-spacing: 0;
 }
 
-.blog-md h2 {
-  margin-top: 2rem;
-  font-size: clamp(1.35rem, 2vw, 1.75rem);
-}
-
-.blog-md p,
-.blog-md ul {
-  margin-top: 1rem;
-  max-width: var(--measure);
-  color: var(--soft);
-  font-size: 1.0625rem;
-  line-height: 1.7;
-}
-
-.blog-md ul {
-  padding-inline-start: 1.15rem;
-  list-style: disc;
-}
-
-.blog-md a {
-  color: var(--accent);
-}
-
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: calc(var(--hdr) + 1.5rem);
   scrollbar-color: rgba(138, 122, 92, 0.28) transparent;
   scrollbar-width: thin;
 }
@@ -206,21 +193,21 @@ h3,
   font-optical-sizing: auto;
 }
 
-h1 {
+h1:not(.prose h1) {
   font-weight: 300;
   font-size: clamp(2.6rem, 7vw, 5.25rem);
   line-height: 1.05;
   letter-spacing: -0.02em;
 }
 
-h2 {
+h2:not(.prose h2) {
   font-weight: 300;
   font-size: clamp(1.75rem, 3.5vw, 2.75rem);
   line-height: 1.14;
   letter-spacing: -0.01em;
 }
 
-h3 {
+h3:not(.prose h3) {
   font-weight: 400;
   font-size: 1.375rem;
   letter-spacing: -0.005em;
@@ -742,6 +729,44 @@ html[dir='rtl'] .nav-link.active::after {
 
 .film {
   --film-gap: 8px;
+  --film-basis: 86%;
+}
+
+.film-work,
+.film-blog {
+  --film-basis: 86%;
+}
+
+@media (max-width: 767px) {
+  .film-blog {
+    --film-basis: 62%;
+  }
+
+  .film-work .film-frame {
+    aspect-ratio: 3 / 4;
+    height: auto;
+  }
+
+  .film-blog .film-frame {
+    aspect-ratio: 3 / 4;
+    height: auto;
+  }
+}
+
+@media (min-width: 768px) {
+  .film-work {
+    --film-basis: 50%;
+  }
+
+  .film-blog {
+    --film-basis: max(22rem, calc((100% - var(--film-gap)) / 2.15));
+  }
+}
+
+@media (min-width: 1024px) {
+  .film-blog {
+    --film-basis: max(22rem, calc((100% - var(--film-gap) * 3) / 4.15));
+  }
 }
 
 .film [data-slot='carousel-content'] > .flex {
@@ -757,38 +782,12 @@ html[dir='rtl'] .nav-link.active::after {
   padding-inline-start: var(--film-gap);
 }
 
-.film-work {
-  --film-basis: 90%;
-}
-
-.film-blog {
-  --film-basis: 86%;
-}
-
-@media (min-width: 640px) {
-  .film-blog {
-    --film-basis: max(22rem, calc((100% - var(--film-gap)) / 2.15));
-  }
-}
-
-@media (min-width: 768px) {
-  .film-work {
-    --film-basis: 80%;
-  }
-}
-
-@media (min-width: 1024px) {
-  .film-blog {
-    --film-basis: max(22rem, calc((100% - var(--film-gap) * 3) / 4.15));
-  }
-}
-
 .film-dots {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
-  margin-top: 1.35rem;
+  margin-top: 1rem;
 }
 
 .film-dots button {

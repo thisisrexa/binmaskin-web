@@ -2,8 +2,7 @@ import type { MetadataRoute } from 'next';
 
 import { routing } from '@/i18n/routing';
 import { getPosts } from '@/lib/blog';
-import { COMPANIES } from '@/lib/companies';
-import { localePath, SITE } from '@/lib/seo';
+import { hreflang, localePath, SITE } from '@/lib/seo';
 
 const STATIC_PATHS = [
   '/',
@@ -15,27 +14,31 @@ const STATIC_PATHS = [
   '/security',
 ];
 
+function languages(path: string) {
+  return Object.fromEntries(
+    Object.entries(hreflang(path)).map(([lang, href]) => [
+      lang,
+      `${SITE}${href}`,
+    ]),
+  );
+}
+
+function localized(path: string, lastModified?: string): MetadataRoute.Sitemap {
+  const alternates = { languages: languages(path) };
+  return routing.locales.map((locale) => ({
+    url: `${SITE}${localePath(locale, path)}`,
+    ...(lastModified ? { lastModified } : {}),
+    alternates,
+  }));
+}
+
 export default function sitemap(): MetadataRoute.Sitemap {
-  const urls: MetadataRoute.Sitemap = [];
+  const posts = getPosts(routing.defaultLocale);
 
-  for (const locale of routing.locales) {
-    for (const path of STATIC_PATHS) {
-      urls.push({ url: `${SITE}${localePath(locale, path)}` });
-    }
-
-    for (const post of getPosts(locale)) {
-      urls.push({
-        url: `${SITE}${localePath(locale, `/blog/${post.slug}`)}`,
-        lastModified: post.date || undefined,
-      });
-    }
-
-    for (const company of COMPANIES) {
-      urls.push({
-        url: `${SITE}${localePath(locale, `/companies/${company.slug}`)}`,
-      });
-    }
-  }
-
-  return urls;
+  return [
+    ...STATIC_PATHS.flatMap((path) => localized(path)),
+    ...posts.flatMap((post) =>
+      localized(`/blog/${post.slug}`, post.date || undefined),
+    ),
+  ];
 }

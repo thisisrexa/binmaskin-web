@@ -1,6 +1,7 @@
 import { useTranslations } from 'next-intl';
 
 import { BrandMark } from '@/components/layout/brand-mark';
+import { CookieSettings } from '@/components/layout/cookie-consent';
 import { Link } from '@/i18n/navigation';
 import { COMPANY } from '@/lib/company';
 import { NAV } from '@/lib/nav';
@@ -55,6 +56,13 @@ export function SiteFooter() {
                 </Link>
               ),
             )}
+            <a
+              href="/sitemap.xml"
+              className="flex min-h-11 items-center py-2 text-[0.95rem] text-muted-foreground transition-colors hover:text-accent"
+            >
+              {t('sitemap')}
+            </a>
+            <CookieSettings />
           </div>
           <div>
             <h4 className="mb-4 text-[11px] font-normal tracking-[0.2em] text-faint uppercase ar:tracking-normal ar:normal-case">
