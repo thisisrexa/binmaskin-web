@@ -5,7 +5,7 @@ import { cn } from '@/lib/utils';
 const MARKS = {
   wordmark: {
     src: '/brand/wordmark.svg',
-    alt: 'Binmaskin Solutions',
+    alt: 'BinMaskin Solutions',
     width: 480,
     height: 52,
   },

@@ -26,7 +26,7 @@ export function contactEmailHtml(payload: ContactPayload) {
 <body style="margin:0;padding:24px;background:${IVORY};font-family:Arial,Helvetica,sans-serif;">
   <div style="max-width:560px;margin:0 auto;background:#ffffff;border:1px solid #e5dfd4;">
     <div style="background:${NAVY};padding:20px 24px;">
-      <span style="color:${IVORY};font-size:13px;letter-spacing:0.18em;text-transform:uppercase;">Binmaskin Solutions</span>
+      <span style="color:${IVORY};font-size:13px;letter-spacing:0.18em;text-transform:uppercase;">BinMaskin Solutions</span>
     </div>
     <div style="padding:24px;">
       <p style="margin:0 0 16px;color:${NAVY};font-size:16px;">New inquiry from the website</p>

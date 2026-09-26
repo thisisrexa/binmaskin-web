@@ -98,6 +98,18 @@
   padding-inline: var(--gutter);
 }
 
+/* Half the eyebrow rule (w-9) so the rule's midpoint meets the title. */
+@media (max-width: 767px) {
+  .section-copy {
+    padding-inline-start: 1.125rem;
+  }
+}
+
+html[dir='rtl'] .phone-ltr {
+  display: inline-block;
+  direction: ltr;
+}
+
 .page-title {
   font-weight: 300;
   font-size: clamp(2rem, 4vw, 3.25rem);

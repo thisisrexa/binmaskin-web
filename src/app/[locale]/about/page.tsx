@@ -36,7 +36,7 @@ export default async function AboutPage({
   const tn = await getTranslations({ locale, namespace: 'nav' });
 
   return (
-    <main className="pb-24 max-w-[1440px] mx-auto">
+    <main className="mx-auto max-w-[1440px] pb-24">
       <div className="lg:grid lg:grid-cols-2 lg:items-stretch">
         <article className="wrap py-16 md:py-24 lg:ms-0 lg:w-full lg:max-w-none lg:py-24 lg:ps-[max(var(--gutter),calc((100vw-var(--wrap))/2))] lg:pe-12">
           <p className="mb-6 text-[0.6875rem] tracking-[0.22em] text-accent uppercase ar:text-[0.8125rem] ar:tracking-normal ar:normal-case">

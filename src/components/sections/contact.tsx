@@ -77,7 +77,7 @@ export function Contact() {
           <Eyebrow>{t('eyebrow')}</Eyebrow>
         </Reveal>
         <div className="min-[1440px]:ps-12.5">
-          <Reveal delay={0.08}>
+          <Reveal delay={0.08} className="section-copy">
             <h2>{t.rich('title', { em: (chunks) => <em>{chunks}</em> })}</h2>
           </Reveal>
           <div className="mt-12 grid grid-cols-[1.1fr_1fr] gap-16 max-lg:grid-cols-1">
@@ -193,7 +193,11 @@ export function Contact() {
                       ? { target: '_blank', rel: 'noopener' }
                       : {})}
                   >
-                    {r.v}
+                    {r.href.startsWith('tel:') ? (
+                      <span className="phone-ltr">{r.v}</span>
+                    ) : (
+                      r.v
+                    )}
                   </a>
                 </div>
               ))}

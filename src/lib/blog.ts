@@ -7,7 +7,7 @@ export type { Post, PostCard } from '@/lib/blog-meta';
 
 const ROOT = path.join(process.cwd(), 'content/blog');
 
-function parseFrontmatter(raw: string) {
+export function parseFrontmatter(raw: string) {
   const match = /^---\r?\n([\s\S]*?)\r?\n---\r?\n?([\s\S]*)$/.exec(raw);
   if (!match) throw new Error('blog: missing frontmatter');
   const data: Record<string, string> = {};

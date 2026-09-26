@@ -12,63 +12,40 @@ export interface CompanyCover {
 export interface Company {
   slug: string;
   mark: string;
-  cover: CompanyCover;
+  cover: CompanyCover | null;
   en: CompanyCopy;
   ar: CompanyCopy;
 }
 
-const RAW = [
+const RAW: {
+  slug: string;
+  mark: string;
+  /** ponytail: false = navy fallback. Set true after public/work/{slug}-mobile.png and -desktop.png exist. */
+  cover: boolean;
+  en: CompanyCopy;
+  ar: CompanyCopy;
+}[] = [
   {
     slug: 'bin-maskin-solutions',
     mark: 'Solutions',
+    cover: true,
     en: {
-      name: 'Bin Maskin Solutions',
+      name: 'BinMaskin Solutions',
       summary:
         'Delivering integrated technology, digital infrastructure, software, and IT solutions for modern businesses.',
       body: 'Delivering integrated technology, digital infrastructure, software, and IT solutions for modern businesses.',
     },
     ar: {
-      name: 'Bin Maskin Solutions',
+      name: 'BinMaskin Solutions',
       summary:
         'تقديم تقنية متكاملة وبنية تحتية رقمية وبرمجيات وحلول تقنية معلومات للأعمال الحديثة.',
       body: 'تقديم تقنية متكاملة وبنية تحتية رقمية وبرمجيات وحلول تقنية معلومات للأعمال الحديثة.',
     },
   },
   {
-    slug: 'time-out',
-    mark: 'Time Out',
-    en: {
-      name: 'Time Out',
-      summary:
-        'A fashion and apparel trading brand focused on contemporary clothing, quality products, and everyday style.',
-      body: 'A fashion and apparel trading brand focused on contemporary clothing, quality products, and everyday style.',
-    },
-    ar: {
-      name: 'Time Out',
-      summary:
-        'علامة لتجارة الأزياء والملابس، تركز على الملابس العصرية والمنتجات عالية الجودة والأناقة اليومية.',
-      body: 'علامة لتجارة الأزياء والملابس، تركز على الملابس العصرية والمنتجات عالية الجودة والأناقة اليومية.',
-    },
-  },
-  {
-    slug: 'dar-al-hulul',
-    mark: 'Dar Al Hulul',
-    en: {
-      name: 'Dar Al Hulul',
-      summary:
-        'A digital marketplace designed to connect products, services, and customers through a smarter discovery experience.',
-      body: 'A digital marketplace designed to connect products, services, and customers through a smarter discovery experience.',
-    },
-    ar: {
-      name: 'Dar Al Hulul',
-      summary:
-        'سوق رقمي صُمم لربط المنتجات والخدمات والعملاء عبر تجربة اكتشاف أذكى.',
-      body: 'سوق رقمي صُمم لربط المنتجات والخدمات والعملاء عبر تجربة اكتشاف أذكى.',
-    },
-  },
-  {
     slug: 'operith',
     mark: 'Operith',
+    cover: true,
     en: {
       name: 'Operith',
       summary:
@@ -83,72 +60,110 @@ const RAW = [
     },
   },
   {
-    slug: 'bin-maskin-real-estate',
-    mark: 'Real Estate',
+    slug: 'dar-al-hulul',
+    mark: 'Dar Al Hulul',
+    cover: true,
     en: {
-      name: 'Bin Maskin Real Estate',
+      name: 'Dar Al Hulul',
       summary:
-        'Focused on real estate opportunities, property development, and long-term value across residential and commercial markets.',
-      body: 'Focused on real estate opportunities, property development, and long-term value across residential and commercial markets.',
+        'A digital marketplace designed to connect products, services, and customers through a smarter discovery experience.',
+      body: 'A digital marketplace designed to connect products, services, and customers through a smarter discovery experience.',
     },
     ar: {
-      name: 'Bin Maskin Real Estate',
+      name: 'Dar Al Hulul',
       summary:
-        'تركز على فرص العقارات والتطوير العقاري والقيمة طويلة الأمد في الأسواق السكنية والتجارية.',
-      body: 'تركز على فرص العقارات والتطوير العقاري والقيمة طويلة الأمد في الأسواق السكنية والتجارية.',
+        'سوق رقمي صُمم لربط المنتجات والخدمات والعملاء عبر تجربة اكتشاف أذكى.',
+      body: 'سوق رقمي صُمم لربط المنتجات والخدمات والعملاء عبر تجربة اكتشاف أذكى.',
     },
   },
   {
     slug: 'bin-maskin-construction',
     mark: 'Construction',
+    cover: true,
     en: {
-      name: 'Bin Maskin Construction',
+      name: 'BinMaskin Construction',
       summary:
         'Delivering reliable construction solutions with a focus on quality, execution, and modern building standards.',
       body: 'Delivering reliable construction solutions with a focus on quality, execution, and modern building standards.',
     },
     ar: {
-      name: 'Bin Maskin Construction',
+      name: 'BinMaskin Construction',
       summary:
         'تقديم حلول إنشاء موثوقة مع التركيز على الجودة والتنفيذ ومعايير البناء الحديثة.',
       body: 'تقديم حلول إنشاء موثوقة مع التركيز على الجودة والتنفيذ ومعايير البناء الحديثة.',
     },
   },
   {
-    slug: 'bin-maskin-building-materials',
-    mark: 'Materials',
+    slug: 'deserv-international-group',
+    mark: 'DeServ',
+    cover: true,
     en: {
-      name: 'Bin Maskin Building Materials',
+      name: 'DeServ International Group',
       summary:
-        'Supplying essential construction and building materials for residential, commercial, and industrial projects.',
-      body: 'Supplying essential construction and building materials for residential, commercial, and industrial projects.',
+        'An international group coordinating services and commercial activity across markets.',
+      body: 'An international group coordinating services and commercial activity across markets.',
     },
     ar: {
-      name: 'Bin Maskin Building Materials',
-      summary:
-        'توريد مواد البناء والإنشاء الأساسية للمشاريع السكنية والتجارية والصناعية.',
-      body: 'توريد مواد البناء والإنشاء الأساسية للمشاريع السكنية والتجارية والصناعية.',
+      name: 'DeServ International Group',
+      summary: 'مجموعة دولية تنسّق الخدمات والنشاط التجاري عبر الأسواق.',
+      body: 'مجموعة دولية تنسّق الخدمات والنشاط التجاري عبر الأسواق.',
     },
   },
   {
-    slug: 'bin-maskin-solar',
-    mark: 'Solar',
+    slug: 'deserv-technology',
+    mark: 'Technology',
+    cover: true,
     en: {
-      name: 'Bin Maskin Solar',
+      name: 'DeServ Technology',
       summary:
-        'Providing modern solar and renewable energy solutions designed for efficient and sustainable development.',
-      body: 'Providing modern solar and renewable energy solutions designed for efficient and sustainable development.',
+        'Technology services for organisations that need reliable systems, support, and clear digital delivery.',
+      body: 'Technology services for organisations that need reliable systems, support, and clear digital delivery.',
     },
     ar: {
-      name: 'Bin Maskin Solar',
+      name: 'DeServ Technology',
       summary:
-        'تقديم حلول طاقة شمسية ومتجددة حديثة، مصممة لتنمية كفؤة ومستدامة.',
-      body: 'تقديم حلول طاقة شمسية ومتجددة حديثة، مصممة لتنمية كفؤة ومستدامة.',
+        'خدمات تقنية للمؤسسات التي تحتاج أنظمة موثوقة ودعماً وتسليماً رقمياً واضحاً.',
+      body: 'خدمات تقنية للمؤسسات التي تحتاج أنظمة موثوقة ودعماً وتسليماً رقمياً واضحاً.',
+    },
+  },
+  {
+    slug: 'bin-maskin-real-estate',
+    mark: 'Real Estate',
+    cover: true,
+    en: {
+      name: 'BinMaskin Real Estate',
+      summary:
+        'Focused on real estate opportunities, property development, and long-term value across residential and commercial markets.',
+      body: 'Focused on real estate opportunities, property development, and long-term value across residential and commercial markets.',
+    },
+    ar: {
+      name: 'BinMaskin Real Estate',
+      summary:
+        'تركز على فرص العقارات والتطوير العقاري والقيمة طويلة الأمد في الأسواق السكنية والتجارية.',
+      body: 'تركز على فرص العقارات والتطوير العقاري والقيمة طويلة الأمد في الأسواق السكنية والتجارية.',
+    },
+  },
+  {
+    slug: 'bin-maskin-energy',
+    mark: 'Energy',
+    cover: true,
+    en: {
+      name: 'BinMaskin Energy',
+      summary:
+        'Energy solutions for buildings and operations, planned for efficiency and a dependable supply.',
+      body: 'Energy solutions for buildings and operations, planned for efficiency and a dependable supply.',
+    },
+    ar: {
+      name: 'BinMaskin Energy',
+      summary:
+        'حلول طاقة للمباني والعمليات، تُخطَّط للكفاءة واستمرارية الإمداد.',
+      body: 'حلول طاقة للمباني والعمليات، تُخطَّط للكفاءة واستمرارية الإمداد.',
     },
   },
   {
     slug: 'prime-advanced-general-trading',
     mark: 'Trading',
+    cover: true,
     en: {
       name: 'Prime Advanced General Trading',
       summary:
@@ -164,12 +179,14 @@ const RAW = [
   },
 ];
 
-export const COMPANIES: Company[] = RAW.map((company) => ({
+export const COMPANIES: Company[] = RAW.map(({ cover, ...company }) => ({
   ...company,
-  cover: {
-    mobile: `/work/${company.slug}-mobile.png`,
-    desktop: `/work/${company.slug}-desktop.png`,
-  },
+  cover: cover
+    ? {
+        mobile: `/work/${company.slug}-mobile.png`,
+        desktop: `/work/${company.slug}-desktop.png`,
+      }
+    : null,
 }));
 
 export function companyText(company: Company, locale: string) {

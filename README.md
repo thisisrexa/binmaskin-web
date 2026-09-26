@@ -1,6 +1,6 @@
-# Binmaskin Solutions
+# BinMaskin Solutions
 
-Marketing site for [Salem Binmaskin Solutions](https://binmaskin.solutions) — a
+Marketing site for [Salem BinMaskin Solutions](https://binmaskin.solutions) — a
 Dubai technology firm covering digital presence, infrastructure, security, and
 bespoke software.
 
@@ -36,7 +36,7 @@ pnpm lint
 
 Copy lives in `messages/en.json` and `messages/ar.json`. Company facts (legal
 names, licence, chamber, phone, email) live in `src/lib/company.ts` and match
-the Binmaskin brand pack:
+the BinMaskin brand pack:
 
 |               |                           |
 | ------------- | ------------------------- |
@@ -45,7 +45,7 @@ the Binmaskin brand pack:
 | Trade licence | 1395363                   |
 | Dubai Chamber | 552755                    |
 | Email         | info@binmaskin.solutions  |
-| Phone         | +971 50 231 6702          |
+| Phone         | +971 55 612 0279          |
 
 Brand tokens: navy `#111C2D`, gold `#8A7A5C`, ivory `#F7F4EF`. Type: Fraunces +
 Outfit (Latin), Amiri + IBM Plex Sans Arabic (Arabic) via `next/font`.

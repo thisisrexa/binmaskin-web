@@ -30,7 +30,7 @@ export function About() {
         <Reveal>
           <Eyebrow>{t('eyebrow')}</Eyebrow>
         </Reveal>
-        <div className="min-[1440px]:ps-12.5">
+        <div className="section-copy min-[1440px]:ps-12.5">
           <Reveal delay={0.08}>
             <h2 className="whitespace-pre-line">
               {t.rich('title', { em: (chunks) => <em>{chunks}</em> })}

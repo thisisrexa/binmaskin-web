@@ -50,14 +50,14 @@ export default async function BlogPostPage({
         >
           {t('back')}
         </Link>
-        <div className="prose mt-8 max-w-none prose-headings:font-normal prose-headings:text-navy prose-p:text-soft prose-li:text-soft prose-strong:text-navy prose-a:text-accent">
+        <div className="prose mt-8 max-w-none prose-headings:font-normal prose-headings:text-navy prose-p:text-soft prose-a:text-accent prose-strong:text-navy prose-li:text-soft">
           <ReactMarkdown
             components={{
               h1: ({ children }) => (
                 <>
                   <h1>{children}</h1>
                   <time
-                    className="mt-4 mb-8 block text-[12px] text-faint not-prose"
+                    className="not-prose mt-4 mb-8 block text-[12px] text-faint"
                     dateTime={post.date}
                   >
                     {formatDate(post.date, locale)}

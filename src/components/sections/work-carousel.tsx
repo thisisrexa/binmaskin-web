@@ -145,12 +145,14 @@ function WorkSlide({
 
   return (
     <div className="film-frame relative aspect-3/4 overflow-hidden bg-navy md:aspect-video">
-      <ResponsiveCover
-        mobile={company.cover.mobile}
-        desktop={company.cover.desktop}
-        sizes="(max-width: 768px) 90vw, 80vw"
-        priority={i === 0}
-      />
+      {company.cover ? (
+        <ResponsiveCover
+          mobile={company.cover.mobile}
+          desktop={company.cover.desktop}
+          sizes="(max-width: 768px) 90vw, 80vw"
+          priority={i === 0}
+        />
+      ) : null}
       <span className="absolute inset-x-0 bottom-0 flex flex-col gap-1 bg-linear-to-t from-navy/80 via-navy/25 to-transparent px-4 pt-14 pb-4 text-cream md:px-6 md:pb-5">
         <h3 className="text-[clamp(1.15rem,1.7vw,1.55rem)] text-cream">
           {copy.name}
@@ -213,7 +215,7 @@ export function WorkCarousel({ posts }: { posts: PostCard[] }) {
         <Reveal>
           <Eyebrow>{t('eyebrow')}</Eyebrow>
         </Reveal>
-        <div className="min-[1440px]:ps-12.5">
+        <div className="section-copy min-[1440px]:ps-12.5">
           <Reveal delay={0.08}>
             <h2>{t.rich('title', { em: (c) => <em>{c}</em> })}</h2>
           </Reveal>

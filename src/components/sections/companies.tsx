@@ -29,10 +29,10 @@ export function Companies() {
   const copy = active ? companyText(active, locale) : null;
 
   return (
-    <section id="companies" className="wrap py-24 max-md:py-16">
+    <section id="companies" className="wrap py-24 max-md:py-12">
       <Eyebrow>{t('eyebrow')}</Eyebrow>
       <div className="lg:grid lg:grid-cols-[minmax(0,1fr)_20rem] lg:gap-x-10">
-        <div className="min-[1440px]:ps-12.5">
+        <div className="section-copy min-[1440px]:ps-12.5">
           <h2 className="max-w-copy whitespace-pre-line">
             {t.rich('title', { em: (chunks) => <em>{chunks}</em> })}
           </h2>
@@ -41,12 +41,12 @@ export function Companies() {
           </p>
         </div>
 
-        <div className="relative mx-auto mt-10 h-[min(70vw,24rem)] w-auto lg:col-start-2 lg:row-span-2 lg:row-start-1 lg:top-4 lg:aspect-auto lg:h-auto lg:w-full lg:self-stretch">
+        <div className="relative mx-auto mt-2 aspect-41/20 w-full overflow-hidden lg:top-4 lg:col-start-2 lg:row-span-2 lg:row-start-1 lg:mt-10 lg:aspect-auto lg:h-auto lg:w-full lg:self-stretch lg:overflow-visible">
           <Image
             src={burjSketchMobile}
             alt=""
             fill
-            className="object-contain object-center lg:hidden"
+            className="object-cover object-[center_36%] lg:hidden"
             quality={100}
           />
           <Image
@@ -58,7 +58,7 @@ export function Companies() {
           />
         </div>
 
-        <div className="lg:mt-14 min-[1440px]:ps-12.5 lg:col-start-1">
+        <div className="mt-4 min-[1440px]:ps-12.5 lg:col-start-1 lg:mt-14">
           <ScrollArea
             type="always"
             className="box-content h-[calc(11.5rem*3+1px)] border border-dashed border-navy/25 lg:h-[calc(11.5rem*2+1px)]"
@@ -108,13 +108,15 @@ export function Companies() {
           {active && copy ? (
             <div className="grid min-h-0 flex-1 grid-rows-[auto_minmax(0,1fr)] md:grid-cols-[minmax(0,1.15fr)_minmax(18rem,0.9fr)] md:grid-rows-none">
               <div className="relative aspect-video bg-navy md:aspect-auto md:min-h-0">
-                <Image
-                  src={active.cover.desktop}
-                  alt=""
-                  fill
-                  sizes="(max-width: 768px) 100vw, 60vw"
-                  className="object-cover"
-                />
+                {active.cover ? (
+                  <Image
+                    src={active.cover.desktop}
+                    alt=""
+                    fill
+                    sizes="(max-width: 768px) 100vw, 60vw"
+                    className="object-cover"
+                  />
+                ) : null}
               </div>
               <div className="flex min-h-0 flex-col justify-between gap-6 overflow-y-auto p-[clamp(1.5rem,3vw,2.75rem)]">
                 <div>

@@ -37,7 +37,7 @@ export function SiteHeader() {
           <div className="flex h-(--hdr) items-center justify-between gap-4">
             <Link
               href="/"
-              aria-label="Binmaskin home"
+              aria-label="BinMaskin home"
               className="flex min-h-11 shrink-0 items-center"
             >
               <BrandMark

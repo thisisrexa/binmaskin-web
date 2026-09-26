@@ -14,8 +14,8 @@ export function SiteFooter() {
   return (
     <footer className="border-t border-border bg-secondary">
       <div className="wrap">
-        <div className="grid grid-cols-[minmax(14rem,1.5fr)_repeat(3,minmax(8rem,1fr))] items-start gap-12 pt-16 pb-12 max-lg:grid-cols-2 max-md:grid-cols-1">
-          <div className="max-lg:col-span-full">
+        <div className="grid grid-cols-2 items-start gap-x-6 gap-y-8 pt-10 pb-8 md:gap-12 md:pt-16 md:pb-12 lg:grid-cols-[minmax(14rem,1.5fr)_repeat(3,minmax(8rem,1fr))]">
+          <div className="col-span-2 lg:col-span-1">
             <BrandMark className="h-10 max-w-full" />
             <p className="mt-6 max-w-copy text-[0.9rem] whitespace-pre-line text-muted-foreground">
               {t('blurb')}
@@ -56,15 +56,9 @@ export function SiteFooter() {
                 </Link>
               ),
             )}
-            <a
-              href="/sitemap.xml"
-              className="flex min-h-11 items-center py-2 text-[0.95rem] text-muted-foreground transition-colors hover:text-accent"
-            >
-              {t('sitemap')}
-            </a>
             <CookieSettings />
           </div>
-          <div>
+          <div className="max-lg:col-span-2">
             <h4 className="mb-4 text-[11px] font-normal tracking-[0.2em] text-faint uppercase ar:tracking-normal ar:normal-case">
               {t('reach')}
             </h4>
@@ -78,11 +72,11 @@ export function SiteFooter() {
               href={`tel:${COMPANY.phoneTel}`}
               className="flex min-h-11 items-center py-2 text-[0.95rem] text-muted-foreground transition-colors hover:text-accent"
             >
-              {COMPANY.phone}
+              <span className="phone-ltr">{COMPANY.phone}</span>
             </a>
           </div>
         </div>
-        <div className="flex flex-wrap justify-between gap-3 border-t border-border py-5 text-[12px] text-faint">
+        <div className="flex flex-wrap justify-between gap-3 border-t border-border py-5 text-center text-[12px] text-faint max-md:flex-col max-md:items-center">
           <span>{t('copy')}</span>
           <span>
             {t('lic')} · {COMPANY.licence} · {COMPANY.chamber}
