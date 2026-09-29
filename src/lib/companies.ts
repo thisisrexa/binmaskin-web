@@ -13,6 +13,10 @@ export interface Company {
   slug: string;
   mark: string;
   cover: CompanyCover | null;
+  /** Three journal cards on /companies/[slug]. Same src until real sets exist. */
+  frames: [string, string, string] | null;
+  /** Lightbox companion. Null = one photo per slide. */
+  plan: string | null;
   en: CompanyCopy;
   ar: CompanyCopy;
 }
@@ -22,6 +26,10 @@ const RAW: {
   mark: string;
   /** ponytail: false = navy fallback. Set true after public/work/{slug}-mobile.png and -desktop.png exist. */
   cover: boolean;
+  /** ponytail: true when public/work/{slug}-about.png exists (1:1 company about page). */
+  aboutImage?: boolean;
+  /** ponytail: lightbox shows this beside each frame. Swap path when public/work/bin-maskin-construction-plan.png exists. */
+  plan?: boolean;
   en: CompanyCopy;
   ar: CompanyCopy;
 }[] = [
@@ -80,6 +88,7 @@ const RAW: {
     slug: 'bin-maskin-construction',
     mark: 'Construction',
     cover: true,
+    plan: true,
     en: {
       name: 'BinMaskin Construction',
       summary:
@@ -147,6 +156,7 @@ const RAW: {
     slug: 'bin-maskin-energy',
     mark: 'Energy',
     cover: true,
+    aboutImage: true,
     en: {
       name: 'BinMaskin Energy',
       summary:
@@ -179,15 +189,40 @@ const RAW: {
   },
 ];
 
-export const COMPANIES: Company[] = RAW.map(({ cover, ...company }) => ({
-  ...company,
-  cover: cover
-    ? {
-        mobile: `/work/${company.slug}-mobile.png`,
-        desktop: `/work/${company.slug}-desktop.png`,
-      }
-    : null,
-}));
+export const COMPANIES: Company[] = RAW.map(
+  ({ cover, aboutImage, plan, ...company }) => {
+    const src = aboutImage
+      ? `/work/${company.slug}-about.png`
+      : cover
+        ? `/work/${company.slug}-desktop.png`
+        : null;
+    return {
+      ...company,
+      cover: cover
+        ? {
+            mobile: `/work/${company.slug}-mobile.png`,
+            desktop: `/work/${company.slug}-desktop.png`,
+          }
+        : null,
+      frames: src ? ([src, src, src] as [string, string, string]) : null,
+      plan: plan && src ? src : null,
+    };
+  },
+);
+
+const construction = COMPANIES.find(
+  (item) => item.slug === 'bin-maskin-construction',
+);
+const energy = COMPANIES.find((item) => item.slug === 'bin-maskin-energy');
+
+if (
+  !construction?.plan ||
+  construction.frames?.length !== 3 ||
+  !energy?.frames?.[0].endsWith('-about.png') ||
+  energy.plan
+) {
+  throw new Error('company frames broke');
+}
 
 export function companyText(company: Company, locale: string) {
   return locale === 'ar' ? company.ar : company.en;

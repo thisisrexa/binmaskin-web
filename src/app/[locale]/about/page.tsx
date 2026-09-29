@@ -4,6 +4,8 @@ import { getTranslations } from 'next-intl/server';
 import Image from 'next/image';
 
 import aboutSketch from '@/assets/about-sketch.png';
+import { Reveal } from '@/components/ui/reveal';
+import { StatsCounter } from '@/components/ui/stats-counter';
 import { Link } from '@/i18n/navigation';
 import { COMPANIES } from '@/lib/companies';
 import { pageMetadata } from '@/lib/seo';
@@ -42,9 +44,11 @@ export default async function AboutPage({
           <p className="mb-6 text-[0.6875rem] tracking-[0.22em] text-accent uppercase ar:text-[0.8125rem] ar:tracking-normal ar:normal-case">
             {t('eyebrow')}
           </p>
-          <h1 className="page-title max-w-copy whitespace-pre-line">
-            {t.rich('title', { em: (chunks) => <em>{chunks}</em> })}
-          </h1>
+          <Reveal>
+            <h1 className="page-title max-w-copy text-[clamp(1.7rem,2.8vw,2.45rem)]! leading-[1.2] whitespace-pre-line">
+              {t.rich('title', { em: (chunks) => <em>{chunks}</em> })}
+            </h1>
+          </Reveal>
           <p className="mt-6 max-w-copy text-[1.125rem] text-muted-foreground">
             {t('lead')}
           </p>
@@ -72,18 +76,26 @@ export default async function AboutPage({
         </div>
       </div>
       <div className="wrap">
-        <dl className="mx-auto mt-16 grid w-full max-w-md grid-cols-2 place-items-center gap-x-6 gap-y-10 border-t border-border pt-10 text-center sm:gap-x-10 lg:mx-0 lg:flex lg:max-w-none lg:justify-between lg:gap-x-0 lg:text-start">
-          {STATS.map((n) => (
-            <div key={n}>
-              <dt className="stat-n">
-                {n === 1
-                  ? String(COMPANIES.length).padStart(2, '0')
-                  : t(`v${n}`)}
-              </dt>
-              <dd className="stat-l mt-2">{t(`s${n}`)}</dd>
-            </div>
+        <div className="mx-auto mt-16 grid w-full max-w-md grid-cols-2 place-items-center gap-x-6 gap-y-10 border-t border-border pt-10 text-center sm:gap-x-10 lg:mx-0 lg:flex lg:max-w-none lg:justify-between lg:gap-x-0 lg:text-start">
+          {STATS.map((n, i) => (
+            <Reveal key={n} delay={i * 0.08}>
+              <div className="stat-n">
+                {n === 1 ? (
+                  <StatsCounter
+                    value={COMPANIES.length}
+                    minDigits={2}
+                    duration={0.8}
+                  />
+                ) : n === 3 ? (
+                  <StatsCounter value={100} suffix="%" duration={0.8} />
+                ) : (
+                  t(`v${n}`)
+                )}
+              </div>
+              <div className="stat-l mt-2">{t(`s${n}`)}</div>
+            </Reveal>
           ))}
-        </dl>
+        </div>
       </div>
     </main>
   );

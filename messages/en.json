@@ -155,6 +155,20 @@
     "back": "All notes",
     "notes": "{count} notes"
   },
+  "card": {
+    "badge": "Digital card",
+    "save": "Save contact",
+    "share": "Share card",
+    "copied": "Link copied",
+    "links": "Contact",
+    "email": "Email",
+    "linkedin": "LinkedIn",
+    "website": "Website",
+    "telegram": "Telegram",
+    "scan": "Scan / Connect",
+    "qrTitle": "Take this card with you.",
+    "wallpaperSave": "Download phone wallpaper"
+  },
   "contact": {
     "eyebrow": "Contact",
     "title": "Let’s <em>begin.</em>"
@@ -162,6 +176,8 @@
   "f": {
     "name": "Your name",
     "nameph": "Full name",
+    "emailph": "name@company.com",
+    "phoneph": "+971 5X XXX XXXX",
     "email": "Email",
     "phone": "Phone",
     "topic": "Topic",

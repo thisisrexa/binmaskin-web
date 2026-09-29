@@ -239,7 +239,7 @@ html[lang='ar'] .m-link {
 
 html[lang='ar'] h1 {
   font-weight: 400;
-  line-height: 1.22;
+  line-height: 1.45;
   letter-spacing: 0;
 }
 
@@ -254,7 +254,12 @@ html[lang='ar'] h3 {
   letter-spacing: 0;
 }
 
-html[lang='ar'] h2 em,
+.section-copy :is(h1, h2) em {
+  color: var(--accent);
+  font-style: italic;
+}
+
+html[lang='ar'] .section-copy :is(h1, h2) em,
 html[lang='ar'] .about-quote {
   font-style: normal;
 }

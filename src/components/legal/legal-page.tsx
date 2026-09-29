@@ -1,5 +1,7 @@
 import { useTranslations } from 'next-intl';
 
+import { StaggerText } from '@/components/ui/stagger-text';
+
 export type LegalId = 'cookies' | 'privacy' | 'security' | 'terms';
 
 export function LegalPage({ id }: { id: LegalId }) {
@@ -9,7 +11,9 @@ export function LegalPage({ id }: { id: LegalId }) {
   return (
     <main className="wrap py-16 pb-24 md:py-24">
       <article className="mx-auto max-w-5xl">
-        <h1 className="mb-4 text-[clamp(2rem,4vw,3rem)]">{tl(id)}</h1>
+        <h1 className="mb-4 text-[clamp(2rem,4vw,3rem)]">
+          <StaggerText>{tl(id)}</StaggerText>
+        </h1>
         <p className="mb-12 text-[12px] text-faint">{tl('updated')}</p>
         <div
           className="legal-body"

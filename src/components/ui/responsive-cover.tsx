@@ -13,6 +13,7 @@ export function ResponsiveCover({
   priority?: boolean;
   className?: string;
 }) {
+  // ponytail: covers are the card; quality 100 keeps text baked into them sharp
   return (
     <>
       <Image
@@ -21,6 +22,7 @@ export function ResponsiveCover({
         fill
         sizes={sizes}
         priority={priority}
+        quality={100}
         draggable={false}
         className={`${className} md:hidden`}
       />
@@ -30,6 +32,7 @@ export function ResponsiveCover({
         fill
         sizes={sizes}
         priority={priority}
+        quality={100}
         draggable={false}
         className={`${className} hidden md:block`}
       />

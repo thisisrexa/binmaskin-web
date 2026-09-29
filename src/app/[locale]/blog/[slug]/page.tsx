@@ -10,6 +10,7 @@ import { getPost, getPosts } from '@/lib/blog';
 import { coverFrame } from '@/lib/blog-meta';
 import { pageMetadata } from '@/lib/seo';
 import { formatDate } from '@/lib/utils';
+import StaggerText from '@/components/ui/stagger-text';
 
 export function generateStaticParams() {
   return getPosts('en').map((post) => ({ slug: post.slug }));
@@ -42,41 +43,30 @@ export default async function BlogPostPage({
   const t = await getTranslations({ locale, namespace: 'blog' });
 
   return (
-    <main className="wrap py-16 pb-24 md:py-24">
+    <main className="wrap py-12 pb-24 md:py-24">
       <article className="mx-auto max-w-5xl">
-        <Link
-          href="/blog"
-          className="text-[11px] tracking-[0.16em] text-accent uppercase ar:tracking-normal ar:normal-case"
-        >
-          {t('back')}
-        </Link>
-        <div className="prose mt-8 max-w-none prose-headings:font-normal prose-headings:text-navy prose-p:text-soft prose-a:text-accent prose-strong:text-navy prose-li:text-soft">
-          <ReactMarkdown
-            components={{
-              h1: ({ children }) => (
-                <>
-                  <h1>{children}</h1>
-                  <time
-                    className="not-prose mt-4 mb-8 block text-[12px] text-faint"
-                    dateTime={post.date}
-                  >
-                    {formatDate(post.date, locale)}
-                  </time>
-                  <div
-                    className={`not-prose relative mb-10 overflow-hidden ${coverFrame()}`}
-                  >
-                    <ResponsiveCover
-                      mobile={post.coverMobile}
-                      desktop={post.cover}
-                      sizes="(max-width: 1024px) 100vw, 64rem"
-                    />
-                  </div>
-                </>
-              ),
-            }}
+        <div className="flex justify-between items-baseline mb-6">
+          <Link
+            href="/blog"
+            className="text-xs tracking-[0.16em] text-accent uppercase ar:tracking-normal ar:normal-case"
           >
-            {post.body}
-          </ReactMarkdown>
+            {t('back')}
+          </Link>
+          <time className="block text-xs text-faint" dateTime={post.date}>
+            {formatDate(post.date, locale)}
+          </time>
+        </div>
+        <h1 className="text-3xl! lg:text-5xl!">{post.title}</h1>
+        <div className={`relative mt-8 mb-10 overflow-hidden ${coverFrame()}`}>
+          <ResponsiveCover
+            mobile={post.coverMobile}
+            desktop={post.cover}
+            sizes="(max-width: 1024px) 100vw, 64rem"
+            priority
+          />
+        </div>
+        <div className="prose max-w-none prose-headings:font-normal prose-headings:text-navy prose-p:text-soft prose-a:text-accent prose-strong:text-navy prose-li:text-soft">
+          <ReactMarkdown>{post.body}</ReactMarkdown>
         </div>
       </article>
     </main>

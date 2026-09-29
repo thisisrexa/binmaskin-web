@@ -17,7 +17,6 @@ import { Reveal } from '@/components/ui/reveal';
 import { Link } from '@/i18n/navigation';
 import { coverFrame } from '@/lib/blog-meta';
 import { COMPANIES, companyText } from '@/lib/companies';
-import { formatDate } from '@/lib/utils';
 
 const WORK_MS = 5600;
 const BLOG_MS = 4800;
@@ -109,9 +108,13 @@ function FilmDots({
   );
 }
 
-function BlogCard({ post, locale }: { post: PostCard; locale: string }) {
+function BlogCard({ post }: { post: PostCard }) {
   return (
-    <Link href={`/blog/${post.slug}`} className="group block">
+    <Link
+      href={`/blog/${post.slug}`}
+      aria-label={post.title}
+      className="group block"
+    >
       <div
         className={`film-frame relative overflow-hidden bg-navy ${coverFrame()}`}
       >
@@ -122,13 +125,6 @@ function BlogCard({ post, locale }: { post: PostCard; locale: string }) {
           className="object-cover transition-transform duration-700 group-hover:scale-[1.04]"
         />
       </div>
-      <time
-        className="mt-3 block text-[11px] tracking-[0.14em] text-faint uppercase ar:tracking-normal ar:normal-case"
-        dateTime={post.date}
-      >
-        {formatDate(post.date, locale)}
-      </time>
-      <h3 className="card-title mt-1">{post.title}</h3>
     </Link>
   );
 }
@@ -144,7 +140,11 @@ function WorkSlide({
   const copy = companyText(company, locale);
 
   return (
-    <div className="film-frame relative aspect-3/4 overflow-hidden bg-navy md:aspect-video">
+    <Link
+      href={`/companies/${company.slug}`}
+      aria-label={copy.name}
+      className="film-frame relative block aspect-3/4 overflow-hidden bg-navy md:aspect-video"
+    >
       {company.cover ? (
         <ResponsiveCover
           mobile={company.cover.mobile}
@@ -153,15 +153,7 @@ function WorkSlide({
           priority={i === 0}
         />
       ) : null}
-      <span className="absolute inset-x-0 bottom-0 flex flex-col gap-1 bg-linear-to-t from-navy/80 via-navy/25 to-transparent px-4 pt-14 pb-4 text-cream md:px-6 md:pb-5">
-        <h3 className="text-[clamp(1.15rem,1.7vw,1.55rem)] text-cream">
-          {copy.name}
-        </h3>
-        <span className="line-clamp-2 max-w-104 text-[0.9rem] text-cream/70">
-          {copy.summary}
-        </span>
-      </span>
-    </div>
+    </Link>
   );
 }
 
@@ -281,7 +273,7 @@ export function WorkCarousel({ posts }: { posts: PostCard[] }) {
                       key={key}
                       aria-hidden={i >= posts.length || undefined}
                     >
-                      <BlogCard post={post} locale={locale} />
+                      <BlogCard post={post} />
                     </CarouselItem>
                   ))}
                 </CarouselContent>
@@ -290,7 +282,7 @@ export function WorkCarousel({ posts }: { posts: PostCard[] }) {
               <div className="flex gap-[8px] overflow-hidden px-[8px]">
                 {posts.map((post) => (
                   <div key={post.slug} className="w-88 shrink-0">
-                    <BlogCard post={post} locale={locale} />
+                    <BlogCard post={post} />
                   </div>
                 ))}
               </div>

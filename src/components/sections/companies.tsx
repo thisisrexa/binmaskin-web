@@ -29,10 +29,14 @@ export function Companies() {
   const copy = active ? companyText(active, locale) : null;
 
   return (
-    <section id="companies" className="wrap py-24 max-md:py-12">
+    <section
+      id="companies"
+      dir={locale === 'ar' ? 'rtl' : 'ltr'}
+      className="wrap py-24 max-md:py-12"
+    >
       <Eyebrow>{t('eyebrow')}</Eyebrow>
       <div className="lg:grid lg:grid-cols-[minmax(0,1fr)_20rem] lg:gap-x-10">
-        <div className="section-copy min-[1440px]:ps-12.5">
+        <div className="section-copy text-start min-[1440px]:ps-12.5">
           <h2 className="max-w-copy whitespace-pre-line">
             {t.rich('title', { em: (chunks) => <em>{chunks}</em> })}
           </h2>
@@ -64,7 +68,8 @@ export function Companies() {
             className="box-content h-[calc(11.5rem*3+1px)] border border-dashed border-navy/25 lg:h-[calc(11.5rem*2+1px)]"
           >
             <ul
-              className="grid grid-cols-2 lg:grid-cols-3"
+              dir={locale === 'ar' ? 'rtl' : 'ltr'}
+              className="grid grid-cols-2 text-start lg:grid-cols-3"
               style={{ ['--co-row' as string]: ROW }}
             >
               {COMPANIES.map((company, i) => {

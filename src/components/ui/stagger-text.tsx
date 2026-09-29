@@ -22,7 +22,7 @@ const item = {
   hidden: { y: '110%' },
   show: {
     y: '0%',
-    transition: { duration: 0.7, ease: EASE },
+    transition: { duration: 0.4, ease: EASE },
   },
 };
 
@@ -47,7 +47,7 @@ export function StaggerText({
   if (reduce) return <span className={className}>{text}</span>;
 
   const parts = divideBy === 'letter' ? text.split('') : text.split(' ');
-  const stagger = divideBy === 'letter' ? 0.02 : 0.05;
+  const stagger = divideBy === 'letter' ? 0.012 : 0.03;
 
   return (
     <motion.span

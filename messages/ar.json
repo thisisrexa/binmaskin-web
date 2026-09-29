@@ -155,6 +155,20 @@
     "back": "كل الملاحظات",
     "notes": "{count} مقالات"
   },
+  "card": {
+    "badge": "بطاقة رقمية",
+    "save": "حفظ جهة الاتصال",
+    "share": "مشاركة البطاقة",
+    "copied": "تم نسخ الرابط",
+    "links": "تواصل",
+    "email": "البريد",
+    "linkedin": "لينكدإن",
+    "website": "الموقع",
+    "telegram": "تيليغرام",
+    "scan": "امسح / تواصل",
+    "qrTitle": "خذ البطاقة معك.",
+    "wallpaperSave": "تنزيل خلفية الهاتف"
+  },
   "contact": {
     "eyebrow": "تواصل",
     "title": "لنبدأ<em>.</em>"
@@ -162,6 +176,8 @@
   "f": {
     "name": "الاسم",
     "nameph": "الاسم الكامل",
+    "emailph": "name@company.com",
+    "phoneph": "+971 5X XXX XXXX",
     "email": "البريد",
     "phone": "الهاتف",
     "topic": "الموضوع",

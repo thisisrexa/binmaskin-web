@@ -3,6 +3,7 @@ import type { MetadataRoute } from 'next';
 import { routing } from '@/i18n/routing';
 import { getPosts } from '@/lib/blog';
 import { COMPANIES } from '@/lib/companies';
+import { PEOPLE } from '@/lib/people';
 import { hreflang, localePath, SITE } from '@/lib/seo';
 
 const STATIC_PATHS = [
@@ -42,5 +43,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       localized(`/blog/${post.slug}`, post.date || undefined),
     ),
     ...COMPANIES.flatMap((company) => localized(`/companies/${company.slug}`)),
+    ...PEOPLE.flatMap((person) => localized(`/${person.username}`)),
   ];
 }

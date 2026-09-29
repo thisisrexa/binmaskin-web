@@ -126,7 +126,7 @@ export function Contact() {
                       name="email"
                       type="email"
                       required
-                      placeholder="you@company.com"
+                      placeholder={tf('emailph')}
                     />
                   </div>
                   <div>
@@ -135,7 +135,7 @@ export function Contact() {
                       id="cf-phone"
                       name="phone"
                       type="tel"
-                      placeholder="+971 · · ·"
+                      placeholder={tf('phoneph')}
                     />
                   </div>
                 </div>

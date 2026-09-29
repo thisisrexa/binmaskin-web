@@ -12,6 +12,18 @@ const NAVY = '#111C2D';
 const BRONZE = '#8A7A5C';
 const IVORY = '#F7F4EF';
 
+const TOPICS: Record<string, string> = {
+  finance: 'Finance',
+  technical: 'Technical',
+  partnership: 'Partnership',
+  project: 'Project',
+  general: 'General',
+};
+
+export function topicLabel(topic: string) {
+  return TOPICS[topic] ?? topic;
+}
+
 function row(label: string, value: string) {
   return `<tr>
   <td style="padding:10px 0;border-bottom:1px solid #e5dfd4;color:${BRONZE};font-size:11px;letter-spacing:0.14em;text-transform:uppercase;vertical-align:top;width:120px;">${escapeXml(label)}</td>
@@ -34,7 +46,7 @@ export function contactEmailHtml(payload: ContactPayload) {
         ${row('Name', escapeXml(payload.name))}
         ${row('Email', `<a href="mailto:${escapeXml(payload.email)}" style="color:${BRONZE};">${escapeXml(payload.email)}</a>`)}
         ${row('Phone', escapeXml(payload.phone) || '—')}
-        ${row('Topic', escapeXml(payload.topic))}
+        ${row('Topic', escapeXml(topicLabel(payload.topic)))}
         ${row('Message', message)}
       </table>
     </div>
@@ -46,6 +58,22 @@ export function contactEmailHtml(payload: ContactPayload) {
 </html>`;
 }
 
+export function contactEmailText(payload: ContactPayload) {
+  return [
+    'BinMaskin Solutions',
+    'New inquiry from the website',
+    '',
+    `Name: ${payload.name}`,
+    `Email: ${payload.email}`,
+    `Phone: ${payload.phone || '—'}`,
+    `Topic: ${topicLabel(payload.topic)}`,
+    '',
+    payload.message,
+    '',
+    'binmaskin.solutions · Dubai, UAE',
+  ].join('\n');
+}
+
 const check = contactEmailHtml({
   name: '<b>A</b>',
   email: 'a@b.co',
@@ -54,10 +82,21 @@ const check = contactEmailHtml({
   message: 'hi\nthere',
 });
 
+const text = contactEmailText({
+  name: 'A',
+  email: 'a@b.co',
+  phone: '',
+  topic: 'general',
+  message: 'hi',
+});
+
 if (
   !check.includes('&lt;b&gt;A&lt;/b&gt;') ||
   !check.includes('hi<br/>there') ||
-  !check.includes(NAVY)
+  !check.includes('General') ||
+  !check.includes(NAVY) ||
+  !text.includes('Topic: General') ||
+  text.includes('<br')
 ) {
   throw new Error('contactEmailHtml broke');
 }

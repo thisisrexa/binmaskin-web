@@ -1,11 +1,12 @@
 import type { Metadata } from 'next';
 
 import { getTranslations } from 'next-intl/server';
-import Image from 'next/image';
 import { notFound } from 'next/navigation';
 import ReactMarkdown from 'react-markdown';
 
+import { CompanyGallery } from '@/components/companies/company-gallery';
 import { Eyebrow } from '@/components/sections/eyebrow';
+import { StaggerText } from '@/components/ui/stagger-text';
 import { Link } from '@/i18n/navigation';
 import { COMPANIES, companyText } from '@/lib/companies';
 import { getCompanyPage } from '@/lib/company-pages';
@@ -42,43 +43,43 @@ export default async function CompanyPage({
   if (!company || !page) notFound();
   const t = await getTranslations({ locale, namespace: 'companies' });
   const copy = companyText(company, locale);
+  const titleWords = page.title.trim().split(/\s+/).filter(Boolean);
+  const accentLastWord = titleWords.length >= 2;
 
   return (
     <main className="pb-16 lg:grid lg:grid-cols-2 lg:items-start lg:pb-0">
-      <figure
-        className={`relative overflow-hidden bg-navy lg:sticky lg:top-(--hdr) lg:col-start-2 lg:row-start-1 lg:aspect-auto lg:h-[calc(100dvh-var(--hdr))] ${company.cover ? 'aspect-video' : 'aspect-4/1'}`}
-      >
-        {company.cover ? (
-          <>
-            <Image
-              src={company.cover.desktop}
-              alt=""
-              fill
-              priority
-              sizes="100vw"
-              className="object-cover lg:hidden"
-            />
-            <Image
-              src={company.cover.mobile}
-              alt=""
-              fill
-              sizes="50vw"
-              className="hidden object-cover object-center lg:block"
-            />
-          </>
-        ) : null}
-      </figure>
-      <article className="wrap py-12 md:py-16 lg:col-start-1 lg:row-start-1 lg:ms-0 lg:w-full lg:max-w-none lg:py-20 lg:ps-[max(var(--gutter),calc((100vw-var(--wrap))/2))] lg:pe-14">
+      {company.frames ? (
+        <CompanyGallery
+          className="lg:sticky lg:top-(--hdr) lg:col-start-2 lg:row-start-1 lg:h-[calc(100dvh-var(--hdr))]"
+          frames={company.frames}
+          plan={company.plan}
+          label={page.title}
+        />
+      ) : null}
+      <article className="wrap pt-6 pb-12 md:pt-12 md:pb-16 lg:col-start-1 lg:row-start-1 lg:ms-0 lg:w-full lg:max-w-none lg:pt-16 lg:pb-20 lg:ps-[max(var(--gutter),calc((100vw-var(--wrap))/2))] lg:pe-14">
         <Link
           href="/#companies"
           className="text-[11px] tracking-[0.16em] text-accent uppercase ar:tracking-normal ar:normal-case"
         >
           {t('back')}
         </Link>
-        <div className="mt-8">
+        <div className="mt-5 md:mt-8">
           <Eyebrow>{company.mark}</Eyebrow>
           <div className="section-copy">
-            <h1 className="page-title max-w-copy">{page.title}</h1>
+            <h1 className="page-title max-w-copy">
+              {accentLastWord ? (
+                <>
+                  <StaggerText>{titleWords.slice(0, -1).join(' ')}</StaggerText>
+                  <em>
+                    <StaggerText delay={(titleWords.length - 1) * 0.03}>
+                      {titleWords.at(-1)}
+                    </StaggerText>
+                  </em>
+                </>
+              ) : (
+                <StaggerText>{page.title}</StaggerText>
+              )}
+            </h1>
             <p className="mt-5 max-w-copy text-[1.125rem] text-muted-foreground">
               {page.excerpt || copy.summary}
             </p>

@@ -1,6 +1,6 @@
 import { useTranslations } from 'next-intl';
 
-import { Eyebrow } from '@/components/sections/eyebrow';
+import { StaggerText } from '@/components/ui/stagger-text';
 import { Link } from '@/i18n/navigation';
 
 export default function NotFound() {
@@ -18,7 +18,9 @@ export default function NotFound() {
       >
         404
       </p>
-      <h1 className="page-title">{t('nfTitle')}</h1>
+      <h1 className="page-title">
+        <StaggerText>{t('nfTitle')}</StaggerText>
+      </h1>
       <p className="mt-5 max-w-copy text-[1.05rem] text-muted-foreground">
         {t('nfText')}
       </p>

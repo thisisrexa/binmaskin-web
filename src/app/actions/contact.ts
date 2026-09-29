@@ -5,7 +5,11 @@ import nodemailer from 'nodemailer';
 import type { ContactPayload } from '@/lib/email-template';
 
 import { COMPANY } from '@/lib/company';
-import { contactEmailHtml } from '@/lib/email-template';
+import {
+  contactEmailHtml,
+  contactEmailText,
+  topicLabel,
+} from '@/lib/email-template';
 
 export type ContactResult = 'failed' | 'invalid' | 'sent' | 'unavailable';
 
@@ -48,7 +52,8 @@ export async function sendContact(
       from: SMTP_FROM,
       to: CONTACT_TO ?? COMPANY.email,
       replyTo: email,
-      subject: `Website inquiry — ${clean.topic} — ${name}`,
+      subject: `Website inquiry — ${topicLabel(clean.topic)} — ${name}`,
+      text: contactEmailText(clean),
       html: contactEmailHtml(clean),
     });
     return 'sent';
