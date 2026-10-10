@@ -56,7 +56,7 @@ This gives the group a consistent external behaviour without creating confusion 
 
 ## What this means for BinMaskin
 
-At group level, Salem BinMaskin Solutions holds the companies while Dubai can present one published phone and email as the first point of contact. The purpose is practical: clients should know where to send a message and what will happen after they do.
+At group level, BinMaskin Solutions holds the companies while Dubai can present one published phone and email as the first point of contact. The purpose is practical: clients should know where to send a message and what will happen after they do.
 
 Behind that first desk, the request can be routed to the company that actually fits the scope. The reply should preserve the company name, responsibilities, and commercial boundaries once the handover is made.
 

@@ -1,6 +1,6 @@
 # BinMaskin Solutions
 
-Marketing site for [Salem BinMaskin Solutions](https://binmaskin.solutions) — a
+Marketing site for [BinMaskin Solutions](https://binmaskin.solutions) — a
 Dubai technology firm covering digital presence, infrastructure, security, and
 bespoke software.
 
@@ -35,14 +35,13 @@ pnpm lint
 ## Content and brand
 
 Copy lives in `messages/en.json` and `messages/ar.json`. Company facts (legal
-names, licence, chamber, phone, email) live in `src/lib/company.ts` and match
+names, chamber, phone, email) live in `src/lib/company.ts` and match
 the BinMaskin brand pack:
 
 |               |                           |
 | ------------- | ------------------------- |
-| Legal (EN)    | SALEM BINMASKIN SOLUTIONS |
-| Legal (AR)    | سالم بن مسكين للحلول      |
-| Trade licence | 1395363                   |
+| Legal (EN)    | BINMASKIN SOLUTIONS |
+| Legal (AR)    | بن مسكين للحلول      |
 | Dubai Chamber | 552755                    |
 | Email         | info@binmaskin.solutions  |
 | Phone         | +971 55 612 0279          |

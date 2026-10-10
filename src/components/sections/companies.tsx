@@ -2,7 +2,7 @@
 
 import { useLocale, useTranslations } from 'next-intl';
 import Image from 'next/image';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import burjSketchMobile from '@/assets/burj-sketch-mobile.png';
 import burjSketch from '@/assets/burj-sketch.png';
@@ -14,12 +14,246 @@ import {
   DrawerDescription,
   DrawerTitle,
 } from '@/components/ui/drawer';
-import { ScrollArea } from '@/components/ui/scroll-area';
 import { Link } from '@/i18n/navigation';
 import { COMPANIES, companyText } from '@/lib/companies';
 
-/** Exactly 2 rows (lg 3-col) / 3 rows (2-col) = 6 cells visible; rest scroll. */
 const ROW = '11.5rem';
+const CELL =
+  'flex h-(--co-row) w-full flex-col border-e border-b border-border bg-background p-4 text-start transition-colors hover:bg-cream-2 sm:p-5';
+
+function setTop(el: HTMLElement, top: number) {
+  const prev = el.style.scrollBehavior;
+  el.style.scrollBehavior = 'auto';
+  el.scrollTop = top;
+  el.style.scrollBehavior = prev;
+}
+
+function scrollPage(dy: number) {
+  const root = document.scrollingElement ?? document.documentElement;
+  setTop(root, root.scrollTop + dy);
+}
+
+/** Inside the list, scroll the list. At the start or the end, the same gesture leaves onto the page. */
+function chain(el: HTMLElement, dy: number) {
+  if (dy === 0) return;
+  const max = Math.max(0, el.scrollHeight - el.clientHeight);
+  const top = el.scrollTop;
+  if ((dy < 0 && top <= 0) || (dy > 0 && top >= max - 1)) {
+    scrollPage(dy);
+    return;
+  }
+  const next = Math.min(max, Math.max(0, top + dy));
+  setTop(el, next);
+  const left = dy - (next - top);
+  if (Math.abs(left) > 0.5) scrollPage(left);
+}
+
+function useChainScroll(on: boolean) {
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!on || !el) return;
+
+    const desktop = window.matchMedia('(hover: hover) and (pointer: fine)');
+    let detach = () => {};
+
+    const connect = () => {
+      detach();
+      detach = () => {};
+      if (desktop.matches) return;
+      detach = bindMobile(el);
+    };
+
+    connect();
+    desktop.addEventListener('change', connect);
+    return () => {
+      desktop.removeEventListener('change', connect);
+      detach();
+    };
+  }, [on]);
+
+  return ref;
+}
+
+function bindMobile(el: HTMLDivElement) {
+  let lastY = 0;
+  let lastT = 0;
+  let vel = 0;
+  let raf = 0;
+  let ease = 0;
+  let goal = el.scrollTop;
+  let stamp = 0;
+  const stop = () => cancelAnimationFrame(raf);
+
+  const glide = (now: number) => {
+    const dt = Math.min(34, stamp ? now - stamp : 16);
+    stamp = now;
+    const diff = goal - el.scrollTop;
+    if (Math.abs(diff) < 0.4) {
+      setTop(el, goal);
+      ease = 0;
+      stamp = 0;
+      return;
+    }
+    const k = 1 - Math.exp(-dt / 110);
+    setTop(el, el.scrollTop + diff * k);
+    ease = requestAnimationFrame(glide);
+  };
+
+  const onWheel = (event: WheelEvent) => {
+    if (event.ctrlKey) return;
+    stop();
+    let dy = event.deltaY;
+    if (event.deltaMode === 1) dy *= 16;
+    else if (event.deltaMode === 2) dy *= el.clientHeight;
+    if (dy === 0) return;
+    event.preventDefault();
+
+    const max = Math.max(0, el.scrollHeight - el.clientHeight);
+    const next = Math.min(max, Math.max(0, goal + dy));
+    const left = dy - (next - goal);
+    goal = next;
+    if (Math.abs(left) > 0.5) scrollPage(left);
+    if (!ease) ease = requestAnimationFrame(glide);
+  };
+
+  const onStart = (event: TouchEvent) => {
+    if (event.touches.length !== 1) return;
+    stop();
+    cancelAnimationFrame(ease);
+    ease = 0;
+    goal = el.scrollTop;
+    lastY = event.touches[0].clientY;
+    lastT = performance.now();
+    vel = 0;
+  };
+
+  const onMove = (event: TouchEvent) => {
+    if (event.touches.length !== 1) return;
+    const y = event.touches[0].clientY;
+    const now = performance.now();
+    const dy = lastY - y;
+    const dt = Math.max(8, now - lastT);
+    vel = dy / dt;
+    lastY = y;
+    lastT = now;
+    if (dy === 0) return;
+    event.preventDefault();
+    chain(el, dy);
+    goal = el.scrollTop;
+  };
+
+  const onEnd = () => {
+    const tick = () => {
+      vel *= 0.92;
+      if (Math.abs(vel) < 0.02) return;
+      chain(el, vel * 16);
+      goal = el.scrollTop;
+      raf = requestAnimationFrame(tick);
+    };
+    raf = requestAnimationFrame(tick);
+  };
+
+  const onThumbDown = (event: PointerEvent) => {
+    const bar = el.offsetWidth - el.clientWidth;
+    if (bar < 2) return;
+    const rtl = getComputedStyle(el).direction === 'rtl';
+    const onBar = rtl
+      ? event.offsetX <= bar + 2
+      : event.offsetX >= el.clientWidth - 2;
+    if (!onBar) return;
+    cancelAnimationFrame(ease);
+    ease = 0;
+    stamp = 0;
+    goal = el.scrollTop;
+    const up = () => {
+      goal = el.scrollTop;
+      window.removeEventListener('pointerup', up);
+    };
+    window.addEventListener('pointerup', up);
+  };
+
+  el.addEventListener('pointerdown', onThumbDown);
+  el.addEventListener('wheel', onWheel, { passive: false });
+  el.addEventListener('touchstart', onStart, { passive: true });
+  el.addEventListener('touchmove', onMove, { passive: false });
+  el.addEventListener('touchend', onEnd);
+  el.addEventListener('touchcancel', stop);
+  return () => {
+    stop();
+    cancelAnimationFrame(ease);
+    el.removeEventListener('pointerdown', onThumbDown);
+    el.removeEventListener('wheel', onWheel);
+    el.removeEventListener('touchstart', onStart);
+    el.removeEventListener('touchmove', onMove);
+    el.removeEventListener('touchend', onEnd);
+    el.removeEventListener('touchcancel', stop);
+  };
+}
+
+export function CompanyList({
+  onPick,
+  scroll = false,
+}: {
+  onPick?: (slug: string) => void;
+  scroll?: boolean;
+}) {
+  const locale = useLocale();
+  const scroller = useChainScroll(scroll);
+
+  return (
+    <div
+      ref={scroll ? scroller : undefined}
+      className={
+        scroll
+          ? 'box-content h-[calc(11.5rem*3+1px)] overflow-y-auto border border-dashed border-navy/25 lg:h-[calc(11.5rem*2+1px)] [@media(hover:none),_(pointer:coarse)]:touch-pan-x [@media(hover:none),_(pointer:coarse)]:overscroll-none [@media(hover:none),_(pointer:coarse)]:[scroll-behavior:auto]'
+          : 'border border-dashed border-navy/25'
+      }
+    >
+      <ul
+        dir={locale === 'ar' ? 'rtl' : 'ltr'}
+        className="grid grid-cols-2 text-start lg:grid-cols-3"
+        style={{ ['--co-row' as string]: ROW }}
+      >
+        {COMPANIES.map((company, i) => {
+          const text = companyText(company, locale);
+          const lastAlone =
+            i === COMPANIES.length - 1 && COMPANIES.length % 2 === 1;
+          const body = (
+            <>
+              <span className="co-mark text-navy">{text.name}</span>
+              <span className="mt-auto line-clamp-2 text-[0.9rem] text-muted-foreground">
+                {text.summary}
+              </span>
+            </>
+          );
+          return (
+            <li
+              key={company.slug}
+              className={lastAlone ? 'min-h-0 max-lg:col-span-2' : 'min-h-0'}
+            >
+              {onPick ? (
+                <button
+                  type="button"
+                  onClick={() => onPick(company.slug)}
+                  className={CELL}
+                >
+                  {body}
+                </button>
+              ) : (
+                <Link href={`/companies/${company.slug}`} className={CELL}>
+                  {body}
+                </Link>
+              )}
+            </li>
+          );
+        })}
+      </ul>
+      {scroll ? <div aria-hidden className="h-px" /> : null}
+    </div>
+  );
+}
 
 export function Companies() {
   const t = useTranslations('companies');
@@ -63,43 +297,7 @@ export function Companies() {
         </div>
 
         <div className="mt-4 min-[1440px]:ps-12.5 lg:col-start-1 lg:mt-14">
-          <ScrollArea
-            type="always"
-            className="box-content h-[calc(11.5rem*3+1px)] border border-dashed border-navy/25 lg:h-[calc(11.5rem*2+1px)]"
-          >
-            <ul
-              dir={locale === 'ar' ? 'rtl' : 'ltr'}
-              className="grid grid-cols-2 text-start lg:grid-cols-3"
-              style={{ ['--co-row' as string]: ROW }}
-            >
-              {COMPANIES.map((company, i) => {
-                const text = companyText(company, locale);
-                const lastAlone =
-                  i === COMPANIES.length - 1 && COMPANIES.length % 2 === 1;
-                return (
-                  <li
-                    key={company.slug}
-                    className={
-                      lastAlone ? 'min-h-0 max-lg:col-span-2' : 'min-h-0'
-                    }
-                  >
-                    <button
-                      type="button"
-                      onClick={() => setSlug(company.slug)}
-                      className="flex h-(--co-row) w-full flex-col border-e border-b border-border bg-background p-4 text-start transition-colors hover:bg-cream-2 sm:p-5"
-                    >
-                      <span className="co-mark text-navy">{text.name}</span>
-                      <span className="mt-auto line-clamp-2 text-[0.9rem] text-muted-foreground">
-                        {text.summary}
-                      </span>
-                    </button>
-                  </li>
-                );
-              })}
-            </ul>
-            {/* ponytail: keeps last-row border-b inside overflow clip */}
-            <div aria-hidden className="h-px" />
-          </ScrollArea>
+          <CompanyList onPick={setSlug} scroll />
         </div>
       </div>
 

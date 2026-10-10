@@ -5,6 +5,7 @@ import { notFound } from 'next/navigation';
 import ReactMarkdown from 'react-markdown';
 
 import { CompanyGallery } from '@/components/companies/company-gallery';
+import { CompanyList } from '@/components/sections/companies';
 import { Eyebrow } from '@/components/sections/eyebrow';
 import { StaggerText } from '@/components/ui/stagger-text';
 import { Link } from '@/i18n/navigation';
@@ -47,7 +48,8 @@ export default async function CompanyPage({
   const accentLastWord = titleWords.length >= 2;
 
   return (
-    <main className="pb-16 lg:grid lg:grid-cols-2 lg:items-start lg:pb-0">
+    <main className="pb-16 lg:pb-0">
+      <div className="lg:grid lg:grid-cols-2 lg:items-start">
       {company.frames ? (
         <CompanyGallery
           className="lg:sticky lg:top-(--hdr) lg:col-start-2 lg:row-start-1 lg:h-[calc(100dvh-var(--hdr))]"
@@ -89,6 +91,11 @@ export default async function CompanyPage({
           </div>
         </div>
       </article>
+      </div>
+      <section className="wrap py-16 md:py-20" aria-label={t('eyebrow')}>
+        <Eyebrow>{t('eyebrow')}</Eyebrow>
+        <CompanyList scroll />
+      </section>
     </main>
   );
 }

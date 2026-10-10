@@ -104,18 +104,11 @@ export function jsonLd(locale: string, description: string) {
         },
         areaServed: { '@type': 'Country', name: 'United Arab Emirates' },
         openingHours: 'Su-Th 09:00-18:00',
-        identifier: [
-          {
-            '@type': 'PropertyValue',
-            name: 'Trade licence',
-            value: COMPANY.licence,
-          },
-          {
-            '@type': 'PropertyValue',
-            name: 'Dubai Chamber',
-            value: COMPANY.chamber,
-          },
-        ],
+        identifier: {
+          '@type': 'PropertyValue',
+          name: 'Dubai Chamber',
+          value: COMPANY.chamber,
+        },
       },
       {
         '@type': 'WebSite',
