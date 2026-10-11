@@ -9,6 +9,9 @@ export default defineConfig(
     },
   },
   {
+    ignores: ['scripts/**'],
+  },
+  {
     // shadcn/ui + framer-motion patterns: variant exports, motion values, context objects
     files: ['src/components/ui/**/*.tsx'],
     rules: {
@@ -16,6 +19,9 @@ export default defineConfig(
       '@eslint-react/no-unstable-context-value': 'off',
       '@eslint-react/no-leaked-conditional-rendering': 'off',
       '@eslint-react/immutability': 'off',
+      '@eslint-react/no-array-index-key': 'off',
+      '@eslint-react/no-use-context': 'off',
+      '@eslint-react/no-context-provider': 'off',
       '@typescript-eslint/no-shadow': 'off',
     },
   },

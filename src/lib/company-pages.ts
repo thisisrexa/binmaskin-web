@@ -26,8 +26,8 @@ export function getCompanyPage(locale: string, slug: string) {
   const { data, body } = parseFrontmatter(fs.readFileSync(filePath, 'utf8'));
   return {
     slug,
-    title: data.title || slug,
-    excerpt: data.excerpt || '',
+    title: data.title ?? slug,
+    excerpt: data.excerpt ?? '',
     body,
   } satisfies CompanyPage;
 }

@@ -6,7 +6,7 @@ const withNextIntl = createNextIntlPlugin();
 
 const nextConfig: NextConfig = {
   output: 'standalone',
-  async redirects() {
+  redirects() {
     return [
       {
         source: '/:locale(en|ar)/card/:username',

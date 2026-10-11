@@ -1,5 +1,10 @@
+import type { ReactNode } from 'react';
+
 import { useTranslations } from 'next-intl';
 
+import { InstagramIcon } from '@/components/icons/instagram';
+import { LinkedInIcon } from '@/components/icons/linkedin';
+import { WhatsAppIcon } from '@/components/icons/whatsapp';
 import { BrandMark } from '@/components/layout/brand-mark';
 import { CookieSettings } from '@/components/layout/cookie-consent';
 import { Link } from '@/i18n/navigation';
@@ -81,18 +86,13 @@ export function SiteFooter() {
           className="flex items-center justify-between gap-4 border-t border-border py-5 text-[12px] text-faint"
         >
           <span dir="auto">{t('copy')}</span>
-          <div className="flex items-center gap-1">
-            <Social
-              label="Instagram"
-              d="M8 3.5h8A4.5 4.5 0 0 1 20.5 8v8a4.5 4.5 0 0 1-4.5 4.5H8A4.5 4.5 0 0 1 3.5 16V8A4.5 4.5 0 0 1 8 3.5Zm4 3.2a5.3 5.3 0 1 0 0 10.6 5.3 5.3 0 0 0 0-10.6Zm0 1.6a3.7 3.7 0 1 1 0 7.4 3.7 3.7 0 0 1 0-7.4Zm5.15-.95a1 1 0 1 0 0 2 1 1 0 0 0 0-2Z"
-            />
-            <Social
-              label="LinkedIn"
-              d="M6.2 9.2H3.4V20h2.8V9.2ZM4.8 3.6a1.7 1.7 0 1 0 0 3.4 1.7 1.7 0 0 0 0-3.4ZM20.6 20h-2.8v-5.6c0-1.6-.6-2.6-2-2.6-1 0-1.6.7-1.9 1.4-.1.2-.1.6-.1.9V20h-2.8V9.2h2.8v1.5c.4-.7 1.3-1.8 3.2-1.8 2.3 0 4 1.5 4 4.8V20Z"
-            />
+          <div className="flex items-center gap-3">
+            <Social label="Instagram" icon={<InstagramIcon />} />
+            <Social label="LinkedIn" icon={<LinkedInIcon />} />
             <Social
               label="WhatsApp"
-              d="M12.1 3.4a8.4 8.4 0 0 0-7.2 12.6L3.6 20.6l4.7-1.2a8.4 8.4 0 1 0 3.8-16Zm4.9 11.9c-.2.6-1.2 1.1-1.6 1.1-.4.1-.9.2-3-.8-2.5-1.2-4.1-3.8-4.2-4-.1-.2-1-1.3-1-2.5s.6-1.8.9-2c.2-.2.5-.3.7-.3h.5c.2 0 .4 0 .5.4.2.6.7 2 .7 2.1.1.2 0 .3-.1.5l-.3.4c-.1.2-.3.3-.1.6.2.3.7 1.2 1.5 1.9 1 .9 1.9 1.2 2.2 1.3.2.1.4.1.6-.1l.5-.6c.2-.2.3-.2.5-.1l1.9.9c.2.1.4.2.4.3.1.2 0 .7-.2 1.1Z"
+              href={`https://wa.me/${COMPANY.whatsapp}`}
+              icon={<WhatsAppIcon />}
             />
           </div>
         </div>
@@ -101,16 +101,25 @@ export function SiteFooter() {
   );
 }
 
-function Social({ label, d }: { label: string; d: string }) {
+function Social({
+  label,
+  icon,
+  href = '#',
+}: {
+  label: string;
+  icon: ReactNode;
+  href?: string;
+}) {
   return (
     <a
-      href="#"
+      href={href}
       aria-label={label}
-      className="inline-flex size-11 items-center justify-center text-muted-foreground transition-colors hover:text-accent"
+      {...(href.startsWith('http')
+        ? { target: '_blank', rel: 'noopener' }
+        : {})}
+      className="inline-flex text-muted-foreground transition-colors hover:text-accent [&_svg]:size-6"
     >
-      <svg viewBox="0 0 24 24" className="size-4" aria-hidden="true">
-        <path fill="currentColor" d={d} />
-      </svg>
+      {icon}
     </a>
   );
 }

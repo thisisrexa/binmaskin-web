@@ -5,10 +5,10 @@ import { notFound } from 'next/navigation';
 import ReactMarkdown from 'react-markdown';
 
 import { CompanyGallery } from '@/components/companies/company-gallery';
-import { CompanyList } from '@/components/sections/companies';
+import { BackLink } from '@/components/layout/back-link';
+import { Companies } from '@/components/sections/companies';
 import { Eyebrow } from '@/components/sections/eyebrow';
 import { StaggerText } from '@/components/ui/stagger-text';
-import { Link } from '@/i18n/navigation';
 import { COMPANIES, companyText } from '@/lib/companies';
 import { getCompanyPage } from '@/lib/company-pages';
 import { pageMetadata } from '@/lib/seo';
@@ -50,52 +50,51 @@ export default async function CompanyPage({
   return (
     <main className="pb-16 lg:pb-0">
       <div className="lg:grid lg:grid-cols-2 lg:items-start">
-      {company.frames ? (
         <CompanyGallery
           className="lg:sticky lg:top-(--hdr) lg:col-start-2 lg:row-start-1 lg:h-[calc(100dvh-var(--hdr))]"
           frames={company.frames}
-          plan={company.plan}
           label={page.title}
         />
-      ) : null}
-      <article className="wrap pt-6 pb-12 md:pt-12 md:pb-16 lg:col-start-1 lg:row-start-1 lg:ms-0 lg:w-full lg:max-w-none lg:pt-16 lg:pb-20 lg:ps-[max(var(--gutter),calc((100vw-var(--wrap))/2))] lg:pe-14">
-        <Link
-          href="/#companies"
-          className="text-[11px] tracking-[0.16em] text-accent uppercase ar:tracking-normal ar:normal-case"
-        >
-          {t('back')}
-        </Link>
-        <div className="mt-5 md:mt-8">
-          <Eyebrow>{company.mark}</Eyebrow>
-          <div className="section-copy">
-            <h1 className="page-title max-w-copy">
-              {accentLastWord ? (
-                <>
-                  <StaggerText>{titleWords.slice(0, -1).join(' ')}</StaggerText>
-                  <em>
-                    <StaggerText delay={(titleWords.length - 1) * 0.03}>
-                      {titleWords.at(-1)}
+        <article className="wrap pt-6 pb-12 md:pt-12 md:pb-16 lg:col-start-1 lg:row-start-1 lg:ms-0 lg:w-full lg:max-w-none lg:ps-[max(var(--gutter),calc((100vw-var(--wrap))/2))] lg:pe-14 lg:pt-16 lg:pb-20">
+          <BackLink
+            href="/#companies"
+            className="text-[11px] tracking-[0.16em] text-accent uppercase ar:tracking-normal ar:normal-case"
+          >
+            {t('back')}
+          </BackLink>
+          <div className="mt-5 md:mt-8">
+            <Eyebrow>{company.mark}</Eyebrow>
+            <div className="section-copy">
+              <h1 className="page-title max-w-none text-[clamp(1.7rem,2.6vw,2.35rem)]! leading-[1.2] text-balance">
+                {accentLastWord ? (
+                  <>
+                    <StaggerText className="inline">
+                      {titleWords.slice(0, -1).join(' ')}
                     </StaggerText>
-                  </em>
-                </>
-              ) : (
-                <StaggerText>{page.title}</StaggerText>
-              )}
-            </h1>
-            <p className="mt-5 max-w-copy text-[1.125rem] text-muted-foreground">
-              {page.excerpt || copy.summary}
-            </p>
-            <div className="prose mt-10 max-w-none prose-headings:font-normal prose-headings:text-navy prose-p:text-soft prose-a:text-accent prose-strong:text-navy prose-li:text-soft">
-              <ReactMarkdown>{page.body}</ReactMarkdown>
+                    <em>
+                      <StaggerText
+                        className="inline"
+                        delay={(titleWords.length - 1) * 0.03}
+                      >
+                        {titleWords.at(-1)}
+                      </StaggerText>
+                    </em>
+                  </>
+                ) : (
+                  <StaggerText>{page.title}</StaggerText>
+                )}
+              </h1>
+              <p className="mt-5 max-w-copy text-[1.125rem] text-muted-foreground">
+                {page.excerpt || copy.summary}
+              </p>
+              <div className="prose mt-10 max-w-none prose-headings:font-normal prose-headings:text-navy prose-p:text-soft prose-a:text-accent prose-strong:text-navy prose-li:text-soft">
+                <ReactMarkdown>{page.body}</ReactMarkdown>
+              </div>
             </div>
           </div>
-        </div>
-      </article>
+        </article>
       </div>
-      <section className="wrap py-16 md:py-20" aria-label={t('eyebrow')}>
-        <Eyebrow>{t('eyebrow')}</Eyebrow>
-        <CompanyList scroll />
-      </section>
+      <Companies activeSlug={slug} />
     </main>
   );
 }

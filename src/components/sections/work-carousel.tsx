@@ -66,14 +66,14 @@ function useAutoplay(
 }
 
 function FilmDots({
-  count,
+  labels,
   index,
   ms,
   paused,
   live,
   onPick,
 }: {
-  count: number;
+  labels: string[];
   index: number;
   ms: number;
   paused: boolean;
@@ -81,29 +81,31 @@ function FilmDots({
   onPick: (i: number) => void;
 }) {
   return (
-    <div
-      className="film-dots"
-      data-paused={paused ? '' : undefined}
-      role="tablist"
-    >
-      {Array.from({ length: count }, (_, i) => (
-        <button
-          key={i}
-          type="button"
-          role="tab"
-          aria-selected={i === index}
-          aria-label={`${i + 1} / ${count}`}
-          onClick={() => onPick(i)}
-        >
-          {live && i === index ? (
-            <span
-              key={`${index}-${paused}`}
-              className="film-dot-bar"
-              style={{ animationDuration: `${ms}ms` }}
-            />
-          ) : null}
-        </button>
-      ))}
+    <div className="film-controls">
+      <div
+        className="film-dots"
+        data-paused={paused ? '' : undefined}
+        role="tablist"
+      >
+        {labels.map((label, i) => (
+          <button
+            key={label}
+            type="button"
+            role="tab"
+            aria-selected={i === index}
+            aria-label={label}
+            onClick={() => onPick(i)}
+          >
+            {live && i === index ? (
+              <span
+                key={`${index}-${paused ? 'p' : 'r'}`}
+                className="film-dot-bar"
+                style={{ animationDuration: `${ms}ms` }}
+              />
+            ) : null}
+          </button>
+        ))}
+      </div>
     </div>
   );
 }
@@ -145,18 +147,17 @@ function WorkSlide({
       aria-label={copy.name}
       className="film-frame relative block aspect-3/4 overflow-hidden bg-navy md:aspect-video"
     >
-      {company.cover ? (
-        <ResponsiveCover
-          mobile={company.cover.mobile}
-          desktop={company.cover.desktop}
-          sizes="(max-width: 768px) 90vw, 80vw"
-          priority={i === 0}
-        />
-      ) : null}
+      <ResponsiveCover
+        mobile={company.cover.mobile}
+        desktop={company.cover.desktop}
+        sizes="(max-width: 768px) 90vw, 80vw"
+        priority={i === 0}
+      />
     </Link>
   );
 }
 
+// eslint-disable-next-line complexity -- The paired carousels share visibility, focus, and motion state.
 export function WorkCarousel({ posts }: { posts: PostCard[] }) {
   const t = useTranslations('work');
   const tb = useTranslations('blog');
@@ -202,7 +203,7 @@ export function WorkCarousel({ posts }: { posts: PostCard[] }) {
   };
 
   return (
-    <section className="overflow-hidden py-24 max-md:py-16">
+    <section id="work" className="overflow-hidden py-24 max-md:py-16">
       <div className="wrap">
         <Reveal>
           <Eyebrow>{t('eyebrow')}</Eyebrow>
@@ -219,10 +220,13 @@ export function WorkCarousel({ posts }: { posts: PostCard[] }) {
         </div>
       </div>
       <div
-        id="work"
         className="mx-auto mt-10 w-full max-w-[2560px]"
         onPointerEnter={() => setHot('work')}
         onPointerLeave={() => setHot((v) => (v === 'work' ? null : v))}
+        onFocusCapture={() => setHot('work')}
+        onBlurCapture={(e) => {
+          if (!e.currentTarget.contains(e.relatedTarget)) setHot(null);
+        }}
       >
         {ready ? (
           <Carousel
@@ -244,10 +248,10 @@ export function WorkCarousel({ posts }: { posts: PostCard[] }) {
           </div>
         )}
         <FilmDots
-          count={COMPANIES.length}
+          labels={COMPANIES.map((company) => companyText(company, locale).name)}
           index={workIdx}
           ms={WORK_MS}
-          paused={paused || hot === 'work'}
+          paused={paused || hot === 'work' || reduce}
           live={!!api && !reduce}
           onPick={(i) => api?.scrollTo(i)}
         />
@@ -260,6 +264,10 @@ export function WorkCarousel({ posts }: { posts: PostCard[] }) {
           <div
             onPointerEnter={() => setHot('blog')}
             onPointerLeave={() => setHot((v) => (v === 'blog' ? null : v))}
+            onFocusCapture={() => setHot('blog')}
+            onBlurCapture={(e) => {
+              if (!e.currentTarget.contains(e.relatedTarget)) setHot(null);
+            }}
           >
             {ready ? (
               <Carousel
@@ -289,10 +297,10 @@ export function WorkCarousel({ posts }: { posts: PostCard[] }) {
             )}
           </div>
           <FilmDots
-            count={posts.length}
+            labels={posts.map((post) => post.title)}
             index={blogIdx}
             ms={BLOG_MS}
-            paused={paused || hot === 'blog'}
+            paused={paused || hot === 'blog' || reduce}
             live={!!blogApi && !reduce}
             onPick={pickBlog}
           />

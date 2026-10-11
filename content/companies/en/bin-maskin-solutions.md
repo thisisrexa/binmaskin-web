@@ -5,15 +5,17 @@ excerpt:
   solutions for modern businesses.
 ---
 
-BinMaskin Solutions is the technology company in the group. It takes digital
-infrastructure, software, and IT work for businesses that want one accountable
-desk in Dubai.
+BinMaskin Solutions brings digital infrastructure, software and IT work together
+around the needs of the business. The scope spans digital presence, commerce and
+web applications, alongside networks, servers, cloud environments, backup,
+monitoring and practical security.
 
-## What the desk covers
+The starting point is how the organisation works: the information it needs, the
+systems it depends on, and the processes that software should support. A written
+scope makes the work easier to follow and gives the client a clear point of
+responsibility. The purpose is a coherent digital foundation that supports daily
+operations and can be understood by the people who use it.
 
-- Digital presence, commerce, and web applications
-- Networks, servers, and cloud environments
-- Backup, monitoring, and practical security
-- Software shaped around how the organisation actually works
+Scope is written down. The reply comes from the United Arab Emirates.
 
-Scope is written down. The reply comes from Dubai.
+[Get in touch](/en#contact)

@@ -1,17 +1,20 @@
 ---
 title: DeServ International Group
 excerpt:
-  An international group coordinating services and commercial activity across
-  markets.
+  Engine components and spare parts for marine and power-generation operations.
 ---
 
-DeServ International Group coordinates services and commercial activity across
-markets, under the same Dubai desk as the rest of the group.
+DeServ International supplies components and spare parts for diesel and gas
+engines used in marine and power-generation operations. Its range covers
+two-stroke and four-stroke engine components, including cylinder heads, liners,
+pistons, bearings and fuel-injection parts, alongside turbocharger spares and
+auxiliary equipment.
 
-## Where it sits
+The focus is on connecting the equipment requirement with the appropriate
+component. Its component range supports maintenance and repair needs across
+engines and associated machinery. Enquiries can begin with the engine or
+equipment details and the parts needed.
 
-- Services that need more than one market
-- Commercial coordination with a single point of reply
-- A group structure that stays accountable to the business in front of it
+Your Engine, Our Support
 
-Further detail is added here as the company page is completed.
+[Learn more](https://www.deserv.biz/)

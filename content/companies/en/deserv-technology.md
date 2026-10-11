@@ -1,17 +1,21 @@
 ---
-title: DeServ Technology
+title: DeServ Technologies
 excerpt:
-  Technology services for organisations that need reliable systems, support, and
-  clear digital delivery.
+  Engine overhaul, turbocharger repair and component reconditioning for marine
+  and power-generation equipment.
 ---
 
-DeServ Technology provides technology services for organisations that need
-reliable systems, support, and delivery they can follow.
+DeServ Technologies provides engineering services for engines and related
+machinery. Its work covers inspection, overhaul and reconditioning of components
+such as cylinder heads, pistons, liners, bearings, fuel pumps and injectors,
+together with turbocharger repair and refurbishment.
 
-## What clients come for
+The service process follows the condition of the equipment and the technical
+scope required, from inspection and component work through reassembly and
+testing. Workshop and field support covers marine, oilfield and power-plant
+equipment. Each enquiry should identify the machinery and the service needed so
+the team can confirm the appropriate scope.
 
-- Systems that stay understandable after launch
-- Support with a named reply, not a queue with no owner
-- Digital delivery scoped before the work starts
+Your Engine, Our Support
 
-Further detail is added here as the company page is completed.
+[Learn more](https://www.deserv.biz/)

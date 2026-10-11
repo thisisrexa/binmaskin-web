@@ -1,18 +1,17 @@
 ---
 title: BinMaskin Energy
-excerpt:
-  Energy solutions for buildings and operations, planned for efficiency and a
-  dependable supply.
+excerpt: Inventing and developing innovative energy solutions.
 ---
 
-BinMaskin Energy plans energy for buildings and operations. The aim is
-efficiency and a supply the building can depend on, decided early enough to
-matter.
+BinMaskin Energy works on the invention and development of innovative energy
+solutions. Its focus combines the design of new energy-system concepts with
+collaboration on green and renewable-energy design, exploring how different
+approaches can respond to practical needs in buildings and operations.
 
-## What is in view
+The work begins with the intended use, the operating conditions and the
+questions a design needs to answer. We welcome collaboration on developing
+ideas, shaping system concepts and identifying the analysis and testing needed
+to evaluate them. The aim is to move from an initial idea toward a clearer
+design, with assumptions and technical requirements made explicit.
 
-- Energy use considered with the building, not after it
-- Efficiency that shows up in operation, not only in a proposal
-- Supply choices a maintenance team can live with
-
-The photograph for this company is still to come.
+[Get in touch](/en#contact)

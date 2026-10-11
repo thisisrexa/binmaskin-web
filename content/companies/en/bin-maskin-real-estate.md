@@ -5,15 +5,15 @@ excerpt:
   value across residential and commercial markets.
 ---
 
-BinMaskin Real Estate looks at property as a long hold. Residential and
-commercial opportunities are judged on development, use, and value that still
-makes sense later.
+BinMaskin Real Estate considers residential and commercial opportunities through
+a long-term view of property. Development, daily use and ongoing operation all
+influence how an asset holds its value beyond the first transaction.
 
-## The focus
+That perspective looks at how a place works for its occupants and operators: the
+quality of its spaces, the durability of its materials, access for maintenance
+and the ability to adapt over time. Where relevant, property decisions can
+benefit from closer coordination with construction and energy planning. The aim
+is to consider the building as an asset that will continue to be used,
+maintained and changed.
 
-- Opportunities in residential and commercial markets
-- Development that respects how the building will actually be used
-- Value measured past the first transaction
-
-A property decision here is tied to the group's construction and energy work
-when that connection helps the asset.
+[Get in touch](/en#contact)

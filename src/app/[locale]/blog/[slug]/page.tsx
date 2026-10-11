@@ -4,13 +4,12 @@ import { getTranslations } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import ReactMarkdown from 'react-markdown';
 
+import { BackLink } from '@/components/layout/back-link';
 import { ResponsiveCover } from '@/components/ui/responsive-cover';
-import { Link } from '@/i18n/navigation';
 import { getPost, getPosts } from '@/lib/blog';
 import { coverFrame } from '@/lib/blog-meta';
 import { pageMetadata } from '@/lib/seo';
 import { formatDate } from '@/lib/utils';
-import StaggerText from '@/components/ui/stagger-text';
 
 export function generateStaticParams() {
   return getPosts('en').map((post) => ({ slug: post.slug }));
@@ -45,13 +44,13 @@ export default async function BlogPostPage({
   return (
     <main className="wrap py-12 pb-24 md:py-24">
       <article className="mx-auto max-w-5xl">
-        <div className="flex justify-between items-baseline mb-6">
-          <Link
+        <div className="mb-6 flex items-baseline justify-between">
+          <BackLink
             href="/blog"
             className="text-xs tracking-[0.16em] text-accent uppercase ar:tracking-normal ar:normal-case"
           >
             {t('back')}
-          </Link>
+          </BackLink>
           <time className="block text-xs text-faint" dateTime={post.date}>
             {formatDate(post.date, locale)}
           </time>

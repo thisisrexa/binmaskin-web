@@ -4,17 +4,15 @@ import { getTranslations } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import QRCode from 'qrcode';
 
-import {
-  GlobeIcon,
-  LinkedinIcon,
-  MailIcon,
-  TelegramIcon,
-} from '@/components/card/icons';
 import { ShareCard } from '@/components/card/share-card';
 import { WallpaperLink } from '@/components/card/wallpaper-link';
-import { LegalPage } from '@/components/legal/legal-page';
+import { GlobeIcon } from '@/components/icons/globe';
+import { LinkedInIcon } from '@/components/icons/linkedin';
+import { MailIcon } from '@/components/icons/mail';
+import { TelegramIcon } from '@/components/icons/telegram';
 import { BrandMark } from '@/components/layout/brand-mark';
-import { isLegalDoc, LEGAL_DOCS } from '@/lib/legal-docs';
+import { LegalPage } from '@/components/legal/legal-page';
+import { isLegalDoc, LEGAL_DOCS, legalContent } from '@/lib/legal-docs';
 import { getPerson, PEOPLE, personText } from '@/lib/people';
 import { localePath, pageMetadata, SITE } from '@/lib/seo';
 
@@ -33,13 +31,12 @@ export async function generateMetadata({
   const { locale, slug } = await params;
 
   if (isLegalDoc(slug)) {
-    const tl = await getTranslations({ locale, namespace: 'legal' });
-    const tm = await getTranslations({ locale, namespace: 'meta' });
+    const { title, description } = legalContent(locale, slug);
     return pageMetadata({
       locale,
       path: `/${slug}`,
-      title: tl(slug),
-      description: tm(`${slug}Desc`),
+      title,
+      description,
     });
   }
 
@@ -62,7 +59,7 @@ export default async function SlugPage({
   const { locale, slug } = await params;
 
   if (isLegalDoc(slug)) {
-    return <LegalPage id={slug} />;
+    return <LegalPage id={slug} locale={locale} />;
   }
 
   const person = getPerson(slug);
@@ -119,7 +116,7 @@ export default async function SlugPage({
           />
         </div>
 
-        <nav className="grid gap-2 grid-cols-4" aria-label={t('links')}>
+        <nav className="grid grid-cols-4 gap-2" aria-label={t('links')}>
           <Tile
             href={`mailto:${person.email}`}
             label={t('email')}
@@ -128,7 +125,7 @@ export default async function SlugPage({
           <Tile
             href={person.linkedin}
             label={t('linkedin')}
-            icon={<LinkedinIcon className="size-5" />}
+            icon={<LinkedInIcon className="size-5" />}
             external
           />
           <Tile
@@ -150,9 +147,7 @@ export default async function SlugPage({
             <p className="text-[11px] tracking-[0.16em] text-faint uppercase ar:tracking-normal ar:normal-case">
               {t('scan')}
             </p>
-            <p className="mt-2 font-serif text-xl leading-snug">
-              {t('qrTitle')}
-            </p>
+            <p className="mt-2 font-serif text-xl/snug">{t('qrTitle')}</p>
           </div>
           <div className="relative size-24 shrink-0">
             <div dangerouslySetInnerHTML={{ __html: qr }} />

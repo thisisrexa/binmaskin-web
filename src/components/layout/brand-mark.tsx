@@ -1,16 +1,18 @@
 import Image from 'next/image';
 
+import symbol from '@/assets/brand/symbol.svg';
+import wordmark from '@/assets/brand/wordmark.svg';
 import { cn } from '@/lib/utils';
 
 const MARKS = {
   wordmark: {
-    src: '/brand/wordmark.svg',
+    src: wordmark,
     alt: 'BinMaskin Solutions',
     width: 480,
     height: 52,
   },
   symbol: {
-    src: '/brand/symbol.svg',
+    src: symbol,
     alt: '',
     width: 232,
     height: 232,

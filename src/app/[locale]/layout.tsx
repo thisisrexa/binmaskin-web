@@ -6,6 +6,7 @@ import { getTranslations } from 'next-intl/server';
 import { cookies } from 'next/headers';
 import { notFound } from 'next/navigation';
 
+import { NavigationHistory } from '@/components/layout/back-link';
 import { CookieConsent } from '@/components/layout/cookie-consent';
 import { SiteFooter } from '@/components/layout/site-footer';
 import { SiteHeader } from '@/components/layout/site-header';
@@ -62,6 +63,7 @@ export default async function LocaleLayout({
           }}
         />
         <NextIntlClientProvider>
+          <NavigationHistory />
           <SiteHeader />
           <div className="pt-(--hdr)">{children}</div>
           <SiteFooter />

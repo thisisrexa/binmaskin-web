@@ -40,7 +40,7 @@ export function StatsCounter({
   const [displayValue, setDisplayValue] = useState(0);
 
   useEffect(() => {
-    if (reduce || !isInView) return;
+    if (reduce === true || !isInView) return;
     motionValue.set(value);
   }, [isInView, value, motionValue, reduce]);
 

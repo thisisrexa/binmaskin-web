@@ -92,7 +92,7 @@ export function jsonLd(locale: string, description: string) {
         name: locale === 'ar' ? COMPANY.legalAr : COMPANY.legalEn,
         alternateName: COMPANY.name,
         url: SITE,
-        logo: `${SITE}/brand/symbol.svg`,
+        logo: `${SITE}/og.png`,
         image: `${SITE}/og.png`,
         email: COMPANY.email,
         telephone: COMPANY.phoneTel,

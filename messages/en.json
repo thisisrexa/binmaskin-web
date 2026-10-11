@@ -2,11 +2,7 @@
   "meta": {
     "title": "Systems that answer to the business — BinMaskin Solutions",
     "titleTemplate": "%s — BinMaskin Solutions",
-    "description": "Digital and building businesses in Dubai. BinMaskin Solutions — one accountable desk. Get in touch.",
-    "privacyDesc": "How BinMaskin Solutions collects, uses and retains personal data under UAE PDPL.",
-    "termsDesc": "Terms of use for the BinMaskin Solutions website, governed by the laws of the United Arab Emirates.",
-    "cookiesDesc": "Cookie notice for binmaskin.solutions — this version does not run advertising trackers.",
-    "securityDesc": "How BinMaskin Solutions contacts you, what we never ask for, and how to verify a genuine request."
+    "description": "Independent digital and building businesses in the United Arab Emirates."
   },
   "nav": {
     "home": "Home",
@@ -18,98 +14,22 @@
     "cta": "Get in touch"
   },
   "hero": {
-    "status": "Dubai, United Arab Emirates",
+    "status": "United Arab Emirates",
     "l1": "Systems that",
     "l2": "answer to the business.",
-    "lead": "Digital and building businesses — held by one accountable Dubai desk.",
+    "lead": "Independent digital and building businesses in the United Arab Emirates.",
     "cta1": "Request a consultation",
     "cta2": "Our companies",
     "trust1": "BinMaskin Solutions",
-    "core": "Dubai"
+    "core": "UAE"
   },
   "quote": {
     "text": "We do not sell technology for its own sake.\nWe align technology with the business."
   },
-  "biz": {
-    "eyebrow": "Businesses",
-    "title": "Two desks.\nOne standard of <em>delivery.</em>",
-    "lead": "A holding group. Digital and building — engage one, or both, from a single Dubai desk.",
-    "digital": "Digital",
-    "digitalLic": "Digital works",
-    "digitalTitle": "Systems that\nanswer to the business.",
-    "digitalLead": "Digital presence, infrastructure, security and custom software — scoped clearly, answered from Dubai, without the noise of a sprawling agency pitch.",
-    "d1": "Digital presence",
-    "d1p": "Corporate websites, commerce and web applications — bilingual Arabic and English, structured for long-term maintenance.",
-    "d1lic": "Web & product",
-    "d1a": "Corporate websites",
-    "d1b": "E-commerce",
-    "d1c": "Campaign landings",
-    "d1d": "Web applications",
-    "d1e": "Ongoing care",
-    "d1f": "Bilingual RTL",
-    "d2": "Technical foundation",
-    "d2p": "Networks, servers and cloud environments designed for operational clarity — documented, supported and accountable.",
-    "d2lic": "Infrastructure",
-    "d2a": "Office networks",
-    "d2b": "Servers & endpoints",
-    "d2c": "Cloud & migration",
-    "d2d": "Connectivity",
-    "d2e": "Managed support",
-    "d2f": "Operating runbooks",
-    "d3": "Security & continuity",
-    "d3p": "Backup, monitoring, audits and hardening — practical controls that reduce exposure without slowing the business.",
-    "d3lic": "Risk & resilience",
-    "d3a": "Backup & recovery",
-    "d3b": "Monitoring",
-    "d3c": "Security audits",
-    "d3d": "Data handling",
-    "d3e": "Hardening",
-    "d3f": "Incident response",
-    "d4": "Bespoke software",
-    "d4p": "Internal systems, integrations and automation tailored to how your organisation actually operates.",
-    "d4lic": "Engineering",
-    "d4a": "Internal systems",
-    "d4b": "Integrations",
-    "d4c": "Automation",
-    "d4d": "Communications tools",
-    "d4e": "Process digitisation",
-    "building": "Construction",
-    "buildingLic": "Building works",
-    "buildingTitle": "Sites delivered\nwith the same discipline.",
-    "buildingLead": "Fit-out, contracting and practical site delivery — scoped clearly, answered from Dubai, without the noise of a sprawling contractor pitch.",
-    "b1": "Fit-out",
-    "b1p": "Interior and commercial spaces finished to a usable standard.",
-    "b1lic": "Interiors",
-    "b1a": "Commercial interiors",
-    "b1b": "Joinery",
-    "b1c": "Finishes",
-    "b1d": "Snagging",
-    "b2": "Contracting",
-    "b2p": "Scoped building works with a single accountable desk.",
-    "b2lic": "Works",
-    "b2a": "Scoped packages",
-    "b2b": "Single desk",
-    "b2c": "Programme",
-    "b2d": "Close-out",
-    "b3": "Site delivery",
-    "b3p": "Coordination on the ground — schedules, trades, handover.",
-    "b3lic": "On site",
-    "b3a": "Schedules",
-    "b3b": "Trades",
-    "b3c": "Coordination",
-    "b3d": "Handover",
-    "b4": "Supervision",
-    "b4p": "Oversight that keeps quality and timeline honest.",
-    "b4lic": "Oversight",
-    "b4a": "Quality",
-    "b4b": "Timeline",
-    "b4c": "Site visits",
-    "b4d": "Reporting"
-  },
   "work": {
     "eyebrow": "Selected work",
     "title": "Disciplined <em>delivery.</em>",
-    "lead": "Representative studies across our businesses. Detailed case references available on request.",
+    "lead": "Explore the expertise and areas of work of the independent companies featured here.",
     "badge": "Representative",
     "cta": "Discuss a similar brief",
     "prev": "Previous",
@@ -121,31 +41,31 @@
     "d3": "Hardening & recovery",
     "d3p": "Endpoint, backup and data-flow review framed as fixes shipped — not a PDF left on a desk.",
     "d4": "Ops tooling replace",
-    "d4p": "An internal system that replaces spreadsheet sprawl — useful, plain, owned."
+    "d4p": "An internal system that replaces spreadsheet sprawl — useful, plain, owned.",
+    "pause": "Pause carousel",
+    "play": "Play carousel"
   },
   "about": {
     "eyebrow": "About",
-    "title": "An accountable holding\nbased in <em>Dubai.</em>",
-    "lead": "BinMaskin Solutions holds digital and building businesses with a single point of accountability — one professional desk in Dubai.",
-    "s1": "Business groups",
-    "s2": "Based in Dubai",
-    "s3": "Locally owned",
+    "title": "Independent companies. A shared point of contact in the UAE.",
+    "lead": "BinMaskin brings together the stories and capabilities of independent companies working across technology, business operations, construction, real estate, energy and trade. Each company has its own identity and area of expertise, with responsibility for its own work.",
+    "s1": "Independent companies",
+    "s2": "United Arab Emirates",
     "s4": "Typical reply time",
     "v1": "04",
     "v2": "UAE",
-    "v3": "100%",
-    "v4": "1 day",
-    "p1": "BinMaskin Solutions is a holding desk in Dubai. Digital work and building work sit under one name, one licence, and one reply.",
-    "p2": "The desk does not sell technology for its own sake. Scope is written down. The person who answers has a name. The work stays accountable to the business that asked for it.",
-    "p3": "Sunday to Thursday, Dubai hours. One phone and one email — the ones printed on this site. Nothing else is a BinMaskin channel."
+    "v4": "1 workday",
+    "p1": "Our shared point of contact helps enquiries reach the right company, whether the need concerns digital systems, day-to-day operations, buildings, property, energy or materials. We start by understanding what the business needs and identifying a practical next step.",
+    "p2": "Scope is written down. The person who answers has a name. The work stays accountable to the business that asked for it."
   },
   "companies": {
-    "eyebrow": "The group",
-    "title": "Companies held\nby one <em>desk.</em>",
-    "lead": "Nine subsidiaries under one Dubai desk.",
+    "eyebrow": "The companies",
+    "title": "Independent companies.\n<em>Clear accountability.</em>",
+    "lead": "Nine independent companies in the United Arab Emirates.",
     "about": "About",
-    "back": "The group",
-    "close": "Close"
+    "back": "The companies",
+    "close": "Close",
+    "inDevelopment": "In development"
   },
   "blog": {
     "eyebrow": "Journal",
@@ -201,7 +121,7 @@
   "cta3": {
     "kicker": "Direct line",
     "title": "Prefer a direct conversation?",
-    "p": "WhatsApp or email — we respond within one business day during Dubai hours.",
+    "p": "Contact us by WhatsApp or email. We respond within one business day during our published working hours.",
     "wa": "WhatsApp",
     "mail": "Email us"
   },
@@ -209,7 +129,7 @@
     "micro2": "Sun – Thu · 9:00 – 18:00 GST"
   },
   "foot": {
-    "blurb": "Digital · Building.\nDubai, United Arab Emirates.",
+    "blurb": "Digital · Building.\nUnited Arab Emirates.",
     "company": "Company",
     "legal": "Legal",
     "reach": "Reach us",
@@ -219,8 +139,7 @@
     "privacy": "Privacy Policy",
     "terms": "Terms of Use",
     "cookies": "Cookie Notice",
-    "security": "Security",
-    "updated": "Last updated: September 2026 · BinMaskin Solutions · Dubai, UAE"
+    "security": "Security"
   },
   "status": {
     "nfTitle": "Page not found",
@@ -246,16 +165,8 @@
     "analyticsBody": "Google Analytics, only after you opt in. Nothing is loaded before that. Not active on this site yet.",
     "always": "Always on"
   },
-  "privacy": {
-    "body": "<h2>Who we are</h2><p>BinMaskin Solutions (“we”, “us”) is a technology company based in Dubai, United Arab Emirates. This policy describes how we handle personal data when you use this website or contact us.</p><h2>UAE Personal Data Protection</h2><p>We process personal data in line with applicable UAE law, including Federal Decree-Law No. 45 of 2021 on the Protection of Personal Data (PDPL), and related guidance.</p><h2>What we collect</h2><ul><li>Contact details you submit (name, email, phone, message content).</li><li>Technical data needed to display this site (standard browser requests).</li></ul><h2>Why we use data</h2><p>To respond to inquiries, deliver services you request, maintain security of our systems, and meet legal or regulatory obligations in the UAE.</p><h2>Sharing</h2><p>We do not sell personal data. We may share information with service providers acting on our instructions, or when required by UAE law or competent authorities.</p><h2>Retention</h2><p>Inquiry data is kept only as long as needed to handle your request and for reasonable business or legal records, then deleted or anonymised.</p><h2>Your rights</h2><p>Subject to PDPL and applicable law, you may request access, correction, deletion, or restriction of processing. Contact us at info@binmaskin.solutions.</p><h2>Contact</h2><p>BinMaskin Solutions · Dubai, United Arab Emirates · info@binmaskin.solutions · <span class='phone-ltr'>+971 55 612 0279</span> · Dubai Chamber 552755</p><p><em>This page is for general information and does not constitute legal advice.</em></p>"
-  },
-  "terms": {
-    "body": "<h2>Acceptance</h2><p>By using this website you agree to these Terms of Use. If you do not agree, please do not use the site.</p><h2>About the site</h2><p>This site presents information about BinMaskin Solutions, a technology company based in Dubai, UAE. Content may be updated without notice. Project visuals are representative examples and are not claims of specific client engagements unless stated otherwise.</p><h2>Intellectual property</h2><p>Wordmarks, text, and design on this site belong to BinMaskin Solutions or its licensors. You may not copy or reuse them without written permission.</p><h2>No warranty</h2><p>Information is provided “as is” for general communication. We do not warrant uninterrupted availability or error-free content.</p><h2>Limitation of liability</h2><p>To the fullest extent permitted under UAE law, we are not liable for indirect or consequential loss arising from use of this site. Nothing excludes liability that cannot be limited under applicable law.</p><h2>Governing law</h2><p>These terms are governed by the laws of the United Arab Emirates, and disputes are subject to the competent courts of Dubai, unless mandatory rules provide otherwise.</p><h2>Contact</h2><p>info@binmaskin.solutions · <span class='phone-ltr'>+971 55 612 0279</span> · Dubai, UAE</p><p><em>General information — not a substitute for formal legal counsel.</em></p>"
-  },
-  "cookies": {
-    "body": "<h2>Summary</h2><p>This site stores an essential language cookie and a record of your cookie choice. Analytics stays off until you accept it.</p><h2>What we use</h2><ul><li><strong>Language</strong> (<code>NEXT_LOCALE</code>) keeps the site in English or Arabic. It is essential and is set without a separate opt-in.</li><li><strong>Choice</strong> (<code>bm-consent</code>) remembers Accept or Essential only for one year.</li><li>Analytics is not loaded until you accept. None runs before that choice.</li></ul><h2>Your choices</h2><p>Use the banner to accept analytics or keep essential cookies only. You can also block cookies in your browser. Contact info@binmaskin.solutions with questions about privacy.</p>"
-  },
-  "security": {
-    "body": "<h2>How we contact you</h2><p>BinMaskin Solutions only uses the email, phone and WhatsApp number published on this website. We will not ask you to switch to a private number, a personal inbox, or a chat app that is not listed here.</p><h2>We never ask for money this way</h2><p>We will never ask you to send cash, cryptocurrency, gift cards, or a transfer to a personal bank account. We do not request payment over WhatsApp, SMS, or a sudden email that is not from <code>@binmaskin.solutions</code>.</p><ul><li>No payment before a written scope and a company invoice.</li><li>Bank details appear on that invoice only — not in a chat.</li><li>We do not ask you to “confirm a fee” to release a contract, visa, or document.</li></ul><h2>We never ask for</h2><ul><li>Passwords, one-time codes (OTP), bank PINs, or remote-access software.</li><li>Urgency that forbids you from calling the number on this site.</li><li>Copies of identity or trade documents except through an agreed, documented process.</li></ul><h2>Verify a genuine request</h2><ul><li>Website: binmaskin.solutions</li><li>Email: info@binmaskin.solutions</li><li>Phone / WhatsApp: <span class='phone-ltr'>+971 55 612 0279</span></li><li>Dubai Chamber 552755</li></ul><p>If a message uses a look-alike domain, a different WhatsApp number, or asks you to keep the conversation secret — it is not us.</p><h2>If something feels off</h2><p>Do not pay. Do not share codes. Call or email the contacts on this page, and forward the message to info@binmaskin.solutions.</p><p><em>This page is for general information. Report fraud to the relevant UAE authorities when needed.</em></p>"
+  "homeAbout": {
+    "title": "Independent businesses in the UAE.",
+    "lead": "The nine companies featured here are independent businesses in the United Arab Emirates. Each operates under its own legal identity and is responsible for its own contracts and delivery."
   }
 }

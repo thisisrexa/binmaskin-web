@@ -95,7 +95,7 @@ for (const username of people) {
   const url = `${site}/en/${username}`;
   for (const [w, h] of sizes) {
     const wordW = Math.round(w * 0.36);
-    const word = svgPng('public/brand/wordmark.svg', wordW);
+    const word = svgPng('src/assets/brand/wordmark.svg', wordW);
     let qrPx = Math.round(Math.min(w * 0.32, h * 0.18));
     let box = frame(w, h, qrPx, word.height);
     while (!box) {
@@ -134,11 +134,27 @@ for (const username of people) {
     fill(out, edge, edge, arm, stroke, NAVY, ink);
     fill(out, edge, edge + stroke, stroke, arm - stroke, NAVY, ink);
     fill(out, w - edge - arm, edge, arm, stroke, NAVY, ink);
-    fill(out, w - edge - stroke, edge + stroke, stroke, arm - stroke, NAVY, ink);
+    fill(
+      out,
+      w - edge - stroke,
+      edge + stroke,
+      stroke,
+      arm - stroke,
+      NAVY,
+      ink,
+    );
     fill(out, edge, h - edge - stroke, arm, stroke, NAVY, ink);
     fill(out, edge, h - edge - arm, stroke, arm - stroke, NAVY, ink);
     fill(out, w - edge - arm, h - edge - stroke, arm, stroke, NAVY, ink);
-    fill(out, w - edge - stroke, h - edge - arm, stroke, arm - stroke, NAVY, ink);
+    fill(
+      out,
+      w - edge - stroke,
+      h - edge - arm,
+      stroke,
+      arm - stroke,
+      NAVY,
+      ink,
+    );
 
     fill(out, plateX, plateY, plate, plate, PAPER);
     const qrX = plateX + platePad;
@@ -146,7 +162,7 @@ for (const username of people) {
     blit(out, qr, qrX, qrY);
 
     const pad = Math.round(qr.width * 0.2);
-    const mark = svgPng('public/brand/symbol.svg', Math.round(pad * 0.72));
+    const mark = svgPng('src/assets/brand/symbol.svg', Math.round(pad * 0.72));
     const mx = qrX + ((qr.width - pad) >> 1);
     const my = qrY + ((qr.height - pad) >> 1);
     fill(out, mx, my, pad, pad, PAPER);
@@ -159,10 +175,7 @@ for (const username of people) {
 
     blit(out, word, (w - word.width) >> 1, box.wordY);
 
-    const file = join(
-      root,
-      `public/cards/${username}-wallpaper-${w}x${h}.png`,
-    );
+    const file = join(root, `public/cards/${username}-wallpaper-${w}x${h}.png`);
     writeFileSync(file, PNG.sync.write(out));
     console.log(file);
   }

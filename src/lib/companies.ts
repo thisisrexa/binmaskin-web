@@ -1,228 +1,402 @@
+import type { StaticImageData } from 'next/image';
+
+import { galleryImage } from '@/lib/gallery-images';
+import { workCover } from '@/lib/work-covers';
+
 export interface CompanyCopy {
   name: string;
   summary: string;
-  body: string;
 }
 
-export interface CompanyCover {
-  mobile: string;
-  desktop: string;
+export interface GalleryFrame {
+  src: StaticImageData;
+  altEn: string;
+  altAr: string;
+  fit?: 'contain' | 'cover';
+  position?: string;
+  plan?: { src: StaticImageData; altEn: string; altAr: string };
 }
 
 export interface Company {
   slug: string;
   mark: string;
-  cover: CompanyCover | null;
-  /** Three journal cards on /companies/[slug]. Same src until real sets exist. */
-  frames: [string, string, string] | null;
-  /** Lightbox companion. Null = one photo per slide. */
-  plan: string | null;
+  cover: { mobile: StaticImageData; desktop: StaticImageData };
+  frames: [GalleryFrame, GalleryFrame, GalleryFrame];
   en: CompanyCopy;
   ar: CompanyCopy;
 }
 
-const RAW: {
-  slug: string;
-  mark: string;
-  /** ponytail: false = navy fallback. Set true after public/work/{slug}-mobile.png and -desktop.png exist. */
-  cover: boolean;
-  /** ponytail: true when public/work/{slug}-about.png exists (1:1 company about page). */
-  aboutImage?: boolean;
-  /** ponytail: lightbox shows this beside each frame. Swap path when public/work/bin-maskin-construction-plan.png exists. */
-  plan?: boolean;
-  en: CompanyCopy;
-  ar: CompanyCopy;
-}[] = [
+function frame(
+  group: string,
+  file: string,
+  ...[altEn, altAr, fit, position, plan]: [
+    string,
+    string,
+    ('contain' | 'cover')?,
+    string?,
+    [string, string, string]?,
+  ]
+): GalleryFrame {
+  return {
+    src: galleryImage(group, file),
+    altEn,
+    altAr,
+    ...(fit ? { fit } : {}),
+    ...(position ? { position } : {}),
+    ...(plan
+      ? {
+          plan: {
+            src: galleryImage(group, plan[0]),
+            altEn: plan[1],
+            altAr: plan[2],
+          },
+        }
+      : {}),
+  };
+}
+
+const RAW = [
   {
     slug: 'bin-maskin-solutions',
     mark: 'Solutions',
-    cover: true,
     en: {
       name: 'BinMaskin Solutions',
       summary:
         'Delivering integrated technology, digital infrastructure, software, and IT solutions for modern businesses.',
-      body: 'Delivering integrated technology, digital infrastructure, software, and IT solutions for modern businesses.',
     },
     ar: {
       name: 'BinMaskin Solutions',
       summary:
         'تقديم تقنية متكاملة وبنية تحتية رقمية وبرمجيات وحلول تقنية معلومات للأعمال الحديثة.',
-      body: 'تقديم تقنية متكاملة وبنية تحتية رقمية وبرمجيات وحلول تقنية معلومات للأعمال الحديثة.',
     },
+    frames: [
+      frame(
+        'bin-maskin-solutions',
+        '01-sesderma.png',
+        'Sesderma system presentation',
+        'عرض نظام Sesderma',
+      ),
+      frame(
+        'bin-maskin-solutions',
+        '02-shell.png',
+        'Shell website design presentation',
+        'عرض تصميم موقع Shell',
+      ),
+      frame(
+        'bin-maskin-solutions',
+        '03-ai-apps.png',
+        'AI applications in development',
+        'تطبيقات ذكاء اصطناعي قيد التطوير',
+      ),
+    ],
   },
   {
     slug: 'operith',
     mark: 'Operith',
-    cover: true,
     en: {
       name: 'Operith',
       summary:
         'An intelligent operations platform built to simplify workflows, automate processes, and improve business efficiency.',
-      body: 'An intelligent operations platform built to simplify workflows, automate processes, and improve business efficiency.',
     },
     ar: {
       name: 'Operith',
       summary:
         'منصة عمليات ذكية بُنيت لتبسيط سير العمل وأتمتة العمليات ورفع كفاءة الأعمال.',
-      body: 'منصة عمليات ذكية بُنيت لتبسيط سير العمل وأتمتة العمليات ورفع كفاءة الأعمال.',
     },
+    frames: [
+      frame(
+        'operith',
+        '01-brand.png',
+        'Operith brand presentation',
+        'عرض شعار Operith',
+        'contain',
+      ),
+      frame(
+        'operith',
+        '02-product-flow.png',
+        'Blurred Operith development preview',
+        'معاينة مموهة لـ Operith قيد التطوير',
+        'contain',
+      ),
+      frame(
+        'operith',
+        '03-ops-layer.png',
+        'Blurred Operith development preview',
+        'معاينة مموهة لـ Operith قيد التطوير',
+        'contain',
+      ),
+    ],
   },
   {
     slug: 'dar-al-hulul',
     mark: 'Dar Al Hulul',
-    cover: true,
     en: {
       name: 'Dar Al Hulul',
       summary:
         'A digital marketplace designed to connect products, services, and customers through a smarter discovery experience.',
-      body: 'A digital marketplace designed to connect products, services, and customers through a smarter discovery experience.',
     },
     ar: {
       name: 'Dar Al Hulul',
       summary:
         'سوق رقمي صُمم لربط المنتجات والخدمات والعملاء عبر تجربة اكتشاف أذكى.',
-      body: 'سوق رقمي صُمم لربط المنتجات والخدمات والعملاء عبر تجربة اكتشاف أذكى.',
     },
+    frames: [
+      frame(
+        'dar-al-hulul',
+        '01-brand.png',
+        'Dar Al Hulul brand presentation',
+        'عرض شعار دار الحلول',
+        'contain',
+      ),
+      frame(
+        'dar-al-hulul',
+        '02-experience.png',
+        'Blurred Dar Al Hulul development preview',
+        'معاينة مموهة لدار الحلول قيد التطوير',
+        'contain',
+      ),
+      frame(
+        'dar-al-hulul',
+        '03-home-living.png',
+        'Blurred Dar Al Hulul development preview',
+        'معاينة مموهة لدار الحلول قيد التطوير',
+        'contain',
+      ),
+    ],
   },
   {
     slug: 'bin-maskin-construction',
     mark: 'Construction',
-    cover: true,
-    plan: true,
     en: {
       name: 'BinMaskin Construction',
       summary:
         'Delivering reliable construction solutions with a focus on quality, execution, and modern building standards.',
-      body: 'Delivering reliable construction solutions with a focus on quality, execution, and modern building standards.',
     },
     ar: {
       name: 'BinMaskin Construction',
       summary:
         'تقديم حلول إنشاء موثوقة مع التركيز على الجودة والتنفيذ ومعايير البناء الحديثة.',
-      body: 'تقديم حلول إنشاء موثوقة مع التركيز على الجودة والتنفيذ ومعايير البناء الحديثة.',
     },
+    frames: [
+      frame(
+        'bin-maskin-construction',
+        '01-villa-render.png',
+        'Architectural rendering of a villa',
+        'تصور معماري لفيلا',
+        'contain',
+        undefined,
+        ['01-villa-plan.png', 'Villa plan', 'مخطط الفيلا'],
+      ),
+      frame(
+        'bin-maskin-construction',
+        '02-warehouse-render.png',
+        'Architectural rendering of a warehouse',
+        'تصور معماري لمستودع',
+        'contain',
+        undefined,
+        ['02-warehouse-plan.png', 'Warehouse plan', 'مخطط المستودع'],
+      ),
+      frame(
+        'bin-maskin-construction',
+        '03-courtyard-render.png',
+        'Architectural concept with an internal courtyard',
+        'تصور معماري بفناء داخلي',
+        'contain',
+        undefined,
+        ['03-concept-plan.png', 'Concept plan', 'مخطط تصوري'],
+      ),
+    ],
   },
   {
     slug: 'deserv-international-group',
     mark: 'DeServ',
-    cover: true,
     en: {
       name: 'DeServ International Group',
       summary:
-        'An international group coordinating services and commercial activity across markets.',
-      body: 'An international group coordinating services and commercial activity across markets.',
+        'Engine components and spare parts for marine and power-generation operations.',
     },
     ar: {
       name: 'DeServ International Group',
-      summary: 'مجموعة دولية تنسّق الخدمات والنشاط التجاري عبر الأسواق.',
-      body: 'مجموعة دولية تنسّق الخدمات والنشاط التجاري عبر الأسواق.',
+      summary:
+        'مكونات وقطع غيار للمحركات المستخدمة في العمليات البحرية وتوليد الطاقة.',
     },
+    frames: [
+      frame(
+        'deserv-international-group',
+        '01-fuel-injection.jpg',
+        'Fuel injection components',
+        'مكونات حقن الوقود',
+        'cover',
+        '70% 50%',
+      ),
+      frame(
+        'deserv-international-group',
+        '02-pistons.jpg',
+        'Pistons and piston rings',
+        'مكابس وحلقات مكابس',
+        'cover',
+        '23% 50%',
+      ),
+      frame(
+        'deserv-international-group',
+        '03-engine-bearings.jpg',
+        'Engine bearings',
+        'محامل المحرك',
+        'cover',
+        '76% 50%',
+      ),
+    ],
   },
   {
     slug: 'deserv-technology',
-    mark: 'Technology',
-    cover: true,
+    mark: 'Technologies',
     en: {
-      name: 'DeServ Technology',
+      name: 'DeServ Technologies',
       summary:
-        'Technology services for organisations that need reliable systems, support, and clear digital delivery.',
-      body: 'Technology services for organisations that need reliable systems, support, and clear digital delivery.',
+        'Engine overhaul, turbocharger repair and component reconditioning for marine and power-generation equipment.',
     },
     ar: {
-      name: 'DeServ Technology',
+      name: 'DeServ Technologies',
       summary:
-        'خدمات تقنية للمؤسسات التي تحتاج أنظمة موثوقة ودعماً وتسليماً رقمياً واضحاً.',
-      body: 'خدمات تقنية للمؤسسات التي تحتاج أنظمة موثوقة ودعماً وتسليماً رقمياً واضحاً.',
+        'عمرة المحركات وإصلاح الشواحن التوربينية وتجديد المكونات للمعدات البحرية ومعدات توليد الطاقة.',
     },
+    frames: [
+      frame(
+        'deserv-technology',
+        '01-turbocharger.jpg',
+        'Turbocharger overhaul',
+        'عمرة الشاحن التوربيني',
+        'cover',
+        '27% 50%',
+      ),
+      frame(
+        'deserv-technology',
+        '02-engine-overhaul.jpg',
+        'Engine overhaul',
+        'عمرة المحرك',
+        'cover',
+        '42% 50%',
+      ),
+      frame(
+        'deserv-technology',
+        '03-workshop.jpg',
+        'Workshop services',
+        'خدمات الورشة',
+        'cover',
+        '38% 50%',
+      ),
+    ],
   },
   {
     slug: 'bin-maskin-real-estate',
     mark: 'Real Estate',
-    cover: true,
     en: {
       name: 'BinMaskin Real Estate',
       summary:
         'Focused on real estate opportunities, property development, and long-term value across residential and commercial markets.',
-      body: 'Focused on real estate opportunities, property development, and long-term value across residential and commercial markets.',
     },
     ar: {
       name: 'BinMaskin Real Estate',
       summary:
         'تركز على فرص العقارات والتطوير العقاري والقيمة طويلة الأمد في الأسواق السكنية والتجارية.',
-      body: 'تركز على فرص العقارات والتطوير العقاري والقيمة طويلة الأمد في الأسواق السكنية والتجارية.',
     },
+    frames: [
+      frame(
+        'bin-maskin-real-estate',
+        '01-residential-exterior.png',
+        'Residential exterior illustration',
+        'صورة توضيحية لواجهة سكنية',
+      ),
+      frame(
+        'bin-maskin-real-estate',
+        '02-residential-interior.png',
+        'Residential interior illustration',
+        'صورة توضيحية لمساحة سكنية داخلية',
+      ),
+      frame(
+        'bin-maskin-real-estate',
+        '03-commercial.png',
+        'Commercial space illustration',
+        'صورة توضيحية لمساحة تجارية',
+      ),
+    ],
   },
   {
     slug: 'bin-maskin-energy',
     mark: 'Energy',
-    cover: true,
-    aboutImage: true,
     en: {
       name: 'BinMaskin Energy',
-      summary:
-        'Energy solutions for buildings and operations, planned for efficiency and a dependable supply.',
-      body: 'Energy solutions for buildings and operations, planned for efficiency and a dependable supply.',
+      summary: 'Inventing and developing innovative energy solutions.',
     },
     ar: {
       name: 'BinMaskin Energy',
-      summary:
-        'حلول طاقة للمباني والعمليات، تُخطَّط للكفاءة واستمرارية الإمداد.',
-      body: 'حلول طاقة للمباني والعمليات، تُخطَّط للكفاءة واستمرارية الإمداد.',
+      summary: 'ابتكار وتطوير حلول جديدة للطاقة.',
     },
+    frames: [
+      frame(
+        'bin-maskin-energy',
+        '01-solar.png',
+        'Solar integration illustration',
+        'صورة توضيحية لتكامل الطاقة الشمسية',
+      ),
+      frame(
+        'bin-maskin-energy',
+        '02-innovation-lab.png',
+        'Energy innovation illustration',
+        'صورة توضيحية لابتكار الطاقة',
+      ),
+      frame(
+        'bin-maskin-energy',
+        '03-green-systems.png',
+        'Green energy systems illustration',
+        'صورة توضيحية لأنظمة الطاقة الخضراء',
+      ),
+    ],
   },
   {
     slug: 'prime-advanced-general-trading',
     mark: 'Trading',
-    cover: true,
     en: {
       name: 'Prime Advanced General Trading',
       summary:
-        'A diversified trading company connecting businesses with products, materials, and commercial opportunities across multiple sectors.',
-      body: 'A diversified trading company connecting businesses with products, materials, and commercial opportunities across multiple sectors.',
+        'Exhibition stands and event solutions that turn a brief into a clear physical presence.',
     },
     ar: {
       name: 'Prime Advanced General Trading',
       summary:
-        'شركة تجارة متنوعة تربط الأعمال بالمنتجات والمواد والفرص التجارية عبر قطاعات متعددة.',
-      body: 'شركة تجارة متنوعة تربط الأعمال بالمنتجات والمواد والفرص التجارية عبر قطاعات متعددة.',
+        'أجنحة معارض وحلول فعاليات تحوّل متطلبات العمل إلى حضور ملموس وواضح.',
     },
+    frames: [
+      frame(
+        'prime-advanced-general-trading',
+        '01-taogent.png',
+        'Taogent exhibition stand',
+        'جناح معرض Taogent',
+      ),
+      frame(
+        'prime-advanced-general-trading',
+        '02-nihao-china.png',
+        'Nihao China exhibition stand',
+        'جناح معرض Nihao China',
+      ),
+      frame(
+        'prime-advanced-general-trading',
+        '03-mtek-copper.png',
+        'MTek Copper exhibition stand',
+        'جناح معرض MTek Copper',
+      ),
+    ],
   },
-];
+] as const;
 
-export const COMPANIES: Company[] = RAW.map(
-  ({ cover, aboutImage, plan, ...company }) => {
-    const src = aboutImage
-      ? `/work/${company.slug}-about.png`
-      : cover
-        ? `/work/${company.slug}-desktop.png`
-        : null;
-    return {
-      ...company,
-      cover: cover
-        ? {
-            mobile: `/work/${company.slug}-mobile.png`,
-            desktop: `/work/${company.slug}-desktop.png`,
-          }
-        : null,
-      frames: src ? ([src, src, src] as [string, string, string]) : null,
-      plan: plan && src ? src : null,
-    };
+export const COMPANIES: Company[] = RAW.map((item) => ({
+  ...item,
+  cover: {
+    mobile: workCover(item.slug, 'mobile'),
+    desktop: workCover(item.slug, 'desktop'),
   },
-);
-
-const construction = COMPANIES.find(
-  (item) => item.slug === 'bin-maskin-construction',
-);
-const energy = COMPANIES.find((item) => item.slug === 'bin-maskin-energy');
-
-if (
-  !construction?.plan ||
-  construction.frames?.length !== 3 ||
-  !energy?.frames?.[0].endsWith('-about.png') ||
-  energy.plan
-) {
-  throw new Error('company frames broke');
-}
+  frames: [...item.frames] as [GalleryFrame, GalleryFrame, GalleryFrame],
+}));
 
 export function companyText(company: Company, locale: string) {
   return locale === 'ar' ? company.ar : company.en;

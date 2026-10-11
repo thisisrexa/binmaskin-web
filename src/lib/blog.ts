@@ -3,14 +3,17 @@ import path from 'node:path';
 
 import type { Post } from '@/lib/blog-meta';
 
+import { blogCover } from '@/lib/blog-covers';
+
 export type { Post, PostCard } from '@/lib/blog-meta';
 
 const ROOT = path.join(process.cwd(), 'content/blog');
+const SAMPLE = 'sample.png';
 
 export function parseFrontmatter(raw: string) {
   const match = /^---\r?\n([\s\S]*?)\r?\n---\r?\n?([\s\S]*)$/.exec(raw);
   if (!match) throw new Error('blog: missing frontmatter');
-  const data: Record<string, string> = {};
+  const data: Partial<Record<string, string>> = {};
 
   for (const line of match[1].split(/\r?\n/)) {
     if (!line.trim()) continue;
@@ -23,7 +26,7 @@ export function parseFrontmatter(raw: string) {
 }
 
 const check = parseFrontmatter(
-  '---\ntitle: Hi\ndate: 2026-01-01\nexcerpt: X\ncover: /blog/sample.png\n---\n\nBody',
+  '---\ntitle: Hi\ndate: 2026-01-01\nexcerpt: X\ncover: sample.png\n---\n\nBody',
 );
 
 if (check.data.title !== 'Hi' || check.body !== 'Body') {
@@ -46,13 +49,14 @@ export function getPosts(locale: string): Post[] {
       ? localPath
       : path.join(enDir, file);
     const { data, body } = parseFrontmatter(fs.readFileSync(filePath, 'utf8'));
+    const cover = blogCover(data.cover ?? SAMPLE);
     return {
       slug,
       title: data.title ?? slug,
       date: data.date ?? '',
       excerpt: data.excerpt ?? '',
-      cover: data.cover ?? '/blog/sample.png',
-      coverMobile: data.coverMobile ?? data.cover ?? '/blog/sample.png',
+      cover,
+      coverMobile: blogCover(data.coverMobile ?? data.cover ?? SAMPLE),
       body,
     };
   });

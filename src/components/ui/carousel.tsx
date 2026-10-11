@@ -37,7 +37,7 @@ const CarouselContext = React.createContext<CarouselContextProps | null>(null);
 CarouselContext.displayName = 'CarouselContext';
 
 function useCarousel() {
-  const context = React.useContext(CarouselContext);
+  const context = React.use(CarouselContext);
 
   if (!context) {
     throw new Error('useCarousel must be used within a <Carousel />');
@@ -111,13 +111,12 @@ function Carousel({
   }, [api, onSelect]);
 
   return (
-    <CarouselContext.Provider
+    <CarouselContext
       value={{
         carouselRef,
         api,
         opts,
-        orientation:
-          orientation || (opts?.axis === 'y' ? 'vertical' : 'horizontal'),
+        orientation,
         scrollPrev,
         scrollNext,
         canScrollPrev,
@@ -134,7 +133,7 @@ function Carousel({
       >
         {children}
       </div>
-    </CarouselContext.Provider>
+    </CarouselContext>
   );
 }
 

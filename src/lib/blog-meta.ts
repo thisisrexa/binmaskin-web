@@ -1,10 +1,12 @@
+import type { StaticImageData } from 'next/image';
+
 export interface PostCard {
   slug: string;
   title: string;
   date: string;
   excerpt: string;
-  cover: string;
-  coverMobile: string;
+  cover: StaticImageData;
+  coverMobile: StaticImageData;
 }
 
 export type Post = PostCard & { body: string };

@@ -1,3 +1,5 @@
+import Link from 'next/link';
+
 import { fontClassName } from '@/lib/fonts';
 
 import './globals.css';
@@ -21,10 +23,9 @@ export default function RootNotFound() {
           <p className="mt-5 max-w-copy text-[1.05rem] text-muted-foreground">
             The page you asked for does not exist or has moved.
           </p>
-          {/* plain <a>: no locale context above the root layout */}
-          <a href="/en" className="btn btn-solid mt-12">
+          <Link href="/en" className="btn btn-solid mt-12">
             Back to home
-          </a>
+          </Link>
         </main>
       </body>
     </html>

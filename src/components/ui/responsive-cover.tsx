@@ -1,3 +1,5 @@
+import type { StaticImageData } from 'next/image';
+
 import Image from 'next/image';
 
 export function ResponsiveCover({
@@ -7,8 +9,8 @@ export function ResponsiveCover({
   priority = false,
   className = 'object-cover',
 }: {
-  mobile: string;
-  desktop: string;
+  mobile: StaticImageData;
+  desktop: StaticImageData;
   sizes: string;
   priority?: boolean;
   className?: string;

@@ -1,8 +1,8 @@
 # BinMaskin Solutions
 
-Marketing site for [BinMaskin Solutions](https://binmaskin.solutions) — a
-Dubai technology firm covering digital presence, infrastructure, security, and
-bespoke software.
+Marketing site for [BinMaskin Solutions](https://binmaskin.solutions) — a Dubai
+technology firm covering digital presence, infrastructure, security, and bespoke
+software.
 
 English and Arabic. Next.js App Router, Tailwind CSS 4, next-intl.
 
@@ -35,22 +35,23 @@ pnpm lint
 ## Content and brand
 
 Copy lives in `messages/en.json` and `messages/ar.json`. Company facts (legal
-names, chamber, phone, email) live in `src/lib/company.ts` and match
-the BinMaskin brand pack:
+names, chamber, phone, email) live in `src/lib/company.ts` and match the
+BinMaskin brand pack:
 
-|               |                           |
-| ------------- | ------------------------- |
-| Legal (EN)    | BINMASKIN SOLUTIONS |
-| Legal (AR)    | بن مسكين للحلول      |
-| Dubai Chamber | 552755                    |
-| Email         | info@binmaskin.solutions  |
-| Phone         | +971 55 612 0279          |
+|               |                          |
+| ------------- | ------------------------ |
+| Legal (EN)    | BINMASKIN SOLUTIONS      |
+| Legal (AR)    | بن مسكين للحلول          |
+| Dubai Chamber | 552755                   |
+| Email         | info@binmaskin.solutions |
+| Phone         | +971 55 612 0279         |
 
 Brand tokens: navy `#111C2D`, gold `#8A7A5C`, ivory `#F7F4EF`. Type: Fraunces +
 Outfit (Latin), Amiri + IBM Plex Sans Arabic (Arabic) via `next/font`.
 
-Logos, favicons, OG image, and PWA icons are under `public/brand`,
-`public/icons`, and `src/app` (`icon.svg`, `apple-icon.png`, `favicon.ico`).
+Site images live under `src/assets/` (`blog`, `work`, `companies`, `brand`,
+`sketches`). Favicons, OG, and PWA icons stay in `public/` (`icons`, `og.png`,
+`favicon*`) plus `src/app` app icons when present.
 
 ## Routes
 

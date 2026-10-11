@@ -35,12 +35,12 @@ export const PEOPLE: Person[] = [
     wallpaperBase: '/cards/hani-wallpaper',
     en: {
       role: 'Co-Founder, BinMaskin Solutions',
-      note: 'Digital and building work, answered from one desk in Dubai.',
+      note: 'Independent digital and building businesses in the United Arab Emirates.',
       place: 'Dubai, UAE',
     },
     ar: {
       role: 'الشريك المؤسس، BinMaskin Solutions',
-      note: 'عمل رقمي وإنشائي، يُجاب عنه من مكتب واحد في دبي.',
+      note: 'شركات مستقلة في المجالات الرقمية والإنشائية في الإمارات العربية المتحدة.',
       place: 'دبي، الإمارات',
     },
   },
