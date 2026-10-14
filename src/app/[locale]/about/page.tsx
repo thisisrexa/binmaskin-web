@@ -10,7 +10,7 @@ import { Link } from '@/i18n/navigation';
 import { COMPANIES } from '@/lib/companies';
 import { pageMetadata } from '@/lib/seo';
 
-const STATS = [1, 2, 4] as const;
+const STATS = [1, 2, 3, 4] as const;
 
 export async function generateMetadata({
   params,
@@ -78,7 +78,11 @@ export default async function AboutPage({
         <div className="mx-auto mt-16 grid w-full max-w-md grid-cols-2 place-items-center gap-x-6 gap-y-10 border-t border-border pt-10 text-center sm:gap-x-10 lg:mx-0 lg:flex lg:max-w-none lg:justify-between lg:gap-x-0 lg:text-start">
           {STATS.map((n, i) => (
             <Reveal key={n} delay={i * 0.08}>
-              <div className={n === 4 ? 'stat-n whitespace-nowrap' : 'stat-n'}>
+              <div
+                className={
+                  n === 3 || n === 4 ? 'stat-n whitespace-nowrap' : 'stat-n'
+                }
+              >
                 {n === 1 ? (
                   <StatsCounter
                     value={COMPANIES.length}

@@ -7,13 +7,15 @@ import QRCode from 'qrcode';
 import { ShareCard } from '@/components/card/share-card';
 import { WallpaperLink } from '@/components/card/wallpaper-link';
 import { GlobeIcon } from '@/components/icons/globe';
+import { InstagramIcon } from '@/components/icons/instagram';
 import { LinkedInIcon } from '@/components/icons/linkedin';
 import { MailIcon } from '@/components/icons/mail';
 import { TelegramIcon } from '@/components/icons/telegram';
+import { WhatsAppIcon } from '@/components/icons/whatsapp';
 import { BrandMark } from '@/components/layout/brand-mark';
 import { LegalPage } from '@/components/legal/legal-page';
 import { isLegalDoc, LEGAL_DOCS, legalContent } from '@/lib/legal-docs';
-import { getPerson, PEOPLE, personText } from '@/lib/people';
+import { getPerson, PEOPLE, personText, type Person } from '@/lib/people';
 import { localePath, pageMetadata, SITE } from '@/lib/seo';
 
 export function generateStaticParams() {
@@ -46,7 +48,7 @@ export async function generateMetadata({
   return pageMetadata({
     locale,
     path: `/${slug}`,
-    title: person.displayName,
+    title: copy.name,
     description: copy.role,
   });
 }
@@ -77,9 +79,13 @@ export default async function SlugPage({
     })
   ).replace('<svg ', '<svg class="h-full w-full" ');
 
+  const tiles = cardTiles(person, t);
+
   return (
     <main className="wrap py-10 md:py-16">
-      <article className="mx-auto flex w-full max-w-105 flex-col gap-5 border border-border bg-background p-5 sm:p-6">
+      <article
+        className={`mx-auto flex w-full flex-col gap-5 border border-border bg-background p-5 sm:p-6 ${person.username === 'salem' ? 'max-w-124' : 'max-w-105'}`}
+      >
         <header className="flex items-center justify-between gap-4">
           <BrandMark className="h-[18px] w-auto max-w-38" />
           <span className="text-[11px] tracking-[0.16em] text-faint uppercase ar:tracking-normal ar:normal-case">
@@ -89,10 +95,10 @@ export default async function SlugPage({
 
         <div>
           <p className="text-[11px] tracking-[0.16em] text-accent uppercase ar:tracking-normal ar:normal-case">
-            {person.org}
+            {copy.org}
           </p>
           <h1 className="mt-2 font-serif text-[3.25rem] leading-none font-normal">
-            {person.displayName}
+            {copy.name}
           </h1>
           <p className="mt-2 text-[1.05rem]">{copy.role}</p>
           <p className="mt-1.5 text-[0.95rem] text-muted-foreground">
@@ -110,36 +116,22 @@ export default async function SlugPage({
           </a>
           <ShareCard
             url={url}
-            title={person.displayName}
+            title={copy.name}
             label={t('share')}
             copied={t('copied')}
           />
         </div>
 
-        <nav className="grid grid-cols-4 gap-2" aria-label={t('links')}>
-          <Tile
-            href={`mailto:${person.email}`}
-            label={t('email')}
-            icon={<MailIcon className="size-5" />}
-          />
-          <Tile
-            href={person.linkedin}
-            label={t('linkedin')}
-            icon={<LinkedInIcon className="size-5" />}
-            external
-          />
-          <Tile
-            href={person.website}
-            label={t('website')}
-            icon={<GlobeIcon className="size-5" />}
-            external
-          />
-          <Tile
-            href={person.telegram}
-            label={t('telegram')}
-            icon={<TelegramIcon className="size-5" />}
-            external
-          />
+        <nav
+          className="grid gap-2"
+          style={{
+            gridTemplateColumns: `repeat(${tiles.length}, minmax(0, 1fr))`,
+          }}
+          aria-label={t('links')}
+        >
+          {tiles.map((tile) => (
+            <Tile key={tile.label} {...tile} />
+          ))}
         </nav>
 
         <section className="flex items-center gap-5 border border-border p-4">
@@ -157,7 +149,12 @@ export default async function SlugPage({
           </div>
         </section>
 
-        <WallpaperLink base={person.wallpaperBase} label={t('wallpaperSave')} />
+        {person.wallpaperBase ? (
+          <WallpaperLink
+            base={person.wallpaperBase}
+            label={t('wallpaperSave')}
+          />
+        ) : null}
 
         <footer className="flex items-center justify-between gap-4 border-t border-border pt-4 text-[11px] tracking-[0.14em] text-faint uppercase ar:tracking-normal ar:normal-case">
           <span>{copy.place}</span>
@@ -168,6 +165,62 @@ export default async function SlugPage({
       </article>
     </main>
   );
+}
+
+function cardTiles(
+  person: Person,
+  t: (key: string) => string,
+): { href: string; label: string; icon: React.ReactNode; external?: boolean }[] {
+  const icon = 'size-5';
+  return [
+    {
+      href: `mailto:${person.email}`,
+      label: t('email'),
+      icon: <MailIcon className={icon} />,
+    },
+    {
+      href: person.linkedin,
+      label: t('linkedin'),
+      icon: <LinkedInIcon className={icon} />,
+      external: true,
+    },
+    {
+      href: person.website,
+      label: t('website'),
+      icon: <GlobeIcon className={icon} />,
+      external: true,
+    },
+    ...(person.whatsapp
+      ? [
+          {
+            href: person.whatsapp,
+            label: t('whatsapp'),
+            icon: <WhatsAppIcon className={icon} />,
+            external: true,
+          },
+        ]
+      : []),
+    ...(person.instagram
+      ? [
+          {
+            href: person.instagram,
+            label: t('instagram'),
+            icon: <InstagramIcon className={icon} />,
+            external: true,
+          },
+        ]
+      : []),
+    ...(person.telegram
+      ? [
+          {
+            href: person.telegram,
+            label: t('telegram'),
+            icon: <TelegramIcon className={icon} />,
+            external: true,
+          },
+        ]
+      : []),
+  ];
 }
 
 function Tile({

@@ -34,19 +34,20 @@ function scrollPage(dy: number) {
   setTop(root, root.scrollTop + dy);
 }
 
-/** Inside the list, scroll the list. At the start or the end, the same gesture leaves onto the page. */
-function chain(el: HTMLElement, dy: number) {
+/** List first; leftover / edge → page. `pass=false` = list only (fling, no iOS page-jump). */
+function chain(el: HTMLElement, dy: number, pass = true) {
   if (dy === 0) return;
   const max = Math.max(0, el.scrollHeight - el.clientHeight);
   const top = el.scrollTop;
 
   if ((dy < 0 && top <= 0) || (dy > 0 && top >= max - 1)) {
-    scrollPage(dy);
+    if (pass) scrollPage(dy);
     return;
   }
 
   const next = Math.min(max, Math.max(0, top + dy));
   setTop(el, next);
+  if (!pass) return;
   const left = dy - (next - top);
   if (Math.abs(left) > 0.5) scrollPage(left);
 }
@@ -146,16 +147,26 @@ function bindMobile(el: HTMLDivElement) {
     lastT = now;
     if (dy === 0) return;
     event.preventDefault();
-    chain(el, dy);
+    chain(el, dy, true);
     goal = el.scrollTop;
   };
 
+  // ponytail: fling stops at list edge — page chain only while finger down (iOS jump fix)
   const onEnd = () => {
     const tick = () => {
       vel *= 0.92;
       if (Math.abs(vel) < 0.02) return;
-      chain(el, vel * 16);
+      const max = Math.max(0, el.scrollHeight - el.clientHeight);
+      const top = el.scrollTop;
+      if ((vel > 0 && top >= max - 1) || (vel < 0 && top <= 0)) return;
+      chain(el, vel * 16, false);
       goal = el.scrollTop;
+      if (
+        (vel > 0 && el.scrollTop >= max - 1) ||
+        (vel < 0 && el.scrollTop <= 0)
+      ) {
+        return;
+      }
       raf = requestAnimationFrame(tick);
     };
 
@@ -277,7 +288,6 @@ export function CompanyList({
           );
         })}
       </ul>
-      {scroll ? <div aria-hidden className="h-px" /> : null}
     </div>
   );
 }

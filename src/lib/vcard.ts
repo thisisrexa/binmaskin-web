@@ -1,11 +1,13 @@
 export interface VCardInput {
   given: string;
   family: string;
+  fn?: string;
   org: string;
   title: string;
   email: string;
   url: string;
   linkedin: string;
+  phone?: string;
 }
 
 function esc(value: string) {
@@ -17,7 +19,7 @@ function esc(value: string) {
 }
 
 export function toVCard(person: VCardInput) {
-  const fn = `${person.given} ${person.family}`;
+  const fn = person.fn ?? `${person.given} ${person.family}`;
   return [
     'BEGIN:VCARD',
     'VERSION:3.0',
@@ -26,6 +28,7 @@ export function toVCard(person: VCardInput) {
     `ORG:${esc(person.org)}`,
     `TITLE:${esc(person.title)}`,
     `EMAIL;TYPE=INTERNET:${esc(person.email)}`,
+    ...(person.phone ? [`TEL;TYPE=CELL:${esc(person.phone)}`] : []),
     `URL:${esc(person.url)}`,
     `X-SOCIALPROFILE;TYPE=linkedin:${esc(person.linkedin)}`,
     'END:VCARD',
@@ -33,18 +36,20 @@ export function toVCard(person: VCardInput) {
 }
 
 const check = toVCard({
-  given: 'Hani',
-  family: 'Mousavi',
+  given: 'Salem',
+  family: 'Bin Meskin',
   org: 'BinMaskin Solutions',
   title: 'Co-Founder',
-  email: 'info@hani.solutions',
-  url: 'https://hani.solutions',
-  linkedin: 'https://www.linkedin.com/in/hani-mousavi/',
+  email: 'salem@binmaskin.solutions',
+  phone: '+971507888193',
+  url: 'https://binmaskin.solutions',
+  linkedin: 'https://ae.linkedin.com/in/salem-bin-meskin-9a5642277',
 });
 
 if (
-  !check.includes('FN:Hani Mousavi') ||
-  !check.includes('info@hani.solutions')
+  !check.includes('FN:Salem Bin Meskin') ||
+  !check.includes('salem@binmaskin.solutions') ||
+  !check.includes('TEL;TYPE=CELL:+971507888193')
 ) {
   throw new Error('vcard broke');
 }

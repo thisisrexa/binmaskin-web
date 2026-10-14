@@ -18,12 +18,12 @@ import g14 from '@/assets/companies/bin-maskin-solutions/03-ai-apps.png';
 import g15 from '@/assets/companies/dar-al-hulul/01-brand.png';
 import g16 from '@/assets/companies/dar-al-hulul/02-experience.png';
 import g17 from '@/assets/companies/dar-al-hulul/03-home-living.png';
-import g18 from '@/assets/companies/deserv-international-group/01-fuel-injection.jpg';
-import g19 from '@/assets/companies/deserv-international-group/02-pistons.jpg';
-import g20 from '@/assets/companies/deserv-international-group/03-engine-bearings.jpg';
-import g21 from '@/assets/companies/deserv-technology/01-turbocharger.jpg';
-import g22 from '@/assets/companies/deserv-technology/02-engine-overhaul.jpg';
-import g23 from '@/assets/companies/deserv-technology/03-workshop.jpg';
+import g18 from '@/assets/companies/deserv-international-group/01-pistons-and-rings.png';
+import g19 from '@/assets/companies/deserv-international-group/02-pistons.png';
+import g20 from '@/assets/companies/deserv-international-group/03-piston-rings.png';
+import g21 from '@/assets/companies/deserv-technology/01-workshop-machinery.png';
+import g22 from '@/assets/companies/deserv-technology/02-welding.png';
+import g23 from '@/assets/companies/deserv-technology/03-workshop-welding.png';
 import g24 from '@/assets/companies/operith/01-brand.png';
 import g25 from '@/assets/companies/operith/02-product-flow.png';
 import g26 from '@/assets/companies/operith/03-ops-layer.png';
@@ -50,12 +50,12 @@ export const GALLERY: Record<string, StaticImageData> = {
   'dar-al-hulul/01-brand.png': g15,
   'dar-al-hulul/02-experience.png': g16,
   'dar-al-hulul/03-home-living.png': g17,
-  'deserv-international-group/01-fuel-injection.jpg': g18,
-  'deserv-international-group/02-pistons.jpg': g19,
-  'deserv-international-group/03-engine-bearings.jpg': g20,
-  'deserv-technology/01-turbocharger.jpg': g21,
-  'deserv-technology/02-engine-overhaul.jpg': g22,
-  'deserv-technology/03-workshop.jpg': g23,
+  'deserv-international-group/01-pistons-and-rings.png': g18,
+  'deserv-international-group/02-pistons.png': g19,
+  'deserv-international-group/03-piston-rings.png': g20,
+  'deserv-technology/01-workshop-machinery.png': g21,
+  'deserv-technology/02-welding.png': g22,
+  'deserv-technology/03-workshop-welding.png': g23,
   'operith/01-brand.png': g24,
   'operith/02-product-flow.png': g25,
   'operith/03-ops-layer.png': g26,

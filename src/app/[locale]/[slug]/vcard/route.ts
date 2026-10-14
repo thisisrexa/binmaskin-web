@@ -1,4 +1,4 @@
-import { getPerson } from '@/lib/people';
+import { getPerson, personText } from '@/lib/people';
 import { toVCard } from '@/lib/vcard';
 
 export async function GET(
@@ -9,12 +9,15 @@ export async function GET(
   const person = getPerson(slug);
   if (!person) return new Response(null, { status: 404 });
 
+  const copy = personText(person, locale);
   const body = toVCard({
     given: person.given,
     family: person.family,
-    org: person.org,
-    title: locale === 'ar' ? 'الشريك المؤسس' : person.title,
+    fn: locale === 'ar' ? copy.name : `${person.given} ${person.family}`,
+    org: copy.org,
+    title: copy.title,
     email: person.email,
+    phone: person.phone,
     url: person.website,
     linkedin: person.linkedin,
   });

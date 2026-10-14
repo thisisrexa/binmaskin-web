@@ -51,9 +51,11 @@
     "lead": "BinMaskin brings together the stories and capabilities of independent companies working across technology, business operations, construction, real estate, energy and trade. Each company has its own identity and area of expertise, with responsibility for its own work.",
     "s1": "Independent companies",
     "s2": "United Arab Emirates",
+    "s3": "Working days",
     "s4": "Typical reply time",
     "v1": "04",
     "v2": "UAE",
+    "v3": "Sun–Thu",
     "v4": "1 workday",
     "p1": "Our shared point of contact helps enquiries reach the right company, whether the need concerns digital systems, day-to-day operations, buildings, property, energy or materials. We start by understanding what the business needs and identifying a practical next step.",
     "p2": "Scope is written down. The person who answers has a name. The work stays accountable to the business that asked for it."
@@ -85,6 +87,8 @@
     "linkedin": "LinkedIn",
     "website": "Website",
     "telegram": "Telegram",
+    "whatsapp": "WhatsApp",
+    "instagram": "Instagram",
     "scan": "Scan / Connect",
     "qrTitle": "Take this card with you.",
     "wallpaperSave": "Download phone wallpaper"

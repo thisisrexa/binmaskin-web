@@ -77,7 +77,8 @@ function blit(dst, src, ox, oy) {
 function frame(w, h, qrW, wordH) {
   const platePad = Math.round(qrW * 0.1);
   const plate = qrW + platePad * 2;
-  const wordY = h - Math.round(Math.max(h * 0.09, 56)) - wordH;
+  // lock-screen chrome (home indicator / shortcuts) eats the bottom ~18%
+  const wordY = h - Math.round(Math.max(h * 0.18, 96)) - wordH;
   const top = Math.round(h * 0.15);
   const gap = Math.round(h * 0.04);
   const room = wordY - gap - top;

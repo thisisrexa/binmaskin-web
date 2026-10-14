@@ -65,7 +65,7 @@ const RAW = [
         'Delivering integrated technology, digital infrastructure, software, and IT solutions for modern businesses.',
     },
     ar: {
-      name: 'BinMaskin Solutions',
+      name: 'بن مسكين للحلول',
       summary:
         'تقديم تقنية متكاملة وبنية تحتية رقمية وبرمجيات وحلول تقنية معلومات للأعمال الحديثة.',
     },
@@ -99,7 +99,7 @@ const RAW = [
         'An intelligent operations platform built to simplify workflows, automate processes, and improve business efficiency.',
     },
     ar: {
-      name: 'Operith',
+      name: 'أوبريث',
       summary:
         'منصة عمليات ذكية بُنيت لتبسيط سير العمل وأتمتة العمليات ورفع كفاءة الأعمال.',
     },
@@ -136,7 +136,7 @@ const RAW = [
         'A digital marketplace designed to connect products, services, and customers through a smarter discovery experience.',
     },
     ar: {
-      name: 'Dar Al Hulul',
+      name: 'دار الحلول',
       summary:
         'سوق رقمي صُمم لربط المنتجات والخدمات والعملاء عبر تجربة اكتشاف أذكى.',
     },
@@ -173,7 +173,7 @@ const RAW = [
         'Delivering reliable construction solutions with a focus on quality, execution, and modern building standards.',
     },
     ar: {
-      name: 'BinMaskin Construction',
+      name: 'بن مسكين للمقاولات',
       summary:
         'تقديم حلول إنشاء موثوقة مع التركيز على الجودة والتنفيذ ومعايير البناء الحديثة.',
     },
@@ -216,34 +216,31 @@ const RAW = [
         'Engine components and spare parts for marine and power-generation operations.',
     },
     ar: {
-      name: 'DeServ International Group',
+      name: 'مجموعة دي سيرف الدولية',
       summary:
         'مكونات وقطع غيار للمحركات المستخدمة في العمليات البحرية وتوليد الطاقة.',
     },
     frames: [
       frame(
         'deserv-international-group',
-        '01-fuel-injection.jpg',
-        'Fuel injection components',
-        'مكونات حقن الوقود',
-        'cover',
-        '70% 50%',
-      ),
-      frame(
-        'deserv-international-group',
-        '02-pistons.jpg',
+        '01-pistons-and-rings.png',
         'Pistons and piston rings',
         'مكابس وحلقات مكابس',
         'cover',
-        '23% 50%',
       ),
       frame(
         'deserv-international-group',
-        '03-engine-bearings.jpg',
-        'Engine bearings',
-        'محامل المحرك',
+        '02-pistons.png',
+        'Precision pistons',
+        'مكابس دقيقة',
         'cover',
-        '76% 50%',
+      ),
+      frame(
+        'deserv-international-group',
+        '03-piston-rings.png',
+        'Piston rings',
+        'حلقات المكابس',
+        'cover',
       ),
     ],
   },
@@ -256,34 +253,31 @@ const RAW = [
         'Engine overhaul, turbocharger repair and component reconditioning for marine and power-generation equipment.',
     },
     ar: {
-      name: 'DeServ Technologies',
+      name: 'دي سيرف للتقنيات',
       summary:
         'عمرة المحركات وإصلاح الشواحن التوربينية وتجديد المكونات للمعدات البحرية ومعدات توليد الطاقة.',
     },
     frames: [
       frame(
         'deserv-technology',
-        '01-turbocharger.jpg',
-        'Turbocharger overhaul',
-        'عمرة الشاحن التوربيني',
+        '01-workshop-machinery.png',
+        'Workshop machinery',
+        'معدات الورشة',
         'cover',
-        '27% 50%',
       ),
       frame(
         'deserv-technology',
-        '02-engine-overhaul.jpg',
-        'Engine overhaul',
-        'عمرة المحرك',
+        '02-welding.png',
+        'Welding in the workshop',
+        'اللحام في الورشة',
         'cover',
-        '42% 50%',
       ),
       frame(
         'deserv-technology',
-        '03-workshop.jpg',
-        'Workshop services',
-        'خدمات الورشة',
+        '03-workshop-welding.png',
+        'Industrial workshop welding',
+        'لحام الورشة الصناعية',
         'cover',
-        '38% 50%',
       ),
     ],
   },
@@ -296,7 +290,7 @@ const RAW = [
         'Focused on real estate opportunities, property development, and long-term value across residential and commercial markets.',
     },
     ar: {
-      name: 'BinMaskin Real Estate',
+      name: 'بن مسكين للعقارات',
       summary:
         'تركز على فرص العقارات والتطوير العقاري والقيمة طويلة الأمد في الأسواق السكنية والتجارية.',
     },
@@ -329,7 +323,7 @@ const RAW = [
       summary: 'Inventing and developing innovative energy solutions.',
     },
     ar: {
-      name: 'BinMaskin Energy',
+      name: 'بن مسكين للطاقة',
       summary: 'ابتكار وتطوير حلول جديدة للطاقة.',
     },
     frames: [
@@ -362,7 +356,7 @@ const RAW = [
         'Exhibition stands and event solutions that turn a brief into a clear physical presence.',
     },
     ar: {
-      name: 'Prime Advanced General Trading',
+      name: 'برايم أدفانسد للتجارة العامة',
       summary:
         'أجنحة معارض وحلول فعاليات تحوّل متطلبات العمل إلى حضور ملموس وواضح.',
     },

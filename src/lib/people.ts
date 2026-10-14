@@ -1,4 +1,7 @@
 export interface PersonCopy {
+  name: string;
+  org: string;
+  title: string;
   role: string;
   note: string;
   place: string;
@@ -6,16 +9,16 @@ export interface PersonCopy {
 
 export interface Person {
   username: string;
-  displayName: string;
   given: string;
   family: string;
   email: string;
   linkedin: string;
-  telegram: string;
   website: string;
-  org: string;
-  title: string;
-  wallpaperBase: string;
+  phone?: string;
+  whatsapp?: string;
+  instagram?: string;
+  telegram?: string;
+  wallpaperBase?: string;
   en: PersonCopy;
   ar: PersonCopy;
 }
@@ -23,25 +26,56 @@ export interface Person {
 export const PEOPLE: Person[] = [
   {
     username: 'hani',
-    displayName: 'Hani',
     given: 'Hani',
     family: 'Mousavi',
     email: 'info@hani.solutions',
     linkedin: 'https://www.linkedin.com/in/hani-mousavi/',
     telegram: 'https://t.me/hanisolutions',
     website: 'https://hani.solutions',
-    org: 'BinMaskin Solutions',
-    title: 'Co-Founder',
     wallpaperBase: '/cards/hani-wallpaper',
     en: {
+      name: 'Hani',
+      org: 'BinMaskin Solutions',
+      title: 'Co-Founder',
       role: 'Co-Founder, BinMaskin Solutions',
       note: 'Independent digital and building businesses in the United Arab Emirates.',
       place: 'Dubai, UAE',
     },
     ar: {
-      role: 'الشريك المؤسس، BinMaskin Solutions',
+      name: 'هاني',
+      org: 'بن مسكين للحلول',
+      title: 'شريك مؤسس',
+      role: 'الشريك المؤسس، بن مسكين للحلول',
       note: 'شركات مستقلة في المجالات الرقمية والإنشائية في الإمارات العربية المتحدة.',
       place: 'دبي، الإمارات',
+    },
+  },
+  {
+    username: 'salem',
+    given: 'Salem',
+    family: 'Bin Meskin',
+    email: 'salem@binmaskin.solutions',
+    phone: '+971507888193',
+    linkedin: 'https://ae.linkedin.com/in/salem-bin-meskin-9a5642277',
+    whatsapp: 'https://wa.me/971507888193',
+    instagram: 'https://www.instagram.com/binmaskin.solutions/',
+    website: 'https://binmaskin.solutions',
+    wallpaperBase: '/cards/salem-wallpaper',
+    en: {
+      name: 'Salem',
+      org: 'BinMaskin Solutions',
+      title: 'Co-Founder',
+      role: 'Co-Founder, BinMaskin Solutions',
+      note: 'Building independent digital and construction businesses in the United Arab Emirates.',
+      place: 'Dubai, UAE',
+    },
+    ar: {
+      name: 'سالم',
+      org: 'بن مسكين للحلول',
+      title: 'شريك مؤسس',
+      role: 'شريك مؤسس، بن مسكين للحلول',
+      note: 'نطوّر أعمالاً مستقلة في القطاع الرقمي وقطاع البناء في دولة الإمارات العربية المتحدة.',
+      place: 'دبي، الإمارات العربية المتحدة',
     },
   },
 ];

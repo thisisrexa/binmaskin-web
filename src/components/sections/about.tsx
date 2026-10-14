@@ -6,11 +6,16 @@ import { StatsCounter } from '@/components/ui/stats-counter';
 import { COMPANIES } from '@/lib/companies';
 
 const STATS: {
-  n: 1 | 2 | 4;
+  n: 1 | 2 | 3 | 4;
   value?: number;
   minDigits?: number;
   suffix?: string;
-}[] = [{ n: 1, value: COMPANIES.length, minDigits: 2 }, { n: 2 }, { n: 4 }];
+}[] = [
+  { n: 1, value: COMPANIES.length, minDigits: 2 },
+  { n: 2 },
+  { n: 3 },
+  { n: 4 },
+];
 
 export function About() {
   const t = useTranslations('about');
@@ -47,7 +52,11 @@ export function About() {
         {STATS.map((stat, i) => (
           <Reveal key={stat.n} delay={i * 0.08}>
             <div
-              className={stat.n === 4 ? 'stat-n whitespace-nowrap' : 'stat-n'}
+              className={
+                stat.n === 3 || stat.n === 4
+                  ? 'stat-n whitespace-nowrap'
+                  : 'stat-n'
+              }
             >
               {stat.value != null ? (
                 <StatsCounter
