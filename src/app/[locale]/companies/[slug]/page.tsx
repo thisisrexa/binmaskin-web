@@ -49,14 +49,14 @@ export default async function CompanyPage({
 
   return (
     <main className="pb-16 lg:pb-0">
-      <div className="lg:grid lg:grid-cols-2 lg:items-start mt-6 lg:mt-0">
+      <div className="mx-auto mt-6 max-w-(--wrap) lg:mt-0 lg:grid lg:grid-cols-2 lg:items-start">
         <CompanyGallery
-          className="lg:sticky lg:top-(--hdr) lg:col-start-2 lg:row-start-1 lg:h-[calc(100dvh-var(--hdr))]"
+          className="lg:sticky lg:top-(--hdr) lg:col-start-2 lg:row-start-1 lg:h-[min(calc(100dvh-var(--hdr)),42rem)]"
           frames={company.frames}
           label={page.title}
           initialIndex={slug === 'bin-maskin-solutions' ? 2 : 0}
         />
-        <article className="wrap pt-6 pb-12 md:pt-12 md:pb-16 lg:col-start-1 lg:row-start-1 lg:ms-0 lg:w-full lg:max-w-none lg:ps-[max(var(--gutter),calc((100vw-var(--wrap))/2))] lg:pe-14 lg:pt-16 lg:pb-20">
+        <article className="wrap pt-6 pb-12 md:pt-12 md:pb-16 lg:col-start-1 lg:row-start-1 lg:ms-0 lg:w-full lg:max-w-none lg:ps-(--gutter) lg:pe-14 lg:pt-16 lg:pb-20">
           <BackLink
             href="/#companies"
             className="text-[11px] tracking-[0.16em] text-accent uppercase ar:tracking-normal ar:normal-case"
