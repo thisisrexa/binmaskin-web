@@ -70,9 +70,11 @@ function useStageSize(ref: RefObject<HTMLDivElement | null>) {
 function Fan({
   frames,
   onOpen,
+  initialIndex,
 }: {
   frames: [GalleryFrame, GalleryFrame, GalleryFrame];
   onOpen: (index: number) => void;
+  initialIndex: number;
 }) {
   const reduce = useReducedMotion();
   const locale = useLocale();
@@ -81,7 +83,7 @@ function Fan({
   const stage = useStageSize(stageRef);
   const stageW = stage?.w ?? 0;
   const stageH = stage?.h ?? 0;
-  const [active, setActive] = useState(0);
+  const [active, setActive] = useState(initialIndex);
   const draggedRef = useRef(false);
 
   const cardW = Math.round(
@@ -101,7 +103,10 @@ function Fan({
   return (
     <div
       ref={stageRef}
-      className="relative mx-auto flex h-[min(70dvh,32rem)] w-full max-w-3xl items-center justify-center outline-none lg:h-full lg:max-w-none"
+      className="relative mx-auto flex h-[clamp(20rem,52dvh,22rem)] w-full max-w-3xl items-center justify-center outline-none lg:h-full lg:max-w-none"
+      style={{
+        ['--dots-offset' as string]: `${Math.round(cardH * 0.525 + 16)}px`,
+      }}
       tabIndex={0}
       onKeyDown={(e) => {
         if (e.key === 'ArrowLeft') (rtl ? next : prev)();
@@ -253,7 +258,7 @@ function Fan({
       </div>
 
       <div
-        className="absolute inset-x-0 bottom-4 z-30 flex justify-center gap-2 sm:bottom-5"
+        className="absolute inset-x-0 bottom-4 z-30 flex justify-center gap-2 sm:bottom-5 lg:top-[calc(50%+var(--dots-offset))] lg:bottom-auto"
         role="tablist"
       >
         {SLOTS.map((id, i) => (
@@ -422,10 +427,12 @@ export function CompanyGallery({
   frames,
   label,
   className,
+  initialIndex = 0,
 }: {
   frames: [GalleryFrame, GalleryFrame, GalleryFrame];
   label: string;
   className?: string;
+  initialIndex?: number;
 }) {
   const [openAt, setOpenAt] = useState<number | null>(null);
 
@@ -436,7 +443,7 @@ export function CompanyGallery({
         className,
       )}
     >
-      <Fan frames={frames} onOpen={setOpenAt} />
+      <Fan frames={frames} onOpen={setOpenAt} initialIndex={initialIndex} />
       {openAt !== null ? (
         <Lightbox
           frames={frames}

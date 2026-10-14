@@ -139,23 +139,6 @@ html[lang='ar'] .card-title {
   padding-inline: max(var(--gutter), calc((100vw - var(--wrap)) / 2));
 }
 
-.co-scroll {
-  scrollbar-width: thin;
-  scrollbar-color: rgba(138, 122, 92, 0.35) transparent;
-}
-
-.co-scroll::-webkit-scrollbar {
-  width: 3px;
-}
-
-.co-scroll::-webkit-scrollbar-thumb {
-  background: rgba(138, 122, 92, 0.35);
-}
-
-.co-scroll::-webkit-scrollbar-track {
-  background: transparent;
-}
-
 .co-mark {
   font-family: var(--font-serif);
   font-style: italic;

@@ -2,7 +2,8 @@
 
 import { useLocale, useTranslations } from 'next-intl';
 import Image from 'next/image';
-import { useEffect, useRef, useState } from 'react';
+import { ScrollArea } from 'radix-ui';
+import { useState } from 'react';
 
 import burjSketchMobile from '@/assets/sketches/burj-mobile.png';
 import burjSketch from '@/assets/sketches/burj.png';
@@ -21,274 +22,84 @@ const ROW = '11.5rem';
 const CELL =
   'flex h-(--co-row) w-full flex-col border-e border-b border-border p-4 text-start transition-colors sm:p-5';
 
-function setTop(el: HTMLElement, top: number) {
-  const prev = el.style.scrollBehavior;
-  el.style.scrollBehavior = 'auto';
-  el.scrollTop = top;
-  el.style.scrollBehavior = prev;
-}
-
-function scrollPage(dy: number) {
-  const root = (document.scrollingElement ??
-    document.documentElement) as HTMLElement;
-  setTop(root, root.scrollTop + dy);
-}
-
-/** List first; leftover / edge → page. `pass=false` = list only (fling, no iOS page-jump). */
-function chain(el: HTMLElement, dy: number, pass = true) {
-  if (dy === 0) return;
-  const max = Math.max(0, el.scrollHeight - el.clientHeight);
-  const top = el.scrollTop;
-
-  if ((dy < 0 && top <= 0) || (dy > 0 && top >= max - 1)) {
-    if (pass) scrollPage(dy);
-    return;
-  }
-
-  const next = Math.min(max, Math.max(0, top + dy));
-  setTop(el, next);
-  if (!pass) return;
-  const left = dy - (next - top);
-  if (Math.abs(left) > 0.5) scrollPage(left);
-}
-
-function useChainScroll(on: boolean) {
-  const ref = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const el = ref.current;
-    if (!on || !el) return;
-
-    const desktop = window.matchMedia('(hover: hover) and (pointer: fine)');
-    let detach: () => void = () => undefined;
-
-    const connect = () => {
-      detach();
-      detach = () => undefined;
-      if (desktop.matches) return;
-      detach = bindMobile(el);
-    };
-
-    connect();
-    desktop.addEventListener('change', connect);
-
-    return () => {
-      desktop.removeEventListener('change', connect);
-      detach();
-    };
-  }, [on]);
-
-  return ref;
-}
-
-function bindMobile(el: HTMLDivElement) {
-  let lastY = 0;
-  let lastT = 0;
-  let vel = 0;
-  let raf = 0;
-  let ease = 0;
-  let goal = el.scrollTop;
-  let stamp = 0;
-  const stop = () => cancelAnimationFrame(raf);
-
-  const glide = (now: number) => {
-    const dt = Math.min(34, stamp ? now - stamp : 16);
-    stamp = now;
-    const diff = goal - el.scrollTop;
-
-    if (Math.abs(diff) < 0.4) {
-      setTop(el, goal);
-      ease = 0;
-      stamp = 0;
-      return;
-    }
-
-    const k = 1 - Math.exp(-dt / 110);
-    setTop(el, el.scrollTop + diff * k);
-    ease = requestAnimationFrame(glide);
-  };
-
-  const onWheel = (event: WheelEvent) => {
-    if (event.ctrlKey) return;
-    stop();
-    let dy = event.deltaY;
-    if (event.deltaMode === 1) dy *= 16;
-    else if (event.deltaMode === 2) dy *= el.clientHeight;
-    if (dy === 0) return;
-    event.preventDefault();
-
-    const max = Math.max(0, el.scrollHeight - el.clientHeight);
-    const next = Math.min(max, Math.max(0, goal + dy));
-    const left = dy - (next - goal);
-    goal = next;
-    if (Math.abs(left) > 0.5) scrollPage(left);
-    if (!ease) ease = requestAnimationFrame(glide);
-  };
-
-  const onStart = (event: TouchEvent) => {
-    if (event.touches.length !== 1) return;
-    stop();
-    cancelAnimationFrame(ease);
-    ease = 0;
-    goal = el.scrollTop;
-    lastY = event.touches[0].clientY;
-    lastT = performance.now();
-    vel = 0;
-  };
-
-  const onMove = (event: TouchEvent) => {
-    if (event.touches.length !== 1) return;
-    const y = event.touches[0].clientY;
-    const now = performance.now();
-    const dy = lastY - y;
-    const dt = Math.max(8, now - lastT);
-    vel = dy / dt;
-    lastY = y;
-    lastT = now;
-    if (dy === 0) return;
-    event.preventDefault();
-    chain(el, dy, true);
-    goal = el.scrollTop;
-  };
-
-  // ponytail: fling stops at list edge — page chain only while finger down (iOS jump fix)
-  const onEnd = () => {
-    const tick = () => {
-      vel *= 0.92;
-      if (Math.abs(vel) < 0.02) return;
-      const max = Math.max(0, el.scrollHeight - el.clientHeight);
-      const top = el.scrollTop;
-      if ((vel > 0 && top >= max - 1) || (vel < 0 && top <= 0)) return;
-      chain(el, vel * 16, false);
-      goal = el.scrollTop;
-      if (
-        (vel > 0 && el.scrollTop >= max - 1) ||
-        (vel < 0 && el.scrollTop <= 0)
-      ) {
-        return;
-      }
-      raf = requestAnimationFrame(tick);
-    };
-
-    raf = requestAnimationFrame(tick);
-  };
-
-  const onThumbDown = (event: PointerEvent) => {
-    const bar = el.offsetWidth - el.clientWidth;
-    if (bar < 2) return;
-    const rtl = getComputedStyle(el).direction === 'rtl';
-    const onBar = rtl
-      ? event.offsetX <= bar + 2
-      : event.offsetX >= el.clientWidth - 2;
-    if (!onBar) return;
-    cancelAnimationFrame(ease);
-    ease = 0;
-    stamp = 0;
-    goal = el.scrollTop;
-
-    const up = () => {
-      goal = el.scrollTop;
-      window.removeEventListener('pointerup', up);
-    };
-
-    window.addEventListener('pointerup', up);
-  };
-
-  el.addEventListener('pointerdown', onThumbDown);
-  el.addEventListener('wheel', onWheel, { passive: false });
-  el.addEventListener('touchstart', onStart, { passive: true });
-  el.addEventListener('touchmove', onMove, { passive: false });
-  el.addEventListener('touchend', onEnd);
-  el.addEventListener('touchcancel', stop);
-
-  return () => {
-    stop();
-    cancelAnimationFrame(ease);
-    el.removeEventListener('pointerdown', onThumbDown);
-    el.removeEventListener('wheel', onWheel);
-    el.removeEventListener('touchstart', onStart);
-    el.removeEventListener('touchmove', onMove);
-    el.removeEventListener('touchend', onEnd);
-    el.removeEventListener('touchcancel', stop);
-  };
-}
-
 export function CompanyList({
   onPick,
-  scroll = false,
   activeSlug,
 }: {
   onPick?: (slug: string) => void;
-  scroll?: boolean;
   activeSlug?: string;
 }) {
   const locale = useLocale();
   const t = useTranslations('companies');
-  const scroller = useChainScroll(scroll);
   const companies = COMPANIES;
 
   return (
-    <div
-      ref={scroll ? scroller : undefined}
-      className={
-        scroll
-          ? 'co-scroll box-content h-[calc(11.5rem*3+1px)] overflow-y-auto border border-dashed border-navy/25 lg:h-[calc(11.5rem*2+1px)] [@media(hover:none),(pointer:coarse)]:touch-pan-x [@media(hover:none),(pointer:coarse)]:overscroll-none [@media(hover:none),(pointer:coarse)]:scroll-auto'
-          : 'border border-dashed border-navy/25'
-      }
+    <ScrollArea.Root
+      type="always"
+      dir={locale === 'ar' ? 'rtl' : 'ltr'}
+      className="relative h-[calc(11.5rem*3+1px)] overflow-hidden border border-dashed border-navy/25 lg:h-[calc(11.5rem*2+1px)]"
     >
-      <ul
-        dir={locale === 'ar' ? 'rtl' : 'ltr'}
-        className="grid grid-cols-2 text-start lg:grid-cols-3"
-        style={{ ['--co-row' as string]: ROW }}
-      >
-        {companies.map((company, i) => {
-          const text = companyText(company, locale);
-          const lastAlone =
-            i === companies.length - 1 && companies.length % 2 === 1;
-          const tone =
-            company.slug === activeSlug
-              ? 'bg-[#e4ddd2]'
-              : 'bg-background hover:bg-cream-2';
-          const body = (
-            <>
-              <span className="co-mark text-navy">{text.name}</span>
-              {(company.slug === 'operith' ||
-                company.slug === 'dar-al-hulul') && (
-                <span className="text-[0.7rem] text-accent">
-                  {t('inDevelopment')}
+      <ScrollArea.Viewport className="size-full">
+        <ul
+          dir={locale === 'ar' ? 'rtl' : 'ltr'}
+          className="grid grid-cols-2 text-start lg:grid-cols-3"
+          style={{ ['--co-row' as string]: ROW }}
+        >
+          {companies.map((company, i) => {
+            const text = companyText(company, locale);
+            const lastAlone =
+              i === companies.length - 1 && companies.length % 2 === 1;
+            const tone =
+              company.slug === activeSlug
+                ? 'bg-[#e4ddd2]'
+                : 'bg-background hover:bg-cream-2';
+            const body = (
+              <>
+                <span className="co-mark text-navy">{text.name}</span>
+                {(company.slug === 'operith' ||
+                  company.slug === 'dar-al-hulul') && (
+                  <span className="text-[0.7rem] text-accent">
+                    {t('inDevelopment')}
+                  </span>
+                )}
+                <span className="mt-auto line-clamp-2 text-[0.9rem] text-muted-foreground">
+                  {text.summary}
                 </span>
-              )}
-              <span className="mt-auto line-clamp-2 text-[0.9rem] text-muted-foreground">
-                {text.summary}
-              </span>
-            </>
-          );
-          return (
-            <li
-              key={company.slug}
-              className={lastAlone ? 'min-h-0 max-lg:col-span-2' : 'min-h-0'}
-            >
-              {onPick ? (
-                <button
-                  type="button"
-                  onClick={() => onPick(company.slug)}
-                  className={`${CELL} ${tone}`}
-                >
-                  {body}
-                </button>
-              ) : (
-                <Link
-                  href={`/companies/${company.slug}`}
-                  className={`${CELL} ${tone}`}
-                >
-                  {body}
-                </Link>
-              )}
-            </li>
-          );
-        })}
-      </ul>
-    </div>
+              </>
+            );
+            return (
+              <li
+                key={company.slug}
+                className={lastAlone ? 'min-h-0 max-lg:col-span-2' : 'min-h-0'}
+              >
+                {onPick ? (
+                  <button
+                    type="button"
+                    onClick={() => onPick(company.slug)}
+                    className={`${CELL} ${tone}`}
+                  >
+                    {body}
+                  </button>
+                ) : (
+                  <Link
+                    href={`/companies/${company.slug}`}
+                    className={`${CELL} ${tone}`}
+                  >
+                    {body}
+                  </Link>
+                )}
+              </li>
+            );
+          })}
+        </ul>
+      </ScrollArea.Viewport>
+      <ScrollArea.Scrollbar
+        orientation="vertical"
+        className="z-10 flex w-2 touch-none bg-cream-2 p-0.5 select-none"
+      >
+        <ScrollArea.Thumb className="min-w-1 flex-1 rounded-full bg-faint/70" />
+      </ScrollArea.Scrollbar>
+    </ScrollArea.Root>
   );
 }
 
@@ -303,7 +114,9 @@ export function Companies({ activeSlug }: { activeSlug?: string }) {
     <section
       id="companies"
       dir={locale === 'ar' ? 'rtl' : 'ltr'}
-      className="wrap py-24 max-md:py-12"
+      className={
+        activeSlug ? 'wrap pt-8 pb-24 max-md:pb-12' : 'wrap py-24 max-md:py-12'
+      }
     >
       <Eyebrow>{t('eyebrow')}</Eyebrow>
       <div className="lg:grid lg:grid-cols-[minmax(0,1fr)_20rem] lg:gap-x-10">
@@ -334,7 +147,7 @@ export function Companies({ activeSlug }: { activeSlug?: string }) {
         </div>
 
         <div className="mt-4 min-[1440px]:ps-12.5 lg:col-start-1 lg:mt-14">
-          <CompanyList onPick={setSlug} scroll activeSlug={activeSlug} />
+          <CompanyList onPick={setSlug} activeSlug={activeSlug} />
         </div>
       </div>
 

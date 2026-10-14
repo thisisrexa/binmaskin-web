@@ -49,11 +49,12 @@ export default async function CompanyPage({
 
   return (
     <main className="pb-16 lg:pb-0">
-      <div className="lg:grid lg:grid-cols-2 lg:items-start">
+      <div className="lg:grid lg:grid-cols-2 lg:items-start mt-6 lg:mt-0">
         <CompanyGallery
           className="lg:sticky lg:top-(--hdr) lg:col-start-2 lg:row-start-1 lg:h-[calc(100dvh-var(--hdr))]"
           frames={company.frames}
           label={page.title}
+          initialIndex={slug === 'bin-maskin-solutions' ? 2 : 0}
         />
         <article className="wrap pt-6 pb-12 md:pt-12 md:pb-16 lg:col-start-1 lg:row-start-1 lg:ms-0 lg:w-full lg:max-w-none lg:ps-[max(var(--gutter),calc((100vw-var(--wrap))/2))] lg:pe-14 lg:pt-16 lg:pb-20">
           <BackLink

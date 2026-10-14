@@ -190,8 +190,8 @@ const RAW = [
       frame(
         'bin-maskin-construction',
         '02-warehouse-render.png',
-        'Architectural rendering of a warehouse',
-        'تصور معماري لمستودع',
+        'Modern Binmaskin Solutions building facade',
+        'واجهة مبنى بن مسكين سولوشنز الحديثة',
         'contain',
         undefined,
         ['02-warehouse-plan.png', 'Warehouse plan', 'مخطط المستودع'],
