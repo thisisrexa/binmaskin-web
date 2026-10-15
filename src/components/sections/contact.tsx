@@ -45,30 +45,29 @@ export function Contact() {
     };
 
     setStatus('sending');
-    const result = await sendContact({
-      name: field('name'),
-      email: field('email'),
-      phone: field('phone'),
-      topic,
-      message: field('message'),
-    });
+    let result: ContactResult;
+
+    try {
+      result = await sendContact({
+        name: field('name'),
+        email: field('email'),
+        phone: field('phone'),
+        topic,
+        message: field('message'),
+      });
+    } catch {
+      result = 'failed';
+    }
+
     setStatus(result);
 
     if (result === 'sent') {
       form.reset();
       setTopic('general');
-      setTimeout(() => setStatus(null), 2600);
     }
   };
 
-  const label =
-    status === 'sending'
-      ? tf('sending')
-      : status === 'sent'
-        ? tf('sent')
-        : status
-          ? tf('failed')
-          : tf('send');
+  const label = status === 'sending' ? tf('sending') : tf('send');
 
   return (
     <section id="contact">
@@ -101,6 +100,7 @@ export function Contact() {
                       name="name"
                       type="text"
                       required
+                      maxLength={100}
                       placeholder={tf('nameph')}
                     />
                   </div>
@@ -126,6 +126,7 @@ export function Contact() {
                       name="email"
                       type="email"
                       required
+                      maxLength={254}
                       placeholder={tf('emailph')}
                     />
                   </div>
@@ -135,6 +136,7 @@ export function Contact() {
                       id="cf-phone"
                       name="phone"
                       type="tel"
+                      maxLength={40}
                       placeholder={tf('phoneph')}
                     />
                   </div>
@@ -145,6 +147,7 @@ export function Contact() {
                     id="cf-msg"
                     name="message"
                     required
+                    maxLength={5000}
                     placeholder={tf('msgph')}
                   />
                 </div>
@@ -167,6 +170,13 @@ export function Contact() {
                     />
                   </svg>
                 </button>
+                <p role="status" aria-live="polite" className="mt-4 text-sm">
+                  {status === 'sent'
+                    ? tf('sent')
+                    : status && status !== 'sending'
+                      ? tf('failed')
+                      : ''}
+                </p>
               </form>
             </Reveal>
             <Reveal delay={0.1}>

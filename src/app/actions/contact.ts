@@ -17,17 +17,52 @@ function validEmail(email: string) {
   const at = email.indexOf('@');
   const dot = email.lastIndexOf('.');
   return (
-    at > 0 && dot > at + 1 && dot < email.length - 1 && !email.includes(' ')
+    at > 0 &&
+    at === email.lastIndexOf('@') &&
+    dot > at + 1 &&
+    dot < email.length - 1 &&
+    !/[\s<>]/.test(email)
+  );
+}
+
+function isContactPayload(input: unknown): input is ContactPayload {
+  if (!input || typeof input !== 'object') return false;
+  const fields = input as Record<string, unknown>;
+  return (['name', 'email', 'phone', 'topic', 'message'] as const).every(
+    (key) => typeof fields[key] === 'string',
+  );
+}
+
+function validContact(payload: ContactPayload) {
+  const name = payload.name.trim();
+  const email = payload.email.trim();
+  const phone = payload.phone.trim();
+  const message = payload.message.trim();
+  return (
+    Boolean(name) &&
+    name.length <= 100 &&
+    !/[\n\r]/.test(name) &&
+    Boolean(message) &&
+    message.length <= 5000 &&
+    email.length <= 254 &&
+    validEmail(email) &&
+    phone.length <= 40 &&
+    !/[\n\r]/.test(phone) &&
+    ['finance', 'general', 'partnership', 'project', 'technical'].includes(
+      payload.topic,
+    )
   );
 }
 
 export async function sendContact(
   payload: ContactPayload,
 ): Promise<ContactResult> {
+  if (!isContactPayload(payload) || !validContact(payload)) return 'invalid';
+
   const name = payload.name.trim();
   const email = payload.email.trim();
+  const phone = payload.phone.trim();
   const message = payload.message.trim();
-  if (!name || !message || !validEmail(email)) return 'invalid';
 
   const { SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASS, SMTP_FROM, CONTACT_TO } =
     process.env;
@@ -36,7 +71,7 @@ export async function sendContact(
   const clean: ContactPayload = {
     name,
     email,
-    phone: payload.phone.trim(),
+    phone,
     topic: payload.topic,
     message,
   };

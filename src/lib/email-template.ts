@@ -27,7 +27,7 @@ export function topicLabel(topic: string) {
 function row(label: string, value: string) {
   return `<tr>
   <td style="padding:10px 0;border-bottom:1px solid #e5dfd4;color:${BRONZE};font-size:11px;letter-spacing:0.14em;text-transform:uppercase;vertical-align:top;width:120px;">${escapeXml(label)}</td>
-  <td style="padding:10px 0 10px 16px;border-bottom:1px solid #e5dfd4;color:${NAVY};font-size:14px;line-height:1.6;">${value}</td>
+  <td dir="auto" style="padding:10px 0 10px 16px;border-bottom:1px solid #e5dfd4;color:${NAVY};font-size:14px;line-height:1.6;overflow-wrap:anywhere;">${value}</td>
 </tr>`;
 }
 
