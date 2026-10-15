@@ -67,7 +67,9 @@
     "about": "نبذة",
     "back": "الشركات",
     "close": "إغلاق",
-    "inDevelopment": "قيد التطوير"
+    "inDevelopment": "قيد التطوير",
+    "showMore": "عرض المزيد",
+    "showLess": "عرض أقل"
   },
   "blog": {
     "eyebrow": "المدونة",

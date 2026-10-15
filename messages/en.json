@@ -67,7 +67,9 @@
     "about": "About",
     "back": "The companies",
     "close": "Close",
-    "inDevelopment": "In development"
+    "inDevelopment": "In development",
+    "showMore": "Show more",
+    "showLess": "Show less"
   },
   "blog": {
     "eyebrow": "Journal",
